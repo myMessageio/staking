@@ -173,8 +173,8 @@ poolnum=0;
 //if (stakeid=="oreo") 	 	poolnum=0;
 	 var stakeid=document.getElementById("stakepoolid").value; 
 
- if (stakeid=="lavender") 	    poolnum=0;
-  if (stakeid=="lemongrass") 	 	poolnum=1; 
+ if (stakeid=="peppermint") 	    poolnum=0;
+  if (stakeid=="rosemary") 	 	poolnum=1; 
 
 									 
 
@@ -197,8 +197,8 @@ async function depositrewardtokentocontract(){
 		var amount=document.getElementById("rewardamountid").value;
 	 var stakeid=document.getElementById("rewardpoolid").value; 
 
- if (stakeid=="lavender") 	    poolnum=0;
-  if (stakeid=="lemongrass") 	 	poolnum=1; 
+ if (stakeid=="peppermint") 	    poolnum=0;
+  if (stakeid=="rosemary") 	 	poolnum=1; 
 		
 						 		
 		console.log("depositrewardtokentocontract poolnum=", poolnum);
@@ -274,8 +274,8 @@ async function withdrawstaketoken() {
     var poolnum=0;
 	 //var pool =document.getElementById("withdrawpoolidstake").value; 	
 	 stakeid=document.getElementById("withdrawpoolid").value; 
- if (stakeid=="lavender") 	    poolnum=0;
- if (stakeid=="lemongrass") 	poolnum=1;
+ if (stakeid=="peppermint") 	    poolnum=0;
+ if (stakeid=="rosemary") 	poolnum=1;
 	
 	
 	timestamp = await staking.methods.getUserPoolMaturityDate(poolnum).call({'from': defaultwalletaddress});
@@ -310,8 +310,8 @@ async function withdrawrewardtoken() {
 
 
 	 stakeid=document.getElementById("withdrawpoolrewardid").value; 
- if (stakeid=="lavender") 	    poolnum=0;
- if (stakeid=="lemongrass") 	poolnum=1;
+ if (stakeid=="peppermint") 	    poolnum=0;
+ if (stakeid=="rosemary") 	poolnum=1;
 
 console.log(" withdrawrewardtoken stakeid=",stakeid);
 console.log("withdrawrewardtoken poolnum=",poolnum);
