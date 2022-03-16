@@ -1,0 +1,3326 @@
+<!DOCTYPE html> 
+<!--Clement T 08.01.2021 email:clement@myzilliqawallet.com-->
+ <!--Adding support of chart display and sorting of timestamp-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" data-react-helmet="true" content="myZilliqa Wallet is a true open-source client side wallet. Run the wallet from your own computer!">
+<meta name="keywords" content="zilliqa, wallet, client side, staking, statistic, myzilliqawallet">
+ 
+
+<title>My Zilliqa Wallet</title>
+<link rel="icon" href="images/myzilliqawalletlogo.png">
+  
+<script src="js/jquery-3.3.1.min.js"></script>   
+<script src="js/bootstrap.min.js"></script> 
+<script src="js/zilliqa.min.js"></script>
+<script src="js/all.min.js"></script>
+
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+
+
+ <link href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css" rel="stylesheet" />
+ 
+ 
+  
+<link href="css/bootstrap.min.css" rel="stylesheet" />
+
+<style type="text/css">
+.full-width {
+    width: 100%;
+    margin-left: 60px; 
+}
+
+ 	
+</style>
+ 
+</head>
+<body>
+<div class="bs-1">
+    <nav class="navbar navbar-expand-md navbar-light bg-light">
+        <a href="home.html" class="navbar-brand">
+            <img src="images/myzilliqawalletsmall.png" height="28" alt="myZilliqaWallet">
+        </a>
+        <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <div class="navbar-nav">  				
+				<a href="home.html" class="nav-item nav-link">Home</a>
+				<a href="createwallet.html" class="nav-item nav-link">Create Wallet</a>
+				<a href="sendtoken.html" class="nav-item nav-link ">Send Tokens</a>
+				<a href="checkbalance.html" class="nav-item nav-link   active">Check Balance</a>				
+				<a href="zilstatistic.php" class="nav-item nav-link">Staking Statistic</a>	 		
+				<a href="zrc2viewer.php" class="nav-item nav-link">ZRC2 Viewer</a>	
+				<a href="countdowngzil.html" class="nav-item nav-link ">gZIL Countdown</a>					
+            </div> 
+        </div>
+ 		
+		
+		
+    </nav>
+	
+
+	
+	
+	
+</div>
+ 
+ 
+	
+	
+ 
+ 
+ 
+
+ <div class="container-fluid full-width ">
+ <br>
+ <br>
+ <h5> ZILLIQA (ZIL) Check Balance and Txs v0.98b </h5>  
+ This is for you to check your balance, all your past transactions, and you can download as a csv file. 
+
+<p id="instruction">Enter your zil address and click Send</p>
+<b>Please note if you have a lot of transactions, it will take a long time to download. Your browser will ask you to Wait or Exit. </b>Choose Wait. It is not freezing, it's downloading txs in the background.
+
+
+<br><br>
+Disclaimer: This data is provided for entertainment purposes only and should in no way be considered or used as financial advice.  No warranty expressed or implied is made regarding accuracy, adequacy, completeness, legality, reliability or usefulness of the data provided. If you spot a mistake, feel free to contact: clement@myzilliqawallet.com
+
+<br><br>
+Credits: This page is only made possible with a lot of contribution from a community member called ShowTime.   
+<br><br> 
+Tipping: If you find this website useful, please send some ZIL to <b> zil1djuxhfgcazv05yp7k7ehpawny9vgqsxe2p25p2 </b>, we need some funding to pay for hosting, domain name, and other support/upgrade of new events. Any amount is welcome. Thank you for your support!  
+ <hr>
+   
+ <div class="row">
+		  <div class="col-4">
+		  <h5>Your Wallet Information</h5>
+		  <br>
+		  <h5>
+		  Bech32 Address
+		  </h5>
+		  <h6>
+		  <p id="walletaddressbech32"> <p>
+		  </h6>
+		   
+		  <h5>
+		  ERC Address
+		  </h5>
+		  <h6>		  
+		  <p id="walletaddresserc20"> <p> 
+		   	
+		  <h5>		  		  
+		  Balance
+		  </h5>
+		  <h6>			  
+		   <p id="walletzilbalance"> <p>  
+		   	
+		   <p id="walletgzilbalance"> <p>  
+		   
+		   <p id="loadingmessage"> <p>  
+		  <br>			  
+          </h6>
+		  
+		  <hr>
+		   
+		  <h5>Node</h5>
+		  <h6>
+		  <!-- For mainnet, the node is api.zilliqa.com, for testnet it is dev-api.zilliqa.com, and the chainid=1 for mainnet, 333 for testnet -->
+           <!--	<input type="text"  class="form-control" id="walletnode" value="https://dev-api.zilliqa.com">  -->
+		   <input type="text"  class="form-control" id="walletnode" value="https://staking-zil.kucoin.com/api"> 
+						<br>
+						<select class="form-control" name="group_by" id="ssn">
+						      <option value="KuCoin">KuCoin      </option> 
+							  <option value="Zilliqa">     Zilliqa   </option>						
+							  <option value="Moonlet.io">Moonlet.io   </option>
+							  <option value="Zillacracy">Zillacracy   </option>
+							  <option value="AtomicWallet">AtomicWallet</option> 
+							  <option value="ViewBlock">ViewBlock   </option> 							  
+							  <option value="CEX.IO">CEX.IO      </option> 							  
+							  <option value="Zillet">Zillet      	</option> 							  
+							  <option value="Ezil.me">Ezil.me     </option>							   
+							  
+							  <option value="Shardpool.io">Shardpool.io</option> 							  
+ 	
+						</select>					 
+		  <br>
+		  <h5>Chain ID</h5>  <small>mainnet=1, testnet=333</small>
+		  <h6>
+          <!--		<input type="text"  class="form-control" id="walletchainid" value="333">			 -->
+		  <input type="text"   class="form-control" id="walletchainid" value="1">		  
+		  
+		  
+		  <hr>		  
+		  
+		  <h5>
+		  <p id="txidlabel"></p>
+		  </h5>
+		  <h6 style="word-break: break-word;">
+		  <p id="txid"></p>
+	 
+		  <p id="message" ><p>		   
+		  </h6>
+		  
+		   <p id="message2"><p>
+		  </div>
+  
+ 
+  
+  
+  
+  
+  
+  
+  
+  
+		  <div class="col-6"> 
+		  					<h5>Check Balance and TXs</h5>	
+						<label   >Choose your timezone</label>					
+						<select class="form-control" name="group_by" id="timezone">
+						   <option></option>
+						   <option value="Etc/GMT+12">(GMT-12:00) International Date Line West</option>
+						   <option value="Pacific/Midway">(GMT-11:00) Midway Island, Samoa</option>
+						   <option value="Pacific/Honolulu">(GMT-10:00) Hawaii</option>
+						   <option value="US/Alaska">(GMT-09:00) Alaska</option>
+						   <option value="America/Los_Angeles">(GMT-08:00) Pacific Time (US & Canada)</option>
+						   <option value="America/Tijuana">(GMT-08:00) Tijuana, Baja California</option>
+						   <option value="US/Arizona">(GMT-07:00) Arizona</option>
+						   <option value="America/Chihuahua">(GMT-07:00) Chihuahua, La Paz, Mazatlan</option>
+						   <option value="US/Mountain">(GMT-07:00) Mountain Time (US & Canada)</option>
+						   <option value="America/Managua">(GMT-06:00) Central America</option>
+						   <option value="US/Central">(GMT-06:00) Central Time (US & Canada)</option>
+						   <option value="America/Mexico_City">(GMT-06:00) Guadalajara, Mexico City, Monterrey</option>
+						   <option value="Canada/Saskatchewan">(GMT-06:00) Saskatchewan</option>
+						   <option value="America/Bogota">(GMT-05:00) Bogota, Lima, Quito, Rio Branco</option>
+						   <option value="US/Eastern">(GMT-05:00) Eastern Time (US & Canada)</option>
+						   <option value="US/East-Indiana">(GMT-05:00) Indiana (East)</option>
+						   <option value="Canada/Atlantic">(GMT-04:00) Atlantic Time (Canada)</option>
+						   <option value="America/Caracas">(GMT-04:00) Caracas, La Paz</option>
+						   <option value="America/Manaus">(GMT-04:00) Manaus</option>
+						   <option value="America/Santiago">(GMT-04:00) Santiago</option>
+						   <option value="Canada/Newfoundland">(GMT-03:30) Newfoundland</option>
+						   <option value="America/Sao_Paulo">(GMT-03:00) Brasilia</option>
+						   <option value="America/Argentina/Buenos_Aires">(GMT-03:00) Buenos Aires, Georgetown</option>
+						   <option value="America/Godthab">(GMT-03:00) Greenland</option>
+						   <option value="America/Montevideo">(GMT-03:00) Montevideo</option>
+						   <option value="America/Noronha">(GMT-02:00) Mid-Atlantic</option>
+						   <option value="Atlantic/Cape_Verde">(GMT-01:00) Cape Verde Is.</option>
+						   <option value="Atlantic/Azores">(GMT-01:00) Azores</option>
+						   
+						   <option value="Etc/Greenwich" selected="selected">(GMT+00:00) Greenwich Mean Time : Dublin, Edinburgh, Lisbon, London</option>
+						   <option value="Europe/Amsterdam">(GMT+01:00) Amsterdam, Berlin, Bern, Rome, Stockholm, Vienna</option>
+						   <option value="Europe/Belgrade">(GMT+01:00) Belgrade, Bratislava, Budapest, Ljubljana, Prague</option>
+						   <option value="Europe/Brussels">(GMT+01:00) Brussels, Copenhagen, Madrid, Paris</option>
+						   <option value="Europe/Sarajevo">(GMT+01:00) Sarajevo, Skopje, Warsaw, Zagreb</option>
+						   <option value="Africa/Lagos">(GMT+01:00) West Central Africa</option>
+						   <option value="Asia/Amman">(GMT+02:00) Amman</option>
+						   <option value="Europe/Athens">(GMT+02:00) Athens, Bucharest, Istanbul</option>
+						   <option value="Asia/Beirut">(GMT+02:00) Beirut</option>
+						   <option value="Africa/Cairo">(GMT+02:00) Cairo</option>
+						   <option value="Africa/Harare">(GMT+02:00) Harare, Pretoria</option>
+						   <option value="Europe/Helsinki">(GMT+02:00) Helsinki, Kyiv, Riga, Sofia, Tallinn, Vilnius</option>
+						   <option value="Asia/Jerusalem">(GMT+02:00) Jerusalem</option>
+						   <option value="Europe/Minsk">(GMT+02:00) Minsk</option>
+						   <option value="Africa/Windhoek">(GMT+02:00) Windhoek</option>
+						   <option value="Asia/Kuwait">(GMT+03:00) Kuwait, Riyadh, Baghdad</option>
+						   <option value="Europe/Moscow">(GMT+03:00) Moscow, St. Petersburg, Volgograd</option>
+						   <option value="Africa/Nairobi">(GMT+03:00) Nairobi</option>
+						   <option value="Asia/Tbilisi">(GMT+03:00) Tbilisi</option>
+						   <option value="Asia/Tehran">(GMT+03:30) Tehran</option>
+						   <option value="Asia/Muscat">(GMT+04:00) Abu Dhabi, Muscat</option>
+						   <option value="Asia/Baku">(GMT+04:00) Baku</option>
+						   <option value="Asia/Yerevan">(GMT+04:00) Yerevan</option>
+						   <option value="Asia/Kabul">(GMT+04:30) Kabul</option>
+						   <option value="Asia/Yekaterinburg">(GMT+05:00) Yekaterinburg</option>
+						   <option value="Asia/Karachi">(GMT+05:00) Islamabad, Karachi, Tashkent</option>
+						   <option value="Asia/Calcutta">(GMT+05:30) Chennai, Kolkata, Mumbai, New Delhi</option>
+						   <option value="Asia/Calcutta">(GMT+05:30) Sri Jayawardenapura</option>
+						   <option value="Asia/Katmandu">(GMT+05:45) Kathmandu</option>
+						   <option value="Asia/Almaty">(GMT+06:00) Almaty, Novosibirsk</option>
+						   <option value="Asia/Dhaka">(GMT+06:00) Astana, Dhaka</option>
+						   <option value="Asia/Rangoon">(GMT+06:30) Yangon (Rangoon)</option>
+						   <option value="Asia/Bangkok">(GMT+07:00) Bangkok, Hanoi, Jakarta</option>
+						   <option value="Asia/Krasnoyarsk">(GMT+07:00) Krasnoyarsk</option>
+						   <option value="Asia/Hong_Kong">(GMT+08:00) Beijing, Chongqing, Hong Kong, Urumqi</option>
+						   <option value="Asia/Kuala_Lumpur">(GMT+08:00) Kuala Lumpur, Singapore</option>
+						   <option value="Asia/Irkutsk">(GMT+08:00) Irkutsk, Ulaan Bataar</option>
+						   <option value="Australia/Perth">(GMT+08:00) Perth</option>
+						   <option value="Asia/Taipei">(GMT+08:00) Taipei</option>
+						   <option value="Asia/Tokyo">(GMT+09:00) Osaka, Sapporo, Tokyo</option>
+						   <option value="Asia/Seoul">(GMT+09:00) Seoul</option>
+						   <option value="Asia/Yakutsk">(GMT+09:00) Yakutsk</option>
+						   <option value="Australia/Adelaide">(GMT+09:30) Adelaide</option>
+						   <option value="Australia/Darwin">(GMT+09:30) Darwin</option>
+						   <option value="Australia/Brisbane">(GMT+10:00) Brisbane</option>
+						   <option value="Australia/Canberra">(GMT+10:00) Canberra, Melbourne, Sydney</option>
+						   <option value="Australia/Hobart">(GMT+10:00) Hobart</option>
+						   <option value="Pacific/Guam">(GMT+10:00) Guam, Port Moresby</option>
+						   <option value="Asia/Vladivostok">(GMT+10:00) Vladivostok</option>
+						   <option value="Asia/Magadan">(GMT+11:00) Magadan, Solomon Is., New Caledonia</option>
+						   <option value="Pacific/Auckland">(GMT+12:00) Auckland, Wellington</option>
+						   <option value="Pacific/Fiji">(GMT+12:00) Fiji, Kamchatka, Marshall Is.</option>
+						   <option value="Pacific/Tongatapu">(GMT+13:00) Nuku'alofa</option>
+						</select>
+					
+					<br> 
+
+
+						<label   >Choose your date format</label>					
+						<select class="form-control" name="group_by" id="dateformat">
+						   <option></option>
+						   <option value="mm-dd-yyyy"  selected="selected">mm-dd-yyyy hh:mm:ss AM/PM</option>
+						   <option value="dd-mm-yyyy">dd-mm-yyyy hh:mm:ss</option>	
+						   <option value="yyyy-mm-dd">yyyy-mm-dd hh:mm:ss</option>							   
+						   
+						</select>
+					
+					<br> 
+					<label   >Number of decimal points</label>					
+						<select class="form-control" name="group_by" id="decimalpoint">
+						   <option></option>
+					       <option value="1">1</option>							   
+						   <option value="2"  >2</option>
+						   <option value="3" selected="selected">3</option>	
+						   <option value="4">4</option>							   
+						   <option value="5">5</option>	
+						   <option value="6">6</option>	
+						   <option value="4">7</option>							   
+						   <option value="5">8</option>	
+						   <option value="6">9</option>		
+
+						   
+						</select>
+					
+				
+
+					
+					<label   >ZIL Address</label>			 
+					<input type="text"   class="form-control" id="ziladdress" value=""    >	
+					<br>
+					
+				 
+					 <button type="button" class="btn btn-primary btn-sm  btn-block" id="sendbutton" onclick="checkbalancenow()"    >SEND</button> 
+					 <br><br>
+					 <button type="button" class="btn btn-primary btn-sm  btn-block" id="downloadbutton" onclick="download_table_as_csv('myDynamicTable');"   disabled >CSV Download</button> 	
+					 <br>
+					 
+					 <button type="button" class="btn btn-primary btn-sm  btn-block" id="downloadbuttonkoinly" onclick="download_table_as_csv2('hiddentable');"   disabled >Koinly CSV Format Download</button> 	
+					 <br>					 
+					 
+					 <hr>
+					 <p id="numoftxin"></p>
+					 <p id="numoftxout"></p>
+					 <p id="amountzilin"></p>											 
+					 <p id="amountzilout"></p>
+
+					 <p id="highestzilbalance"></p>							
+					 <p id="lowestzilbalance"></p>			 					 
+					 <p id="totalfeepaid"></p>	
+					<hr>
+		  </div>
+ 
+  </div> 
+  
+  
+  
+    <div class="row">	
+    <div class="col-sm-12">
+      <div id="chart1" ></div>
+    </div>
+  </div>
+  
+  
+  
+
+	<p>
+	
+     
+	<br> <hr>
+				  
+
+		 
+  	  
+	
+	
+	<table id="myDynamicTable"  class="display" style="width:100%"> 
+	<thead>
+            <tr>
+			    <th>Date UTC</th>
+			    <th>Date Locale</th>				
+                <th>hash</th>
+                <th>from</th>
+ 
+                <th>to</th>
+                <th>amount</th>
+                <th>fee</th>
+                <th>timestamp</th>
+                <th>direction</th>
+                <th>receiptsuccess</th>
+                 <th>label</th>	
+				<th>description</th> 	
+				<th>token1_in</th>
+				<th>amount1_in</th>
+				<th>token2_in</th>
+				<th>amount2_in</th>				
+				
+				<th>token1_out</th>
+				<th>amount1_out</th>				
+				<th>token2_out</th>
+				<th>amount2_out</th>
+
+
+
+				
+            </tr>
+        </thead>	
+	    <tbody>
+		
+		
+		</tbody>
+	 	
+	
+	
+	</table>
+	
+	
+	  
+<div style="display:none">
+<table id="hiddentable" >
+	<tr>
+	  <th>Date</th>
+	  <th>Sent Amount</th>
+	  <th>Sent Currency</th>	  
+	  <th>Received Amount</th>	  
+	  <th>Received Currency</th>	  
+	  <th>Fee Amount</th>
+	  <th>Fee Currency</th>
+	  <th>Net Worth Amount</th>
+	  <th>Net Worth Currency</th>
+	  <th>Label</th>
+	  <th>Description</th>
+	  <th>TxHash</th>  
+	</tr>
+ 
+</table>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+ 
+
+ 
+
+
+
+ 
+ 
+
+<noscript>
+  You need to enable JavaScript to run this app.
+</noscript>
+
+  
+</body>
+
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+<script>
+/*
+
+
+ // zil18mcpf0hg6gmndt0uru2wfher9x40m8m9phqwue
+//		zil1ezrt5q20h5t7psn7u2zg6a2420430zkzlnz36n
+//    zil15va3sl9qyl8ytgz3tusz33j4jsg2v8e63dz5cs
+//  zil1nj4ppm23wrfhncv23hvq9vuq0tvqu84xrgx9gk
+//   zil1dvptmqyzg69xhu5nx2ud5z8ze4q8vtrduwx6de
+https://myzilliqawallet.com  
+A true 100% open-source client side Zilliqa wallet.
+If you would like to reuse this code, please quote the source, thank you.
+
+Programmed by : Clement T
+Date: 4th Jan 2021
+Contact/support: clement@myzilliqawallet.com
+
+v0.9.9.0b
+bug fixed:- No need to turn on internet when launch the sendtoken.html
+
+Improvement:- Added gzil balance
+
+added other ssn api endpoint where user can select
+*/
+var tabledata={};
+
+			 //// tx.hash tx.blockHeight, tx.from, tx.to, tx.value, tx.fee, tx.timestamp, tx.signature, tx.direction, tx.nonce, tx.receiptSuccess, tx.data, tx.internalTransfers, tx.events, tx.transitions
+
+var datahash=[];
+var datafrom=[];
+var datato=[];
+var datavalue=[];
+var datafee=[];
+var datatimestamp=[];
+var datadirection=[];
+var datareceiptSuccess=[];
+var dataindex=0;
+var dataextraindex=0;
+
+var token_in=[];
+var amount_in=[];
+var token_out=[];
+var amount_out=[];
+
+
+var dataextravalue=[];
+var dataextratimestamp=[];
+var dataextradirection=[];
+var dataextrareceiptSuccess=[];
+var dataextrafee=[];
+
+var mergedatadirection=[];
+var mergedatatimestamp=[];
+var mergedatavalue=[];
+var mergedatareceiptSuccess=[];		
+var mergedatafee=[];		
+			
+var mytimer;
+
+var zilliqa;
+var VERSION;
+var address;
+var fileselected=0;     // for keystore
+var keystore="EMPTY";   // for keystore
+var address;
+var balanceinzil=0;
+var walletziladdress;
+var stoploading=0;
+
+var gbeacon=0;
+	
+	$(function () {
+				  $("select#ssn").on("change", function(value){
+			   var This      = $(this);
+			   var selectedD = $(this).val();
+			   console.log(selectedD);
+			   
+	var contractaddrarray={
+	"Zilliqa":       "https://api.zilliqa.com/",
+    "Moonlet.io":   "https://ssn-zilliqa.moonlet.network/api",
+	"Zillacracy":   "https://ssn.zillacracy.com/api",
+    "AtomicWallet": "https://zilliqa.atomicwallet.io/api", 
+    "ViewBlock":    "https://ssn-api-mainnet.viewblock.io", 
+    "CEX.IO":       "https://ssn-zilliqa.cex.io/api", 
+    "Zillet":       "https://ssn.zillet.io", 
+    "Ezil.me":      "https://zil-staking.ezil.me/api", 
+     
+    "KuCoin":       "https://staking-zil.kucoin.com/api",
+    "Shardpool.io": "https://seed-zil.shardpool.io"	
+	};
+	 
+	
+ 
+					// change node to the approriate https
+					document.getElementById("walletnode").value=contractaddrarray[selectedD];
+		   
+			});
+	});
+	
+	
+ 
+function download_table_as_csv(table_id, separator = ',') {
+    // Select rows from table_id
+    var rows = document.querySelectorAll('table#' + table_id + ' tr');
+    // Construct csv
+    var csv = [];
+    for (var i = 0; i < rows.length; i++) {
+        var row = [], cols = rows[i].querySelectorAll('td, th');
+        for (var j = 0; j < cols.length; j++) {
+            // Clean innertext to remove multiple spaces and jumpline (break csv)
+            var data = cols[j].innerText.replace(/(\r\n|\n|\r)/gm, '').replace(/(\s\s)/gm, ' ')
+            // Escape double-quote with double-double-quote (see https://stackoverflow.com/questions/17808511/properly-escape-a-double-quote-in-csv)
+            data = data.replace(/"/g, '""');
+            // Push escaped string
+            row.push('"' + data + '"');
+        }
+        csv.push(row.join(separator));
+    }
+    var csv_string = csv.join('\n');
+    // Download it
+    var filename = ziladdress +  '.csv';
+    var link = document.createElement('a');
+    link.style.display = 'none';
+    link.setAttribute('target', '_blank');
+    link.setAttribute('href', 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv_string));
+    link.setAttribute('download', filename);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+}
+
+ 
+	
+ 
+function download_table_as_csv2(table_id, separator = ',') {
+    // Select rows from table_id
+    var rows = document.querySelectorAll('table#' + table_id + ' tr');
+    // Construct csv
+    var csv = [];
+    for (var i = 0; i < rows.length; i++) {
+        var row = [], cols = rows[i].querySelectorAll('td, th');
+        for (var j = 0; j < cols.length; j++) {
+            // Clean innertext to remove multiple spaces and jumpline (break csv)
+            var data = cols[j].innerText.replace(/(\r\n|\n|\r)/gm, '').replace(/(\s\s)/gm, ' ')
+            // Escape double-quote with double-double-quote (see https://stackoverflow.com/questions/17808511/properly-escape-a-double-quote-in-csv)
+            data = data.replace(/"/g, '""');
+            // Push escaped string
+            row.push('"' + data + '"');
+        }
+        csv.push(row.join(separator));
+    }
+    var csv_string = csv.join('\n');
+    // Download it
+    var filename = ziladdress +  '_koinly.csv';
+    var link = document.createElement('a');
+    link.style.display = 'none';
+    link.setAttribute('target', '_blank');
+    link.setAttribute('href', 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv_string));
+    link.setAttribute('download', filename);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+}
+
+
+async function initzilliqa()
+{
+	 
+	var node=document.getElementById("walletnode").value;
+	
+	
+		try {
+			zilliqa = new Zilliqa.Zilliqa(node);
+		} catch(e) {
+			errmsg="Error connecting to node! Please connect to internet and refresh again!";
+			alert(errmsg);	   
+			return 0;			   
+		}  
+	
+	
+
+
+	var chainid=document.getElementById("walletchainid").value;  
+
+	//const chainId = 333;  
+
+	const msgVersion = 1;
+	
+	
+	
+	
+		try {
+			VERSION = Zilliqa.bytes.pack(chainid, msgVersion);	
+		} catch(e) {
+			errmsg="Error connecting to node! Please connect to internet and refresh again!";
+			alert(errmsg);	   
+			return 0;			   
+		}  	
+	
+	return 1;
+	
+}
+
+
+function getValueByKey(object, row) {
+  return object[row];
+}
+
+
+/**
+* Delay for a number of milliseconds
+*/
+function sleep(delay) {
+    var start = new Date().getTime();
+    while (new Date().getTime() < start + delay);
+		 
+} 
+
+ var txdetails2={};
+ var gnum=0;
+ 
+
+
+
+//zil1ezrt5q20h5t7psn7u2zg6a2420430zkzlnz36n
+
+
+var decimalpoint;
+// usage:   num2dec=properdecimal(num2dec);
+function properdecimal(num)
+{
+	num2 = parseFloat(num).toFixed(decimalpoint);
+	return num2;
+}
+
+async function gettxdetail(hash, timestamp, amount, internaltransfervalue,tokendirection)
+{
+	hash=hash.substring(2); // remove the first 2 chars 0x 
+	
+	
+						hh=hash+"token1in_name"		;	txdetails2[hh]="";
+					    hh=hash+"token1in_amount"	;	txdetails2[hh]="";						
+					    hh=hash+"token1out_name"		;	txdetails2[hh]="";
+					    hh=hash+"token1out_amount"	;	txdetails2[hh]="";
+						hh=hash+"token2in_name"		;	txdetails2[hh]="";
+					    hh=hash+"token2in_amount"	;	txdetails2[hh]="";						
+					    hh=hash+"token2out_name"		;	txdetails2[hh]="";
+					    hh=hash+"token2out_amount"	;	txdetails2[hh]="";	
+					    hh=hash+"label"				;	txdetails2[hh]="";							
+ 					    hh=hash+"description"		;	txdetails2[hh]="";	 
+	const txdetail = await zilliqa.blockchain.getTransaction(
+	  hash
+	);
+	 console.log("hash=",hash);
+	console.log(txdetail);
+	
+	
+		//txdetail=JSON.parse(txn);
+			//console.log(txdetail.data);
+			
+			txtag= txdetail.data ;
+			
+			//console.log(txtag);
+			gbeacon++;
+			//document.getElementById("loadingmessage").innerHTML=gbeacon;
+			 
+			
+			if(typeof txtag === 'undefined' ||typeof txtag === 'null' || txtag=== null || txtag=="" )
+			{
+					txdetails2[hash]=" ";
+					
+					hh=hash+"extra";
+					txdetails2[hh]="None";	
+					
+					amountinzil=parseInt(amount)/(10**12);
+					amountinzil=properdecimal(amountinzil);
+					
+					if (tokendirection=="in") // ZIL come in
+					{
+					
+						hh=hash+"token1in_name"		;	txdetails2[hh]="ZIL";
+					    hh=hash+"token1in_amount"	;	txdetails2[hh]=amountinzil;					
+					
+					}
+					else
+					{
+					
+					    hh=hash+"token1out_name"		;	txdetails2[hh]="ZIL";
+					    hh=hash+"token1out_amount"	;	txdetails2[hh]=amountinzil;					
+									
+					
+					}
+					
+	
+					
+					
+					
+					
+					
+					
+				return "empty";
+			}
+			else
+			{
+				objtag=JSON.parse(txtag);
+					hh=hash+"extra";
+					txdetails2[hh]="None";					
+				
+				tag=objtag._tag;
+				
+				hh=hash+"description"		;	txdetails2[hh]=tag;	
+				if (tag=="SwapExactZILForTokens" || tag=="SwapZILForExactTokens")
+				{
+				
+					objlength=Object.keys(txdetail.receipt.errors).length;
+					if (objlength!=0)  // if not error, means got error!
+					{
+						errmsg=txdetail.receipt.errors[0];					 
+						extramsg=errmsg;
+						hh=hash+"extra"; txdetails2[hh]=extramsg;	
+						
+					}
+					else				
+				
+					{
+				
+				
+						//othertokenamount=txdetail.receipt.event_logs[1].params[2].value;
+						//console.log("othertokenamount=",othertokenamount);
+						//txdetails2[hash]="Other Token Amount="+othertokenamount;
+						 
+
+ 
+
+
+	
+	
+						eventname1=		txdetail.receipt.event_logs[0]._eventname; // swapped
+						inputamt1=		txdetail.receipt.event_logs[0].params[2].value.arguments[1]; //27909110648607384   (amount of ZIL)
+						input1=			txdetail.receipt.event_logs[0].params[2].vname;
+						outputamt1=		txdetail.receipt.event_logs[0].params[3].value.arguments[1];	 //47832498521665692  (amount gzil)
+						output1=		txdetail.receipt.event_logs[0].params[3].vname;
+						pooladdr1=		txdetail.receipt.event_logs[0].params[0].value; //gzil erc20 addresss
+						//pooladdr1=await Zilliqa.toBech32Address(pooladdr1); // zil14pz -- gzil
+						
+						 
+						 
+						
+						tokenname1="tokens ["+pooladdr1+"]";
+						amounttoken1=outputamt1;
+						
+						if (pooladdr1 in tokenamebyaddresserc20) 
+						{
+
+
+							tokenname1=tokenamebyaddresserc20[pooladdr1];
+							amounttoken1=outputamt1/(10**tokendecimal[tokenname1]);
+							//amounttoken1=amounttoken1.toFixed(3);
+							amounttoken1=properdecimal(amounttoken1);
+						}
+						console.log("SwapExactZILForTokens Goodmorning ",amount," timestamp=",timestamp, " hash=",hash);
+						amountinzil=parseInt(amount)/(10**12);
+						extramsg = properdecimal(amountinzil)+ " ZIL swapped for "+amounttoken1+" "+tokenname1 ;
+						console.log(extramsg);
+						
+					    hh=hash+"token1in_name"		;	txdetails2[hh]=tokenname1;
+					    hh=hash+"token1in_amount"	;	txdetails2[hh]=amounttoken1;						
+					    hh=hash+"token1out_name"		;	txdetails2[hh]="ZIL";
+					    hh=hash+"token1out_amount"	;	txdetails2[hh]=properdecimal(amountinzil);	
+
+						
+						//extramsg="Other Token Amount="+othertokenamount;
+						hh=hash+"extra";
+						txdetails2[hh]=extramsg;	
+
+					    //hh=hash+"label"				;	txdetails2[hh]="";							
+ 					    hh=hash+"description"		;	txdetails2[hh]=extramsg;	 
+								
+					}
+				
+				}
+				
+				
+				
+	 	
+
+
+				if (tag=="SwapExactTokensForZIL"  || tag=="SwapTokensForExactZIL")
+				{
+					objlength=Object.keys(txdetail.receipt.errors).length;
+					if (objlength!=0)  // if not error, means got error!
+					{
+						errmsg=txdetail.receipt.errors[0];					 
+						extramsg=errmsg;
+						hh=hash+"extra"; txdetails2[hh]=extramsg;	
+						
+					}
+					else
+					{
+	 
+	
+	
+						eventname1=		txdetail.receipt.event_logs[0]._eventname; // swapped
+						inputamt1=		txdetail.receipt.event_logs[0].params[2].value.arguments[1]; //27909110648607384   (amount of ZIL)
+						input1=			txdetail.receipt.event_logs[0].params[2].vname;
+						outputamt1=		txdetail.receipt.event_logs[0].params[3].value.arguments[1];	 //47832498521665692  (amount gzil)
+						output1=		txdetail.receipt.event_logs[0].params[3].vname;
+						pooladdr1=		txdetail.receipt.event_logs[0].params[0].value; //gzil erc20 addresss
+						//pooladdr1=await Zilliqa.toBech32Address(pooladdr1); // zil14pz -- gzil
+						
+						console.log("Eventname=", eventname1, "Input Amt=", inputamt1, "Output Amt=", outputamt1, "Pool Addr=", pooladdr1);
+						
+					 
+						
+						
+						
+						
+						extramsg=pooladdr1+" amt="+inputamt1 ;
+						console.log(extramsg);
+						
+						 
+						
+						tokenname1="tokens ["+pooladdr1+"]";
+						amounttoken1=inputamt1;
+						
+						if (pooladdr1 in tokenamebyaddresserc20) 
+						{
+
+
+							tokenname1=tokenamebyaddresserc20[pooladdr1];
+							amounttoken1=inputamt1/(10**tokendecimal[tokenname1]);
+							//amounttoken1=amounttoken1.toFixed(3);
+							amounttoken1=properdecimal(amounttoken1);
+						}
+						/*
+						tokenname2="tokens ["+pooladdr2+"]";
+						amounttoken2=inputamt2;
+						
+						if (pooladdr2 in tokenamebyaddress) 
+						{	
+							tokenname2=tokenamebyaddress[pooladdr2];
+							amounttoken2=inputamt2/(10**tokendecimal[tokenname2]);	
+						}
+						*/
+						outputamt1=outputamt1/(10**12);
+						//outputamt1=outputamt1.toFixed(3);
+						outputamt1=properdecimal(outputamt1);
+						extramsg=amounttoken1+" "+tokenname1 +" swapped for "+outputamt1+" ZIL" ;
+						hh=hash+"extra";
+						txdetails2[hh]=extramsg;
+
+					    hh=hash+"token1in_name"		;	txdetails2[hh]="ZIL";
+					    hh=hash+"token1in_amount"	;	txdetails2[hh]=outputamt1;						
+					    hh=hash+"token1out_name"		;	txdetails2[hh]=tokenname1;
+					    hh=hash+"token1out_amount"	;	txdetails2[hh]=amounttoken1;	
+
+
+					    //hh=hash+"label"				;	txdetails2[hh]="";							
+ 					    hh=hash+"description"		;	txdetails2[hh]=extramsg;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+						
+					}			
+				}	
+
+				if (tag=="WithdrawStakeRewards" )
+				{
+					objlength=Object.keys(txdetail.receipt.errors).length;
+					if (objlength!=0)  // if not error, means got error!
+					{
+						errmsg=txdetail.receipt.errors[0];					 
+						extramsg=errmsg;
+						hh=hash+"extra"; txdetails2[hh]=extramsg;	
+						
+					}
+					else
+					{
+						//minted=txdetail.receipt.event_logs[2].params[2].value; // TransferFromSuccess					
+						 		 
+					
+
+
+
+						amountminted=txdetail.receipt.event_logs[2].params[2].value;
+						
+						addressoftokenminted=txdetail.receipt.event_logs[2].address;
+						//addressoftokenminted=await Zilliqa.toBech32Address(addressoftokenminted);
+						
+						  
+						
+						if (addressoftokenminted in tokenamebyaddresserc20) 
+						{
+
+
+							tokenname1=tokenamebyaddresserc20[addressoftokenminted];
+							
+							
+
+								
+								
+							amounttoken1=amountminted/(10**tokendecimal[tokenname1]);
+						}
+						if (tokenname1=="gZIL")
+						{
+							zilamountclaimed=amounttoken1*1000;
+							//amounttoken1=amounttoken1.toFixed(3);
+							amounttoken1=properdecimal(amounttoken1);
+							//zilamountclaimed=zilamountclaimed.toFixed(3);
+							zilamountclaimed=properdecimal(zilamountclaimed);
+							extramsg=zilamountclaimed+" ZIL and "+amounttoken1+" "+tokenname1 +" claimed" ; 
+							
+								dataextradirection[dataextraindex]="in";
+								dataextratimestamp[dataextraindex]=timestamp;
+								dataextravalue[dataextraindex]=zilamountclaimed*(10**12);
+								dataextrareceiptSuccess[dataextraindex]=true;
+								dataextrafee[dataextraindex]="0";
+								dataextraindex++;
+								
+							hh=hash+"token1in_name"		;	txdetails2[hh]="ZIL";
+							hh=hash+"token1in_amount"	;	txdetails2[hh]=zilamountclaimed;						
+ 							hh=hash+"token2in_name"		;	txdetails2[hh]=tokenname1;
+							hh=hash+"token2in_amount"	;	txdetails2[hh]=amounttoken1;	
+							
+							
+							
+							
+						
+						}
+						else	
+						{
+						
+							//amounttoken1=amounttoken1.toFixed(3);
+						    amounttoken1=properdecimal(amounttoken1);
+							extramsg=amounttoken1+" "+tokenname1 +" claimed" ; 
+							
+							hh=hash+"token1in_name"		;	txdetails2[hh]=tokenname1;
+							hh=hash+"token1in_amount"	;	txdetails2[hh]=amounttoken1;						
+ 
+							
+							
+							
+						}
+						console.log(extramsg);	
+
+						//extramsg="Minted="+minted;
+						hh=hash+"extra";
+						txdetails2[hh]=extramsg;	
+
+
+					    hh=hash+"label"				;	txdetails2[hh]="staking";							
+ 					    hh=hash+"description"		;	txdetails2[hh]=extramsg;
+
+
+
+
+
+
+
+
+
+
+
+
+						
+					}			
+				}
+				
+				if (tag=="RemoveLiquidity"  )
+				{
+					objlength=Object.keys(txdetail.receipt.errors).length;
+					if (objlength!=0)  // if not error, means got error!
+					{
+						errmsg=txdetail.receipt.errors[0];	
+						 if (errmsg==null)
+						 	errmsg=txdetail.receipt.errors[1];	
+						 if (errmsg==null)
+							errmsg=txdetail.receipt.errors[2];					 
+						extramsg=errmsg;
+						hh=hash+"extra"; txdetails2[hh]=extramsg;		
+						
+					}
+					else
+					{
+
+					
+					
+							numofevents=txdetail.receipt.event_logs.length;
+							console.log(numofevents);
+							extramsg=" ";					
+					
+							for (i=0; i<numofevents; i++)
+							{
+								eventname=txdetail.receipt.event_logs[i]._eventname;
+								if (eventname=="TransferFromSuccess" || eventname=="TransferSuccess")
+								{					
+
+										numofparams=txdetail.receipt.event_logs[i].params.length;
+										for (j=0; j<numofparams; j++)
+										{
+										//theothertokenamount=txdetail.receipt.event_logs[1].params[2].value;
+										//theothertokenaddress=txdetail.receipt.event_logs[1].address;
+												vname=txdetail.receipt.event_logs[i].params[j].vname;
+												if (vname=="amount")	
+												{
+													theothertokenamount=txdetail.receipt.event_logs[i].params[j].value;
+													console.log("Found it, amt=", theothertokenamount);
+												}
+										}
+										theothertokenaddress=txdetail.receipt.event_logs[i].address;
+										theothertokenaddress=await Zilliqa.toBech32Address(theothertokenaddress);
+
+										 
+
+										tokenname1="["+theothertokenaddress+"]";
+										amounttoken1=theothertokenamount;
+
+										if (theothertokenaddress in tokenamebyaddress) 
+										{
+
+
+											tokenname1=tokenamebyaddress[theothertokenaddress];
+											amounttoken1=theothertokenamount/(10**tokendecimal[tokenname1]);
+											amounttoken1=amounttoken1 ;
+										}
+
+										 //extramsg="LP "+amounttoken1+ " "+tokenname1;
+										 //console.log(extramsg);
+										 
+										 
+										 
+										 
+										
+									 
+										zilamountremoved= internaltransfervalue;
+										
+										if (internaltransfervalue<0)
+											zilamountremoved=0;
+										
+										
+										
+										dataextradirection[dataextraindex]="in";
+										dataextratimestamp[dataextraindex]=timestamp;
+										dataextravalue[dataextraindex]=zilamountremoved;
+										dataextrareceiptSuccess[dataextraindex]=true;	
+										dataextrafee[dataextraindex]="0";						
+										dataextraindex++;
+										
+										
+										
+										zilamountremoved=zilamountremoved/(10**12);
+
+										extramsg="Liquidity Removed "+  properdecimal(zilamountremoved)   + " ZIL and "+properdecimal(amounttoken1) + " "+tokenname1;
+										//console.log(extramsg);	 
+										hh=hash+"extra";
+										txdetails2[hh]=extramsg;	
+
+
+
+ 					
+					    hh=hash+"token1in_name"		;	txdetails2[hh]="ZIL";
+					    hh=hash+"token1in_amount"	;	txdetails2[hh]=properdecimal(zilamountremoved) ;
+					    hh=hash+"token2in_name"		;	txdetails2[hh]=tokenname1;
+					    hh=hash+"token2in_amount"	;	txdetails2[hh]=properdecimal(amounttoken1);
+										
+					    //hh=hash+"label"				;	txdetails2[hh]="";							
+ 					    hh=hash+"description"		;	txdetails2[hh]=extramsg;					
+					
+					
+					
+								}
+							}
+					
+					
+					
+						
+
+
+
+
+
+
+						 		
+						
+					}			
+				}				 			
+				
+				if (  tag=="AddLiquidity")
+				{
+					objlength=Object.keys(txdetail.receipt.errors).length;
+					if (objlength!=0)  // if not error, means got error!
+					{
+						errmsg=txdetail.receipt.errors[0];	
+						 if (errmsg==null)
+						 	errmsg=txdetail.receipt.errors[1];	
+						 if (errmsg==null)
+							errmsg=txdetail.receipt.errors[2];					 
+						extramsg=errmsg;
+						hh=hash+"extra"; txdetails2[hh]=extramsg;	
+						
+					}
+					else
+					{
+					
+					
+					
+							numofevents=txdetail.receipt.event_logs.length;
+							console.log(numofevents);
+							extramsg=" ";
+							for (i=0; i<numofevents; i++)
+							{
+								eventname=txdetail.receipt.event_logs[i]._eventname;
+								if (eventname=="TransferFromSuccess")
+								{
+								
+														numofparams=txdetail.receipt.event_logs[i].params.length;
+														for (j=0; j<numofparams; j++)
+														{
+														//theothertokenamount=txdetail.receipt.event_logs[1].params[2].value;
+														//theothertokenaddress=txdetail.receipt.event_logs[1].address;
+																vname=txdetail.receipt.event_logs[i].params[j].vname;
+																if (vname=="amount")	
+																{
+																	theothertokenamount=txdetail.receipt.event_logs[i].params[j].value;
+																	console.log("Found it, amt=", theothertokenamount);
+																}
+														}								
+								
+								
+								
+								
+								
+														//theothertokenamount=txdetail.receipt.event_logs[i].params[3].value;
+														theothertokenaddress=txdetail.receipt.event_logs[i].address;
+							
+														tokenname1="["+theothertokenaddress+"]";
+														amounttoken1=theothertokenamount;
+														
+														 if (theothertokenaddress in tokenamebyaddresserc20) 
+														{
+
+
+															tokenname1=tokenamebyaddresserc20[theothertokenaddress];
+															amounttoken1=theothertokenamount/(10**tokendecimal[tokenname1]);
+															//amounttoken1=amounttoken1.toFixed(3);
+															amounttoken1=properdecimal(amounttoken1);
+														}
+														 
+															amountinzil=parseInt(amount)/(10**12);
+															extramsg="Liquidity Added "+ properdecimal( amountinzil)  + " ZIL and "+amounttoken1 + " "+tokenname1;  			
+								// found the problem. amounttoken1=amountoken1.toFixed(3) 
+								// then extramsg="Liquidity Added :"+amountinzil.toFixed(3) + " ZIL and "+amounttoken1.toFixed(3) + " "+tokenname1;  
+								// it is called twice,the .toFixed(3) caused it to hang!
+								
+								// if add .toFixed(3) it will make it undefined, weird problem.															
+															console.log(extramsg);
+															hh=hash+"extra"; txdetails2[hh]=extramsg;
+
+
+					    hh=hash+"token1out_name"		;	txdetails2[hh]="ZIL";
+					    hh=hash+"token1out_amount"	;	txdetails2[hh]=properdecimal( amountinzil) ;
+					    hh=hash+"token2out_name"		;	txdetails2[hh]=tokenname1;
+					    hh=hash+"token2out_amount"	;	txdetails2[hh]=properdecimal(amounttoken1);
+
+					    //hh=hash+"label"				;	txdetails2[hh]="";							
+ 					    hh=hash+"description"		;	txdetails2[hh]=extramsg;
+
+															
+								
+								}
+							}					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					 
+	 
+					}			
+				}
+
+				if (tag=="SwapExactTokensForTokens" || tag=="SwapTokensForExactTokens")
+				//if (  tag=="SwapExactTokensForTokens")
+				{
+					objlength=Object.keys(txdetail.receipt.errors).length;
+					if (objlength!=0)  // if not error, means got error!
+					{
+						errmsg=txdetail.receipt.errors[0];					 
+						extramsg=errmsg;
+						hh=hash+"extra"; txdetails2[hh]=extramsg;	
+						
+					}
+					else
+					{
+						//transfersuccess=txdetail.receipt.event_logs[1].params[3].value; // TransferFromSuccess					
+						 		 
+
+
+
+
+
+							eventname1=		txdetail.receipt.event_logs[0]._eventname; // swapped
+							inputamt1=		txdetail.receipt.event_logs[0].params[2].value.arguments[1]; //27909110648607384   (amount of ZIL)
+							input1=			txdetail.receipt.event_logs[0].params[2].vname;
+							outputamt1=		txdetail.receipt.event_logs[0].params[3].value.arguments[1];	 //47832498521665692  (amount gzil)
+							output1=		txdetail.receipt.event_logs[0].params[3].vname;
+							pooladdr1=		txdetail.receipt.event_logs[0].params[0].value; //gzil erc20 addresss
+							//pooladdr1=await Zilliqa.toBech32Address(pooladdr1); // zil14pz -- gzil
+							
+							console.log("Eventname=", eventname1, "Input Amt=", inputamt1, "Output Amt=", outputamt1, "Pool Addr=", pooladdr1);
+							
+							
+							
+							eventname2=		txdetail.receipt.event_logs[1]._eventname;	
+							inputamt2=      txdetail.receipt.event_logs[1].params[2].value.arguments[1];  // 1555000  (amount of RedC)
+							input2=			txdetail.receipt.event_logs[1].params[2].vname;
+							outputamt2=		txdetail.receipt.event_logs[1].params[3].value.arguments[1];	//27909110648607384	 (amount of ZIL)
+							output2=		txdetail.receipt.event_logs[1].params[3].vname;	
+							pooladdr2=		txdetail.receipt.event_logs[1].params[0].value;	
+							//pooladdr2=await Zilliqa.toBech32Address(pooladdr2);	 // zil1a5wk redc
+							console.log("Eventname=", eventname2, "Input Amt=", inputamt2, "Output Amt=", outputamt2, "Pool Addr=", pooladdr2);
+
+							
+							
+							
+							
+							
+							
+							//extramsg=pooladdr1+" amt="+outputamt1+" swapped for "+ pooladdr2+" amt="+inputamt2;
+							console.log(extramsg);
+							
+							//pooladdr1="zil123455";
+							
+							tokenname1="tokens ["+pooladdr1+"]";
+							amounttoken1=outputamt1;
+							
+							if (pooladdr1 in tokenamebyaddresserc20) 
+							{
+
+
+								tokenname1=tokenamebyaddresserc20[pooladdr1];
+								amounttoken1=outputamt1/(10**tokendecimal[tokenname1]);
+								//amounttoken1=amounttoken1.toFixed(3);
+								amounttoken1=properdecimal(amounttoken1);
+							}
+							
+							tokenname2="tokens ["+pooladdr2+"]";
+							amounttoken2=inputamt2;
+							
+							if (pooladdr2 in tokenamebyaddresserc20) 
+							{	
+								tokenname2=tokenamebyaddresserc20[pooladdr2];
+								amounttoken2=inputamt2/(10**tokendecimal[tokenname2]);	
+								//amounttoken2=amounttoken2.toFixed(3);
+								amounttoken2=properdecimal(amounttoken2);
+							}
+							
+							extramsg=amounttoken2+" "+tokenname2+ " swapped for "+ amounttoken1+" "+tokenname1;
+							
+							
+							
+							console.log(extramsg);	 
+
+							 
+							hh=hash+"extra";
+							txdetails2[hh]=extramsg;	
+
+
+					    hh=hash+"token1in_name"		;	txdetails2[hh]=tokenname1;
+					    hh=hash+"token1in_amount"	;	txdetails2[hh]=amounttoken1 ;
+					    hh=hash+"token1out_name"		;	txdetails2[hh]=tokenname2;
+					    hh=hash+"token1out_amount"	;	txdetails2[hh]=amounttoken2; 
+
+					    //hh=hash+"label"				;	txdetails2[hh]="";							
+ 					    hh=hash+"description"		;	txdetails2[hh]=extramsg;
+
+						
+					}			
+				}
+
+
+
+				
+				if (  tag=="CompleteWithdrawal")
+				{
+					objlength=Object.keys(txdetail.receipt.errors).length;
+					if (objlength!=0)  // if not error, means got error!
+					{
+						errmsg=txdetail.receipt.errors[0];					 
+						extramsg=errmsg;
+						hh=hash+"extra"; txdetails2[hh]=extramsg;	
+						
+					}
+					else
+					{
+						amountwithdraw=txdetail.receipt.event_logs[0].params[1].value;	
+						
+						dataextradirection[dataextraindex]="in";
+						dataextratimestamp[dataextraindex]=timestamp;
+						dataextravalue[dataextraindex]=amountwithdraw;
+						dataextrareceiptSuccess[dataextraindex]=true;	
+						dataextrafee[dataextraindex]="0";						
+						dataextraindex++;
+						
+						
+						
+						amountwithdraw=amountwithdraw/(10**12);
+						extramsg=amountwithdraw+ " ZIL withdrew";
+						console.log(extramsg);	
+
+
+													 
+						 
+						hh=hash+"extra";
+						txdetails2[hh]=extramsg;	
+
+
+					    hh=hash+"token1in_name"		;	txdetails2[hh]="ZIL";
+					    hh=hash+"token1in_amount"	;	txdetails2[hh]=amountwithdraw ;
+ 
+					    //hh=hash+"label"				;	txdetails2[hh]="";							
+ 					    hh=hash+"description"		;	txdetails2[hh]=extramsg;
+
+
+						
+					}			
+				}
+
+
+
+
+				if (  tag=="Transfer")
+				{
+					objlength=Object.keys(txdetail.receipt.errors).length;
+					if (objlength!=0)  // if not error, means got error!
+					{
+						errmsg=txdetail.receipt.errors[0];	
+						 if (errmsg==null)
+						 	errmsg=txdetail.receipt.errors[1];	
+						 if (errmsg==null)
+							errmsg=txdetail.receipt.errors[2];					 
+						extramsg=errmsg;
+						hh=hash+"extra"; txdetails2[hh]=extramsg;	
+						
+					}
+					else
+					{
+					
+
+
+							numofevents=txdetail.receipt.event_logs.length;
+							console.log(numofevents);
+							extramsg=" ";
+							theothertokenamount=0;							
+					
+							for (i=0; i<numofevents; i++)
+							{
+								eventname=txdetail.receipt.event_logs[i]._eventname;
+								if (eventname=="TransferSuccess")
+								{					
+										numofparams=txdetail.receipt.event_logs[i].params.length;
+										for (j=0; j<numofparams; j++)
+										{
+ 
+												vname=txdetail.receipt.event_logs[i].params[j].vname;
+												if (vname=="amount")	
+												{
+													theothertokenamount=txdetail.receipt.event_logs[i].params[j].value;
+													 
+												}
+										}
+									
+										theothertokenaddress=txdetail.receipt.event_logs[i].address;
+										theothertokenaddress=await Zilliqa.toBech32Address(theothertokenaddress);
+										tokenname1="["+theothertokenaddress+"]";
+										amounttoken1=theothertokenamount;
+										
+										if (theothertokenaddress in tokenamebyaddress) 
+										{
+											tokenname1=tokenamebyaddress[theothertokenaddress];
+											amounttoken1=theothertokenamount/(10**tokendecimal[tokenname1]);
+											amounttoken1=amounttoken1.toFixed(3);
+										}
+										
+										 //extramsg="LP "+amounttoken1+ " "+tokenname1;
+										 //console.log(extramsg);
+										 
+										 
+										 
+										 
+										
+										extramsg="Transfer "+amounttoken1+ " "+tokenname1;
+										hh=hash+"extra"; txdetails2[hh]=extramsg;	
+										 console.log(extramsg);	
+										 
+										 
+										 
+										 
+ 
+					    hh=hash+"token1out_name"		;	txdetails2[hh]=tokenname1;
+					    hh=hash+"token1out_amount"	;	txdetails2[hh]=amounttoken1; 										 
+										 
+					    //hh=hash+"label"				;	txdetails2[hh]="";							
+ 					    hh=hash+"description"		;	txdetails2[hh]=extramsg;										 
+										 
+										 
+										 
+								}
+								
+							}			 
+	 					
+					  
+					
+					
+					 
+	 
+					}			
+				}
+
+
+
+				if (  tag=="DelegateStake")
+				{
+					objlength=Object.keys(txdetail.receipt.errors).length;
+					if (objlength!=0)  // if not error, means got error!
+					{
+						errmsg=txdetail.receipt.errors[0];	
+						 if (errmsg==null)
+						 	errmsg=txdetail.receipt.errors[1];	
+						 if (errmsg==null)
+							errmsg=txdetail.receipt.errors[2];					 
+						extramsg=errmsg;
+						hh=hash+"extra"; txdetails2[hh]=extramsg;	
+						
+					}
+					else
+					{
+					
+						amountinzil=parseInt(amount)/(10**12);
+					    amountinzil=properdecimal(amountinzil);			 
+
+									extramsg="Delegate "+amountinzil+ " "+"ZIL";
+									hh=hash+"extra"; txdetails2[hh]=extramsg;	
+									 console.log(extramsg);	
+						
+						hh=hash+"token1out_name"		;	txdetails2[hh]="ZIL";
+					    hh=hash+"token1out_amount"	;	txdetails2[hh]=amountinzil ;
+					    hh=hash+"label"				;	txdetails2[hh]="Staking";							
+ 					    hh=hash+"description"		;	txdetails2[hh]=extramsg;		
+					
+
+  
+	 
+					
+					 
+	 
+					}			
+				}
+
+
+
+
+				if (  tag=="Claim")
+				{
+					objlength=Object.keys(txdetail.receipt.errors).length;
+					if (objlength!=0)  // if not error, means got error!
+					{
+						errmsg=txdetail.receipt.errors[0];	
+						 if (errmsg==null)
+						 	errmsg=txdetail.receipt.errors[1];	
+						 if (errmsg==null)
+							errmsg=txdetail.receipt.errors[2];					 
+						extramsg=errmsg;
+						hh=hash+"extra"; txdetails2[hh]=extramsg;	
+						
+					}
+					else
+					{
+					
+
+
+							numofevents=txdetail.receipt.event_logs.length;
+							console.log(numofevents);
+							extramsg=" ";
+							theothertokenamount=0;							
+					
+							for (i=0; i<numofevents; i++)
+							{
+								eventname=txdetail.receipt.event_logs[i]._eventname;
+								if (eventname=="Minted")
+								{					
+										numofparams=txdetail.receipt.event_logs[i].params.length;
+										for (j=0; j<numofparams; j++)
+										{
+ 
+												vname=txdetail.receipt.event_logs[i].params[j].vname;
+												if (vname=="amount")	
+												{
+													theothertokenamount=txdetail.receipt.event_logs[i].params[j].value;
+													 
+												}
+										}
+									
+										theothertokenaddress=txdetail.receipt.event_logs[i].address;
+										theothertokenaddress=await Zilliqa.toBech32Address(theothertokenaddress);
+										tokenname1="["+theothertokenaddress+"]";
+										amounttoken1=theothertokenamount;
+										
+										if (theothertokenaddress in tokenamebyaddress) 
+										{
+											tokenname1=tokenamebyaddress[theothertokenaddress];
+											amounttoken1=theothertokenamount/(10**tokendecimal[tokenname1]);
+											amounttoken1=amounttoken1.toFixed(3);
+										}
+																		
+									extramsg="Claimed "+amounttoken1+ " "+tokenname1;
+									hh=hash+"extra"; txdetails2[hh]=extramsg;	
+									 console.log(extramsg);	
+									 
+									 
+						hh=hash+"token1in_name"		;	txdetails2[hh]=tokenname1;
+					    hh=hash+"token1in_amount"	;	txdetails2[hh]=amounttoken1 ;
+					    hh=hash+"label"				;	txdetails2[hh]="airdrop";							
+ 					    hh=hash+"description"		;	txdetails2[hh]=extramsg;										
+										 	
+										 
+								}
+								
+							}			 
+	 
+					
+					 
+	 
+					}			
+				}
+
+
+				if (  tag=="ZilToTokenSwapInput")
+				{
+					objlength=Object.keys(txdetail.receipt.errors).length;
+					if (objlength!=0)  // if not error, means got error!
+					{
+						errmsg=txdetail.receipt.errors[0];	
+						 if (errmsg==null)
+						 	errmsg=txdetail.receipt.errors[1];	
+						 if (errmsg==null)
+							errmsg=txdetail.receipt.errors[2];					 
+						extramsg=errmsg;
+						hh=hash+"extra"; txdetails2[hh]=extramsg;	
+						
+					}
+					else
+					{
+					
+
+							numofevents=txdetail.receipt.event_logs.length;
+							console.log(numofevents);
+							extramsg=" ";
+							theothertokenamount=0;							
+					
+							for (i=0; i<numofevents; i++)
+							{
+								eventname=txdetail.receipt.event_logs[i]._eventname;
+								if (eventname=="TransferFromSuccess")
+								{					
+										numofparams=txdetail.receipt.event_logs[i].params.length;
+										for (j=0; j<numofparams; j++)
+										{
+ 
+												vname=txdetail.receipt.event_logs[i].params[j].vname;
+												if (vname=="amount")	
+												{
+													theothertokenamount=txdetail.receipt.event_logs[i].params[j].value;
+													 
+												}
+										}
+									
+										theothertokenaddress=txdetail.receipt.event_logs[i].address;
+										theothertokenaddress=await Zilliqa.toBech32Address(theothertokenaddress);
+										tokenname1="["+theothertokenaddress+"]";
+										amounttoken1=theothertokenamount;
+										
+										if (theothertokenaddress in tokenamebyaddress) 
+										{
+											tokenname1=tokenamebyaddress[theothertokenaddress];
+											amounttoken1=theothertokenamount/(10**tokendecimal[tokenname1]);
+											amounttoken1=amounttoken1.toFixed(3);
+										}
+										amountinzil=parseInt(amount)/(10**12);
+														 
+																		
+									extramsg= properdecimal( amountinzil) +" ZIL swapped for "+amounttoken1+ " "+tokenname1;
+									 console.log(extramsg);	
+										hh=hash+"extra"; txdetails2[hh]=extramsg;	
+										
+										
+						hh=hash+"token1in_name"		;	txdetails2[hh]=tokenname1;
+					    hh=hash+"token1in_amount"	;	txdetails2[hh]=amounttoken1 ;
+					    hh=hash+"token1out_name"		;	txdetails2[hh]="ZIL";
+					    hh=hash+"token1out_amount"	;	txdetails2[hh]=properdecimal( amountinzil); 
+					    //hh=hash+"label"				;	txdetails2[hh]="";							
+ 					    hh=hash+"description"		;	txdetails2[hh]=extramsg;										 	
+										 
+								}
+								
+							}			
+			 
+	 
+					
+					 
+	 
+					}			
+				}
+				
+				
+				
+				
+				
+				
+				
+
+				if (  tag=="TokenToZilSwapOutput")
+				{
+					objlength=Object.keys(txdetail.receipt.errors).length;
+					if (objlength!=0)  // if not error, means got error!
+					{
+						errmsg=txdetail.receipt.errors[0];	
+						 if (errmsg==null)
+						 	errmsg=txdetail.receipt.errors[1];	
+						 if (errmsg==null)
+							errmsg=txdetail.receipt.errors[2];					 
+						extramsg=errmsg;
+						hh=hash+"extra"; txdetails2[hh]=extramsg;	
+						
+					}
+					else
+					{
+					
+
+							numofevents=txdetail.receipt.event_logs.length;
+							console.log(numofevents);
+							extramsg=" ";
+							theothertokenamount=0;							
+					
+							for (i=0; i<numofevents; i++)
+							{
+								eventname=txdetail.receipt.event_logs[i]._eventname;
+								if (eventname=="TransferFromSuccess")
+								{					
+										numofparams=txdetail.receipt.event_logs[i].params.length;
+										for (j=0; j<numofparams; j++)
+										{
+ 
+												vname=txdetail.receipt.event_logs[i].params[j].vname;
+												if (vname=="amount")	
+												{
+													theothertokenamount=txdetail.receipt.event_logs[i].params[j].value;
+													 
+												}
+										}
+									
+										theothertokenaddress=txdetail.receipt.event_logs[i].address;
+										theothertokenaddress=await Zilliqa.toBech32Address(theothertokenaddress);
+										tokenname1="["+theothertokenaddress+"]";
+										amounttoken1=theothertokenamount;
+										
+										if (theothertokenaddress in tokenamebyaddress) 
+										{
+											tokenname1=tokenamebyaddress[theothertokenaddress];
+											amounttoken1=theothertokenamount/(10**tokendecimal[tokenname1]);
+											amounttoken1=properdecimal(amounttoken1);
+										}
+												
+/*
+										objtag=JSON.parse(txdetail.data);
+										numofparams=objtag.params.length;
+										for (j=0; j<numofparams; j++)
+										{
+										//theothertokenamount=txdetail.receipt.event_logs[1].params[2].value;
+										//theothertokenaddress=txdetail.receipt.event_logs[1].address;
+												vname=objtag.params[j].vname;
+												if (vname=="zil_bought")	
+												{
+													zilbought=objtag.params[j].value;
+													zilbought=zilbought/(10**12);
+													 
+												}
+										}	*/
+										
+										zilbought=internaltransfervalue;
+										 zilbought=zilbought/(10**12);
+
+												
+									extramsg= amounttoken1+ " "+tokenname1+ " swapped for "+properdecimal(zilbought)+ "ZIL";
+									hh=hash+"extra"; txdetails2[hh]=extramsg;	
+										
+						hh=hash+"token1in_name"		;	txdetails2[hh]="ZIL";
+					    hh=hash+"token1in_amount"	;	txdetails2[hh]=properdecimal(zilbought) ;
+					    hh=hash+"token1out_name"		;	txdetails2[hh]=tokenname1;
+					    hh=hash+"token1out_amount"	;	txdetails2[hh]=amounttoken1; 									 	
+					    //hh=hash+"label"				;	txdetails2[hh]="";							
+ 					    hh=hash+"description"		;	txdetails2[hh]=extramsg;										 
+								}
+								
+							}			
+	
+							 		
+			 
+	 
+					
+					 
+	 
+					}			
+				}				
+				
+				
+				
+				
+				 
+
+
+				if (  tag=="TokenToZilSwapInput")
+				{
+					objlength=Object.keys(txdetail.receipt.errors).length;
+					if (objlength!=0)  // if not error, means got error!
+					{
+						errmsg=txdetail.receipt.errors[0];	
+						 if (errmsg==null)
+						 	errmsg=txdetail.receipt.errors[1];	
+						 if (errmsg==null)
+							errmsg=txdetail.receipt.errors[2];					 
+						extramsg=errmsg;
+						hh=hash+"extra"; txdetails2[hh]=extramsg;	
+						
+					}
+					else
+					{
+					
+
+							numofevents=txdetail.receipt.event_logs.length;
+							console.log(numofevents);
+							extramsg=" ";
+							theothertokenamount=0;							
+					
+							for (i=0; i<numofevents; i++)
+							{
+								eventname=txdetail.receipt.event_logs[i]._eventname;
+								if (eventname=="TransferFromSuccess")
+								{					
+										numofparams=txdetail.receipt.event_logs[i].params.length;
+										for (j=0; j<numofparams; j++)
+										{
+ 
+												vname=txdetail.receipt.event_logs[i].params[j].vname;
+												if (vname=="amount")	
+												{
+													theothertokenamount=txdetail.receipt.event_logs[i].params[j].value;
+													 
+												}
+										}
+									
+										theothertokenaddress=txdetail.receipt.event_logs[i].address;
+										theothertokenaddress=await Zilliqa.toBech32Address(theothertokenaddress);
+										tokenname1="["+theothertokenaddress+"]";
+										amounttoken1=theothertokenamount;
+										
+										if (theothertokenaddress in tokenamebyaddress) 
+										{
+											tokenname1=tokenamebyaddress[theothertokenaddress];
+											amounttoken1=theothertokenamount/(10**tokendecimal[tokenname1]);
+											amounttoken1=properdecimal(amounttoken1);
+										}
+												
+
+										 zilbought=internaltransfervalue;
+										 zilbought=zilbought/(10**12);
+										 
+
+												
+									extramsg= amounttoken1+ " "+tokenname1+ " swapped for "+properdecimal(zilbought)+ "ZIL";
+									hh=hash+"extra"; txdetails2[hh]=extramsg;	
+									
+						hh=hash+"token1in_name"		;	txdetails2[hh]="ZIL";
+					    hh=hash+"token1in_amount"	;	txdetails2[hh]=properdecimal(zilbought) ;
+					    hh=hash+"token1out_name"		;	txdetails2[hh]=tokenname1;
+					    hh=hash+"token1out_amount"	;	txdetails2[hh]=amounttoken1; 										
+									
+					    //hh=hash+"label"				;	txdetails2[hh]="";							
+ 					    hh=hash+"description"		;	txdetails2[hh]=extramsg;									
+									
+										
+										 	
+										 
+								}
+								
+							}			
+	
+							 		
+			 
+	 
+					
+					 
+	 
+					}			
+				}				
+								
+				
+				
+				
+				
+
+				
+				console.log(txdetail);
+				//document.getElementById("walletgzilbalance").innerHTML=gnum+1;
+				//gnum++;
+				txdetails2[hash]=tag;
+				console.log(tag);
+				return tag;
+			
+			}	
+	
+	
+	
+	
+	
+	
+	
+
+}
+
+var tabledataindex=0;
+
+async function corefetching(responseText) {
+		     tx=JSON.parse( responseText);
+			 ///console.log(arr);
+			 //// tx.hash tx.blockHeight, tx.from, tx.to, tx.value, tx.fee, tx.timestamp, tx.signature, tx.direction, tx.nonce, tx.receiptSuccess, tx.data, tx.internalTransfers, tx.events, tx.transitions
+			 
+			 //tabledata=tx;
+			 gbeacon++;
+			 //document.getElementById("loadingmessage").innerHTML=gbeacon;
+			 
+			 
+			 console.log("Start corefetching!");
+			 numofrows=Object.keys(tx).length;
+			 console.log("Rows=", numofrows);
+			 for (i=0; i<numofrows; i++)
+			 {
+
+				datahash[dataindex]=tx[i].hash;
+				datahash[dataindex]=datahash[dataindex].substring(2);
+				datafrom[dataindex]=tx[i].from;
+				datato[dataindex]=tx[i].to;
+				datavalue[dataindex]=tx[i].value;
+				datafee[dataindex]=tx[i].fee;
+				datatimestamp[dataindex]=tx[i].timestamp;
+				datadirection[dataindex]=tx[i].direction;
+				datareceiptSuccess[dataindex]=tx[i].receiptSuccess;		
+				console.log(dataindex);
+
+				dataindex++;
+			  }
+			 
+			 
+			 
+			 for (i=0; i<numofrows; i++)
+			 {
+			 //// tx[i].hash, tx[i].from, tx[i].to, tx[i].value, 	 tx[i].fee, tx[i].timestamp, tx[i].direction,tx[i].receiptSuccess
+
+
+ 		 
+				//tabledata[tabledataindex]=tx[i];
+				//tabledataindex++;
+				hash=tx[i].hash;
+				
+				
+				
+				document.getElementById("walletgzilbalance").innerHTML=gnum+1;
+				
+				
+				
+				
+				internalTransfersvalue=-999;
+				gnum++;
+				gbeacon++;
+				//document.getElementById("loadingmessage").innerHTML=gbeacon;
+				internalTransfers=tx[i].internalTransfers;
+					if (isEmpty(internalTransfers))
+					{
+						//console.log("Empty");
+					}
+					else
+					{
+						console.log("internalTransfers", internalTransfers[0].value);
+						internalTransfersvalue=internalTransfers[0].value;
+						
+					}
+				
+				
+				tag=   gettxdetail(hash, tx[i].timestamp, tx[i].value,internalTransfersvalue , tx[i].direction); // dont put await here, if not all extra data is undefined.
+				//tag=  await gettxdetail(hash);
+				//console.log(tag);
+				//tx[i].method=tag;	
+				//txdetails2[i].method=tag;
+				
+				 sleep(250);
+			 }
+			 console.log("End corefetching");
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+async function gettxrecord(address, pageno)
+{ 
+		var request = new XMLHttpRequest();
+		
+		//0x1458bEa49aC4369e29c0a9FA48DBa6024Ac9079c
+        //  14456246cc53d31f0a2eb00fa0248f7aebd3fa89
+		//address="1458bEa49aC4369e29c0a9FA48DBa6024Ac9079c";
+		address=address.toLowerCase();
+ //https://api.viewblock.io/v1/zilliqa/addresses/14456246cc53d31f0a2eb00fa0248f7aebd3fa89/txs?page=3
+		url="https://api.viewblock.io/v1/zilliqa/addresses/"+address+"/txs"+"?page="+pageno;
+		
+		 request.open('GET', url, false);
+		// request.open('GET', url, true);
+		//request.setRequestHeader('X-APIKEY', 'cc3b0745f7e6f65f1e8a7c1d944c4e139b37b566af1e4cc7c9bf4faa8e68d237');
+		//request.setRequestHeader('X-APIKEY', '1629db47ee782298f569b30b817bf87ca679cfc2940e93e5c5c7fc8aa588e88b');		
+		
+		
+		apikey=[
+		'afd5fea17a8a0791d1a1a9cbccac23f110952333be3b677b92edd36a8c79b8b2',
+		'1629db47ee782298f569b30b817bf87ca679cfc2940e93e5c5c7fc8aa588e88b',
+		'cc3b0745f7e6f65f1e8a7c1d944c4e139b37b566af1e4cc7c9bf4faa8e68d237',
+		'19beea4ca022b6bbc8085a5ad2640ef78df02b2bf3513cda28eee0c3b357327b'
+		
+		];
+		
+		//console.log(getRandomInt(3));
+// expected output: 0, 1 or 2
+		randomkey=getRandomInt(4);
+		request.setRequestHeader('X-APIKEY', apikey[randomkey]);		
+		
+		
+		
+		gbeacon++;
+		//document.getElementById("loadingmessage").innerHTML=gbeacon;
+		
+		request.onreadystatechange = await async function () {
+		  if (this.readyState === 4) {
+	 
+				console.log("Await start corefetching");
+				
+				console.log(this.responseText);
+				
+				 
+				if (this.responseText.length<3)
+				{
+						console.log("EMPTY");
+						stoploading=1;
+						gbeacon++;
+						//document.getElementById("loadingmessage").innerHTML=gbeacon;
+						return 0;
+				}
+				else
+				{
+					  corefetching(this.responseText);
+			  
+					console.log("Await end corefetching");
+			 	 	//updatetable(); 
+					gbeacon++;
+					//document.getElementById("loadingmessage").innerHTML=gbeacon;
+					stoploading=0;					
+					return 1;
+				
+				}
+				
+
+ 
+		  }
+		  
+		  
+		  
+		};
+
+		request.send();
+
+}
+
+
+
+function addTableKoinly(tx, txdetails2) {
+     
+     
+			//numofrows=Object.keys(tx).length;
+			
+			numofrows=datahash.length;
+			console.log("addtable rows=",numofrows);
+	
+			 //// tx[0].hash tx[0].blockHeight, tx[0].from, tx[0].to, tx[0].value, tx[0].fee, tx[0].timestamp, tx.signature, tx.direction, tx.nonce, tx.receiptSuccess, tx.data, tx.internalTransfers, tx.events, tx.transitions
+
+			
+			
+var tbodyRef = document.getElementById('hiddentable').getElementsByTagName('tbody')[0];
+
+	
+	// tx[i].hash, tx[i].from, tx[i].to, tx[i].value, 	 tx[i].fee, tx[i].timestamp, tx[i].direction,tx[i].receiptSuccess
+
+	
+for (var i = 0; i < numofrows; i++){
+
+			//datahash[i]=datahash[i].substring(2); // remove the first 2 chars, 0x
+			var newRow = tbodyRef.insertRow();	
+			//console.log(tx[i].timestamp.toLocaleString('en-GB', { timeZone: 'UTC' }));
+			
+			
+			timezone=document.getElementById("timezone").value;
+			dateformat=document.getElementById("dateformat").value;
+ 
+				localestr="sv-SE";
+				
+
+/*
+
+	  <th>Date</th>  2018-01-01 14:25 UTC
+
+	  <th>Sent Amount</th>
+	  <th>Sent Currency</th>	  
+	  <th>Received Amount</th>	  
+	  <th>Received Currency</th>	  
+	  <th>Fee Amount</th>
+	  <th>Fee Currency</th>
+	  <th>Net Worth Amount</th>
+	  <th>Net Worth Currency</th>
+	  <th>Label</th> 
+	  <th>Description</th>
+	  <th>TxHash</th>  0x12345
+*/ 
+
+				
+				
+				///YYYY-MMM-DD HH:mm:ss
+			
+			var datestr = new Date(datatimestamp[i]).toLocaleString(localestr,{ timeZone: 'UTC'  });
+			
+			////date
+			datestr=datestr+ " UTC";
+			// First Column UTC date
+			var newCelll0 = newRow.insertCell();
+			var newText0 = document.createTextNode(datestr);
+			newCelll0.appendChild(newText0);		
+
+			
+			////send amount
+			hh=datahash[i]+"token1out_amount";			 
+			var newCell16 = newRow.insertCell();
+			var newText16 = document.createTextNode(txdetails2[hh]);
+			newCell16.appendChild(newText16);			
+			
+			////send currency
+			hh=datahash[i]+"token1out_name";			 
+			var newCell15 = newRow.insertCell();
+			var newText15 = document.createTextNode(txdetails2[hh]);
+			newCell15.appendChild(newText15);			
+			
+			////receive amount
+			hh=datahash[i]+"token1in_amount";			 
+			var newCell12 = newRow.insertCell();
+			var newText12 = document.createTextNode(txdetails2[hh]);
+			newCell12.appendChild(newText12);			
+			
+			///receive currency			
+			hh=datahash[i]+"token1in_name";			 
+			var newCell11 = newRow.insertCell();
+			var newText11 = document.createTextNode(txdetails2[hh]);
+			newCell11.appendChild(newText11);			
+	
+	
+		
+			////fee amount
+ 			var qa2=new Zilliqa.BN(datafee[i]);
+			valueinzil=Zilliqa.units.fromQa( qa2, Zilliqa.units.Units.Zil );		
+			//valueinzil=valueinzil.toFixed(3);
+			var newCell5 = newRow.insertCell();
+			var newText5 = document.createTextNode(valueinzil);
+			newCell5.appendChild(newText5);	 
+ 
+			///fee currency			 	 
+			var newCell11 = newRow.insertCell();
+			var newText11 = document.createTextNode("ZIL");
+			newCell11.appendChild(newText11); 
+ 
+
+			///networth amount	 	 
+			var newCell311 = newRow.insertCell();
+			var newText311 = document.createTextNode(" ");
+			newCell311.appendChild(newText311); 
+
+			////networth currency
+			var newCell411 = newRow.insertCell();
+			var newText411 = document.createTextNode(" ");
+			newCell411.appendChild(newText411); 
+ 	 
+			hh=datahash[i]+"label";
+			var newCell511 = newRow.insertCell();
+			var newText511 = document.createTextNode(txdetails2[hh]);
+			newCell511.appendChild(newText511); 
+			
+			////description
+			hh=datahash[i]+"description";
+			var newCell611 = newRow.insertCell();
+			var newText611 = document.createTextNode(txdetails2[hh]);
+			newCell611.appendChild(newText611); 			
+			
+			
+			
+			////datahash
+			var newCell = newRow.insertCell();
+			str="0x"+datahash[i];
+			var newText = document.createTextNode(str);
+			newCell.appendChild(newText);
+			
+			hh=datahash[i]+"token2in_amount";
+			value=txdetails2[hh];
+			
+			if (value.length>0)
+			{
+				 newRow = tbodyRef.insertRow();	
+				 datestr = new Date(datatimestamp[i]).toLocaleString(localestr,{ timeZone: 'UTC'  });
+			
+				////date
+				datestr=datestr+ " UTC";
+				// First Column UTC date
+				 newCell0 = newRow.insertCell();
+				 newText0 = document.createTextNode(datestr);
+				newCell0.appendChild(newText0);		
+
+				
+				////send amount
+				hh=datahash[i]+"token1out_amount";			 
+				 newCell16 = newRow.insertCell();
+				 newText16 = document.createTextNode("");
+				newCell16.appendChild(newText16);			
+				
+				////send currency
+				hh=datahash[i]+"token1out_name";			 
+				 newCell15 = newRow.insertCell();
+				  newText15 = document.createTextNode("");
+				newCell15.appendChild(newText15);			
+				
+				////receive amount
+				hh=datahash[i]+"token2in_amount";			 
+				  newCell12 = newRow.insertCell();
+				  newText12 = document.createTextNode(txdetails2[hh]);
+				newCell12.appendChild(newText12);			
+				
+				///receive currency			
+				hh=datahash[i]+"token2in_name";			 
+				  newCell11 = newRow.insertCell();
+				  newText11 = document.createTextNode(txdetails2[hh]);
+				newCell11.appendChild(newText11);			
+		
+		
+			
+				////fee amount
+				  qa2=new Zilliqa.BN(datafee[i]);
+				valueinzil=Zilliqa.units.fromQa( qa2, Zilliqa.units.Units.Zil );		
+				//valueinzil=valueinzil.toFixed(3);
+				  newCell5 = newRow.insertCell();
+				  newText5 = document.createTextNode("0");
+				newCell5.appendChild(newText5);	 
+	 
+				///fee currency			 	 
+				  newCell11 = newRow.insertCell();
+				  newText11 = document.createTextNode("ZIL");
+				newCell11.appendChild(newText11); 
+	 
+
+				///networth amount	 	 
+				  newCell311 = newRow.insertCell();
+				  newText311 = document.createTextNode(" ");
+				newCell311.appendChild(newText311); 
+
+				////networth currency
+				  newCell411 = newRow.insertCell();
+				  newText411 = document.createTextNode(" ");
+				newCell411.appendChild(newText411); 
+ 
+ 
+
+ 
+ 
+ 
+ 			hh=datahash[i]+"label";
+				  newCell511 = newRow.insertCell();
+				  newText511 = document.createTextNode(txdetails2[hh]);
+				newCell511.appendChild(newText511); 
+				
+				////description
+							hh=datahash[i]+"description";
+				  newCell611 = newRow.insertCell();
+				  newText611 = document.createTextNode(txdetails2[hh]);
+				newCell611.appendChild(newText611); 			
+				
+				
+				
+				////datahash
+				 newCell = newRow.insertCell();
+				str="0x"+datahash[i];
+				 newText = document.createTextNode(str);
+				newCell.appendChild(newText);
+
+ 			
+			}
+			
+			
+			hh=datahash[i]+"token2out_amount";
+			value=txdetails2[hh];
+			
+			if (value.length>0)
+			{
+				 newRow = tbodyRef.insertRow();	
+				 datestr = new Date(datatimestamp[i]).toLocaleString(localestr,{ timeZone: 'UTC'  });
+			
+				////date
+				datestr=datestr+ " UTC";
+				// First Column UTC date
+				 newCelll0 = newRow.insertCell();
+				 newText0 = document.createTextNode(datestr);
+				newCelll0.appendChild(newText0);		
+
+				
+				////send amount
+				hh=datahash[i]+"token2out_amount";			 
+				 newCell16 = newRow.insertCell();
+				 newText16 = document.createTextNode(txdetails2[hh]);
+				newCell16.appendChild(newText16);			
+				
+				////send currency
+				hh=datahash[i]+"token2out_name";			 
+				 newCell15 = newRow.insertCell();
+				  newText15 = document.createTextNode(txdetails2[hh]);
+				newCell15.appendChild(newText15);			
+				
+				////receive amount
+				hh=datahash[i]+"token2in_amount";			 
+				  newCell12 = newRow.insertCell();
+				  newText12 = document.createTextNode("");
+				newCell12.appendChild(newText12);			
+				
+				///receive currency			
+				hh=datahash[i]+"token2in_name";			 
+				  newCell11 = newRow.insertCell();
+				  newText11 = document.createTextNode("");
+				newCell11.appendChild(newText11);			
+		
+		
+			
+				////fee amount
+				  qa2=new Zilliqa.BN(datafee[i]);
+				valueinzil=Zilliqa.units.fromQa( qa2, Zilliqa.units.Units.Zil );		
+				//valueinzil=valueinzil.toFixed(3);
+				  newCelll5 = newRow.insertCell();
+				  newText5 = document.createTextNode("0");
+				newCelll5.appendChild(newText5);	 
+	 
+				///fee currency			 	 
+				  newCell11 = newRow.insertCell();
+				  newText11 = document.createTextNode("ZIL");
+				newCell11.appendChild(newText11); 
+	 
+
+				///networth amount	 	 
+				  newCell311 = newRow.insertCell();
+				  newText311 = document.createTextNode(" ");
+				newCell311.appendChild(newText311); 
+
+				////networth currency
+				  newCell411 = newRow.insertCell();
+				  newText411 = document.createTextNode(" ");
+				newCell411.appendChild(newText411); 
+		  
+ 
+			
+			
+			
+				 hh=datahash[i]+"label";
+				  newCell511 = newRow.insertCell();
+				  newText511 = document.createTextNode(txdetails2[hh]);
+				newCell511.appendChild(newText511); 
+				
+				////description
+				hh=datahash[i]+"description";
+				  newCell611 = newRow.insertCell();
+				  newText611 = document.createTextNode(txdetails2[hh]);
+				newCell611.appendChild(newText611); 			
+				
+				
+				
+				////datahash
+				 newCell = newRow.insertCell();
+				str="0x"+datahash[i];
+				 newText = document.createTextNode(str);
+				newCell.appendChild(newText);			
+
+
+
+
+			
+			
+			
+			}			
+		 
+/////////////////////////////////////////////////
+							 
+						
+		 		
+			
+/////////////////////////////////////////////////
+
+
+		 
+
+
+			
+			
+
+			
+			}
+			 		
+			
+			
+			
+    
+}
+
+ 
+function addTable(tx, txdetails2) {
+      
+     
+			//numofrows=Object.keys(tx).length;
+			
+			numofrows=datahash.length;
+			console.log("addtable rows=",numofrows);
+	
+			 //// tx[0].hash tx[0].blockHeight, tx[0].from, tx[0].to, tx[0].value, tx[0].fee, tx[0].timestamp, tx.signature, tx.direction, tx.nonce, tx.receiptSuccess, tx.data, tx.internalTransfers, tx.events, tx.transitions
+
+			
+			
+var tbodyRef = document.getElementById('myDynamicTable').getElementsByTagName('tbody')[0];
+
+	
+	// tx[i].hash, tx[i].from, tx[i].to, tx[i].value, 	 tx[i].fee, tx[i].timestamp, tx[i].direction,tx[i].receiptSuccess
+
+	
+for (var i = 0; i < numofrows; i++){
+
+			//datahash[i]=datahash[i].substring(2); // remove the first 2 chars, 0x
+			var newRow = tbodyRef.insertRow();	
+			//console.log(tx[i].timestamp.toLocaleString('en-GB', { timeZone: 'UTC' }));
+			
+			
+			timezone=document.getElementById("timezone").value;
+			dateformat=document.getElementById("dateformat").value;
+			
+			if (dateformat=="dd-mm-yyyy")
+				localestr="en-GB";
+			else if (dateformat=="mm-dd-yyyy")
+				localestr="en-US";
+		
+			else if (dateformat=="yyyy-mm-dd")
+				localestr="sv-SE";
+				
+				
+				
+				///YYYY-MMM-DD HH:mm:ss
+			
+			var datestr = new Date(datatimestamp[i]).toLocaleString(localestr,{ timeZone: 'UTC'  });
+			
+			
+			// First Column UTC date
+			var newCelll0 = newRow.insertCell();
+			var newText0 = document.createTextNode(datestr);
+			newCelll0.appendChild(newText0);		
+
+			// Second Column Locale date
+			var datestr1 = new Date(datatimestamp[i]).toLocaleString(localestr,{ timeZone: timezone });
+			var newCel20 = newRow.insertCell();
+			var newText20 = document.createTextNode(datestr1);
+			newCel20.appendChild(newText20);	
+
+			
+ 
+			
+			var newCell = newRow.insertCell();
+			hashstr="0x"+datahash[i]
+			var newText = document.createTextNode(hashstr);
+			newCell.appendChild(newText);
+	 			
+			var newCell2 = newRow.insertCell();
+			var newText2 = document.createTextNode(datafrom[i]);
+			newCell2.appendChild(newText2);				
+			 
+			var newCell3 = newRow.insertCell();
+			var newText3 = document.createTextNode(datato[i]);
+			newCell3.appendChild(newText3);	
+			
+			var newCell4 = newRow.insertCell();
+			
+			
+			var qa=new Zilliqa.BN( datavalue[i]);
+			
+			amountinzil2=datavalue[i]/(10**12);
+			amountinzil2=amountinzil2.toFixed(3);
+			
+			valueinzil=Zilliqa.units.fromQa( qa, Zilliqa.units.Units.Zil );
+			//var newText4 = document.createTextNode(valueinzil);
+			var newText4 = document.createTextNode(amountinzil2);
+			newCell4.appendChild(newText4);				
+			
+ 
+ 
+ 			var qa2=new Zilliqa.BN(datafee[i]);
+			valueinzil=Zilliqa.units.fromQa( qa2, Zilliqa.units.Units.Zil );
+			
+			
+			//valueinzil=valueinzil.toFixed(3);
+			var newCell5 = newRow.insertCell();
+			var newText5 = document.createTextNode(valueinzil);
+			newCell5.appendChild(newText5);	
+
+			var newCell6 = newRow.insertCell();
+			var newText6 = document.createTextNode(datatimestamp[i]);
+			newCell6.appendChild(newText6);	
+				
+			var newCell7 = newRow.insertCell();
+			var newText7 = document.createTextNode(datadirection[i]);
+			newCell7.appendChild(newText7);				
+
+			var newCell8 = newRow.insertCell();
+			var newText8 = document.createTextNode(datareceiptSuccess[i]);
+			newCell8.appendChild(newText8);	
+
+			var newCell9 = newRow.insertCell();
+			///////////////////////////////////////txdetails2[datahash[5]] 
+			var newText9 = document.createTextNode(txdetails2[datahash[i]]);
+			newCell9.appendChild(newText9);	
+
+			
+			hh=datahash[i]+"extra";
+			 
+			var newCell10 = newRow.insertCell();
+			var newText10 = document.createTextNode(txdetails2[hh]);
+			newCell10.appendChild(newText10);
+			
+/////////////////////////////////////////////////
+							 
+						
+			hh=datahash[i]+"token1in_name";			 
+			var newCell11 = newRow.insertCell();
+			var newText11 = document.createTextNode(txdetails2[hh]);
+			newCell11.appendChild(newText11);			
+			
+			hh=datahash[i]+"token1in_amount";			 
+			var newCell12 = newRow.insertCell();
+			var newText12 = document.createTextNode(txdetails2[hh]);
+			newCell12.appendChild(newText12);				
+			
+			
+			hh=datahash[i]+"token2in_name";			 
+			var newCell13 = newRow.insertCell();
+			var newText13 = document.createTextNode(txdetails2[hh]);
+			newCell13.appendChild(newText13);			
+			
+			hh=datahash[i]+"token2in_amount";			 
+			var newCell14 = newRow.insertCell();
+			var newText14 = document.createTextNode(txdetails2[hh]);
+			newCell14.appendChild(newText14);				
+			
+/////////////////////////////////////////////////
+
+
+			hh=datahash[i]+"token1out_name";			 
+			var newCell15 = newRow.insertCell();
+			var newText15 = document.createTextNode(txdetails2[hh]);
+			newCell15.appendChild(newText15);			
+			
+			hh=datahash[i]+"token1out_amount";			 
+			var newCell16 = newRow.insertCell();
+			var newText16 = document.createTextNode(txdetails2[hh]);
+			newCell16.appendChild(newText16);				
+			
+			
+			hh=datahash[i]+"token2out_name";			 
+			var newCell17 = newRow.insertCell();
+			var newText17 = document.createTextNode(txdetails2[hh]);
+			newCell17.appendChild(newText17);			
+			
+			hh=datahash[i]+"token2out_amount";			 
+			var newCell18 = newRow.insertCell();
+			var newText18 = document.createTextNode(txdetails2[hh]);
+			newCell18.appendChild(newText18);
+
+
+			
+			
+
+			
+			}
+			 		
+			
+			
+			
+    
+}
+
+async function loadpage(address)
+{
+			var pagenum=1;
+			var rtnvalue=1;
+			while (stoploading==0)
+			{
+			    console.log("Inside while loop!");
+				rtnvalue=await  gettxrecord(address, pagenum); 
+				pagenum++;
+				gbeacon++;
+				//document.getElementById("loadingmessage").innerHTML=gbeacon;
+				sleep(450);
+			}
+			
+
+}
+
+async function checkbalancenow()
+{
+		 decimalpoint=document.getElementById("decimalpoint").value; 
+		 decimalpoint=parseInt(decimalpoint);
+		rtnval=	await initzilliqa();
+		if (rtnval==0)
+			return;	 
+			
+			
+		 
+			
+
+  
+		var balance;
+		var address;
+ 		try {
+		
+			document.getElementById("walletzilbalance").innerHTML= '<i class="fas fa-spinner fa-spin fa-2x"></i>';
+			//document.getElementById("walletgzilbalance").innerHTML= '<i class="fas fa-spinner fa-spin fa-2x"></i>';		
+			
+			ziladdress=document.getElementById("ziladdress").value;
+			walletziladdress=ziladdress;
+			
+			try {
+			
+				 
+				 address=await Zilliqa.fromBech32Address(ziladdress);	
+				 document.getElementById("walletaddressbech32").innerHTML=ziladdress;
+				 document.getElementById("walletaddresserc20").innerHTML=address;
+				 						
+		
+			} catch(e) {	
+				document.getElementById("walletzilbalance").innerHTML= "";
+				document.getElementById("walletgzilbalance").innerHTML="";			
+				alert("Invalid ZIL Address!");	   
+				return;			   
+			} 			
+			
+			
+			
+			
+			
+		
+		    balance = await zilliqa.blockchain.getBalance(address);	
+			var qa=new Zilliqa.BN( balance.result.balance);
+			balanceinzil=Zilliqa.units.fromQa(  qa, Zilliqa.units.Units.Zil );
+			balanceinzil=parseFloat(balanceinzil);
+			document.getElementById("walletzilbalance").innerHTML=balanceinzil.toFixed(2)+" ZIL";	
+			//await gettxrecord(address).then(updatetable());
+			  ///gettxrecord(address);
+		//await  gettxrecord(address, 1); 
+		//await  gettxrecord(address, 2);	// will return [] if nothing	
+		await loadpage(address) ;
+		 
+
+		
+			
+
+		
+		} catch(e) {
+
+			document.getElementById("walletzilbalance").innerHTML= '';
+			document.getElementById("walletgzilbalance").innerHTML= '';		
+		
+		
+			if (e=="TypeError: Network request failed")
+			{
+				alert ("No internet error! Please connect to internet and refresh again!");
+				return;	
+			
+			}
+			else
+			{
+			//errmsg="This wallet has no balance!";
+			alert("here");
+				alert(e);	
+				//alert("This wallet has no balance!");
+				return;	
+			
+			}
+					   
+		}   
+		
+		
+		
+		///// Now get the gzil balance
+		
+		var gzilsmartcontractaddress="zil14pzuzq6v6pmmmrfjhczywguu0e97djepxt8g3e";
+		var gzildecimal=15;
+		
+		// need to convert bech32 address to erc20 address
+		var erc20gziladdress=await Zilliqa.fromBech32Address(gzilsmartcontractaddress);
+		
+		var strlong="ERC20 Gzil contract address="+erc20gziladdress;
+		//console.log(strlong);
+		
+		//smartcontractaddr="0x173Ca6770Aa56EB00511Dac8e6E13B3D7f16a5a5";
+		const smartContractState = await zilliqa.blockchain.getSmartContractState(erc20gziladdress);
+		//console.log(smartContractState.result); 
+		
+		
+		//sampleaddr="0x0a836fbe1318f7b74b8462adcd5a89f587f7e447";
+		// one of sample 0x0a836fbe1318f7b74b8462adcd5a89f587f7e447: "14798614386111"
+        //gzilbalance=smartContractState.result.balances"]["0x0a836fbe1318f7b74b8462adcd5a89f587f7e447"];
+		//console.log("jsonrpc="+smartContractState.jsonrpc);
+		//console.log(address);
+		
+		loweraddress=address.toLowerCase();
+		//console.log(loweraddress);
+		
+		if (loweraddress in smartContractState.result.balances) {
+			// console.log ("Yes, found it in the list");
+			
+			gzilbalance=getValueByKey(smartContractState.result.balances, loweraddress);
+			//console.log("gzil="+gzilbalance);
+			gzilbalance=gzilbalance/(10.0**gzildecimal);
+			
+			
+			
+			//gzilbalance=smartContractState.result.balances.[sampleaddr];
+			outstr="Gzil balance="+gzilbalance;
+			// console.log(outstr);
+			document.getElementById("walletgzilbalance").innerHTML=gzilbalance.toFixed(2)+" gZIL";
+			//await gettxrecord(address);
+		
+			
+			
+			document.getElementById("downloadbuttonkoinly").disabled = false;	
+			document.getElementById("downloadbutton").disabled = false;			
+		}
+		else
+		{
+			//console.log ("Not found!");
+			document.getElementById("walletgzilbalance").innerHTML= "0 gZIL";	
+			//await gettxrecord(address);
+			
+		 
+
+
+
+			document.getElementById("downloadbutton").disabled = false;	
+		}
+		//console.log("Test balance=");
+		//console.log(gzilbalance);
+		
+		/*
+		   "id": "1",
+			"jsonrpc": "2.0",
+			"result": {
+				"_balance": "0",
+				"admin": "0x2f604cbd408e2c8b7442b1b629a1288c44945130",
+				"allowances": {},
+				"balances": {
+					"0x05d087623bc636108d450e0550ddbfc03da99fa9": "10000000",
+					"0x0f8167a0cbffb8ab1d1919e31f83dc26c863d0f9": "24250000",
+					"0x18c241a5f0d6cf380f721618880f2c2b7aa5ea97": "9975750000",
+					"0x5abf71d798ca594b7317b04f52ad5a31fae62170": "10000000",
+					"0x8c3de413a9d8d602a1757210ab539853103e08d8": "250000000000",
+					"0x93eb1d0cb7ba3962fcc86cd28aa45b241c888277": "20000",
+					"0xab61c57a9a4b2742a4a325ecd9e77b5da67f663a": "980000",
+					"0xabe1e844c776e97beb619f3ca64faa2b3edc2840": "400000",
+					"0xc48565c853fe4ffa5d7eac33e255141134640ceb": "600000",
+					"0xf5f9e1ad8ea6439f625e12b8ef57e1e99ac2d383": "7000000"
+				},
+				"implementation": "0x3bd9ad6fee7bfdf5b5875828b555e4f702e427cd",
+				"total_supply": "260029000000"
+
+
+
+		*/
+		
+		// look for gzilbalance=result["balance"][address];
+		// setInterval(function(){ updatetable() }, 3000);
+		 mytimer=setInterval(updatetable, 4000); // dont set too early, 6s is good.
+ 
+}
+
+
+
+ 				
+  
+var lastbeacon=1111110; 
+ 
+ 
+ 
+function updatetable()
+{
+			if (gbeacon!=lastbeacon)
+			{
+				lastbeacon=gbeacon;
+				return;
+			
+			}
+			
+			
+			
+			var numofrows=datahash.length;
+			var test=txdetails2[datahash[numofrows-1]];
+			
+			if (typeof test === 'null')
+			{
+			
+			
+			}
+			else
+			{
+					
+					 addTable(tabledata, txdetails2);	
+					addTableKoinly(tabledata, txdetails2);	
+				 	    
+						var table=$('#myDynamicTable').DataTable();
+						
+						table.destroy();
+					
+					
+						$('#myDynamicTable').DataTable( {
+ 			  
+				  "lengthMenu": [[-1, 250, 500, -1], ["All", 250, 500, "All"]],
+				  "order": [[ 6, "desc" ]],
+					columnDefs: [
+						{
+							targets: 4,
+							className: 'dt-body-right'
+						},
+						{
+							targets: 5,
+							className: 'dt-body-right'
+						},	
+						{
+							targets: 7,
+							className: 'dt-body-right'
+						},					
+						{
+							targets: 8,
+							className: 'dt-body-right'
+						},	
+						 						
+					  ] 
+
+				  
+				} );		
+					
+				 
+			 
+					
+					
+					clearInterval(mytimer);
+					
+					sortdata();
+					//showLineChart();
+			}
+}			
+ 
+ 
+	var tokenamebyaddresserc20={
+     "0xa845c1034cd077bd8d32be0447239c7e4be6cb21":		"gZIL"			,
+     "0xf099f04d46eec01e6ffb5051cf9679109b123763":		"BARTER"		,  
+     "0x3684fd5536843794a94a45ae28f289b9a9eb1210":		"BOLT"			, 
+     "0xbf79e16872fad92c16810ddd2a7b9b6858c7b756":		"CARB"			, 
+     "0xed1d6bf2648342533e6e75019d6d5b3995b8910d":		"RedC"			, 
+     "0x12f6ca4ae90ccdc2d170293fc0faf2f4674b77d5":		"SERGS"				, 
+     "0xf2e1bf811317d26802b966f5356966da8df0d2f9":		"SHRK"			, 
+     "0x173ca6770aa56eb00511dac8e6e13b3d7f16a5a5":		"XSGD"			,
+     "0x195b880c9da927c34c5d14f8f7e757bc6c15f997":		"ZLF"				, 
+     "0xfbd07e692543d3064b9cf570b27faabfd7948da4":		"ZLP"				, 
+     "0xe8c72e230851c6e3a0a2307ba02538d3b360baca":		"ZYF"				,
+	 "0x3bd9ad6fee7bfdf5b5875828b555e4f702e427cd":		"XFER"			,
+	 "0x3a683fdc022b26d755c70e9ed7cfcc446658018b":      "PORT"	,
+	 "0xb8885c61b7e213fc4ee9b7ca486fd8374594a630":      "ZGLD",
+	 "0x8b25d75d18b0a235486fe73561dfaef62b93638a":      "KAVA",
+	 "0x05044f1abd0ea56b243146884de503a9d6bee441":      "HBN",
+	 "0x0d21c1901a06abee40d8177f95171c8c63abdc31":      "ZWAP",
+	 "0xe61839a9463c75a6082ea2fd0e6b24dfd5de605c":    "ZYRO",
+	 "0x0ab01f7ac27e9df36497ed430ebb33c6e8831d6b":    "KKZ",
+	 "0x9012ad6d2a9a1247ba0137c3ed6f7b003c04c48f":    "SOLZ"
+	};	 
+ 
+ 
+ 
+ 
+	var tokenamebyaddress={
+     "zil14pzuzq6v6pmmmrfjhczywguu0e97djepxt8g3e":		"gZIL"			,
+     "zil17zvlqn2xamqpumlm2pgul9nezzd3ydmrufxnct":		"BARTER"		,  
+     "zil1x6z064fkssmef222gkhz3u5fhx57kyssn7vlu0":		"BOLT"			, 
+     "zil1hau7z6rjltvjc95pphwj57umdpvv0d6kh2t8zk":		"CARB"			, 
+     "zil1a5wkhunysdp9x0nww5qe6m2m8x2m3ygdpuu257":		"RedC"			, 
+     "zil1ztmv5jhfpnxu95ts9ylup7hj73n5ka744jm4ea":		"SERGS"				, 
+     "zil17tsmlqgnzlfxsq4evm6n26txm2xlp5hele0kew":		"SHRK"			, 
+     "zil1zu72vac254htqpg3mtywdcfm84l3dfd9qzww8t":		"XSGD"			,
+     "zil1r9dcsrya4ynuxnzaznu00e6hh3kpt7vhvzgva0":		"ZLF"				, 
+     "zil1l0g8u6f9g0fsvjuu74ctyla2hltefrdyt7k5f4":		"ZLP"				, 
+     "zil1arrjugcg28rw8g9zxpa6qffc6wekpwk2alu7kj":		"ZYF"				,
+	 "zil180v66mlw007ltdv8tq5t240y7upwgf7djklmwh":		"XFER"			,
+	 "zil18f5rlhqz9vndw4w8p60d0n7vg3n9sqvta7n6t2":      "PORT"	,
+	 "zil1hzy9ccdhugflcnhfkl9ysm7cxazeff3s6s9ngx":      "ZGLD",
+	 "zil13vjawhgckz3r2jr0uu6krhaw7c4excu2h0ncsm":      "KAVA",
+	 "zil1q5zy7x4ap6jkkfp3g6yymegr48ttaezplamt3j":      "HBN",
+	 "zil1p5suryq6q647usxczale29cu3336hhp376c627":      "ZWAP",
+	 "zil1ucvrn22x8366vzpw5t7su6eyml2auczu6wnqqg":      "ZYRO",
+	 "zil1p2cp77kz06wlxeyha4psawencm5gx8ttcwsxdn":      "KKZ",
+	 "zil1jqf26mf2ngfy0wspxlp76mmmqq7qf3y0vep2tg":      "SOLZ"
+	};
+	
+var tokendecimal={
+    "gZIL": 15,
+	"ZGLD":6,
+    "BARTER":  2,
+    "BOLT":  18,
+    "CARB":  8,
+    "RedC":  2,
+    "SERGS":  5,
+    "SHRK":  6,
+     "XFER":  6,   
+    
+    "ZLF":  5,
+    "ZLP":  18,
+    "ZYF":  3,
+	"XSGD": 6,
+	"PORT": 4,
+	"KAVA": 6,
+	"HBN" : 6,
+	"ZWAP":12,
+	"ZYRO":8,
+	"KKZ":5,
+	"SOLZ":5
+	}	;
+ 
+ 
+ 
+function sortdata()
+{ 
+				
+				/*datahash[dataindex]=tx[i].hash;
+				datahash[dataindex]=datahash[dataindex].substring(2);
+				datafrom[dataindex]=tx[i].from;
+				datato[dataindex]=tx[i].to;
+				datavalue[dataindex]=tx[i].value;
+				datafee[dataindex]=tx[i].fee;
+				datatimestamp[dataindex]=tx[i].timestamp;
+				datadirection[dataindex]=tx[i].direction; // in or out
+				datareceiptSuccess[dataindex]=tx[i].receiptSuccess;		
+ */
+				numofrows=datahash.length;
+				numoftxin=0;
+				numoftxout=0;
+				amountzilin=0;
+				amountzilout=0;
+				totalfee=0;
+				
+				for (i=0; i<numofrows; i++)
+				{
+					if (datareceiptSuccess[i])
+					{
+						if (datadirection[i]=="in")
+						{
+							 
+							numoftxin++;
+						}
+						else if (datadirection[i]=="out")
+						{
+							numoftxout++;
+							 
+						}
+					}
+					totalfee+=datafee[i]/(10**12);				
+				}
+				
+				
+				
+				
+				
+				
+				
+				
+				
+			// to show a graph where value vs date sort by timestamp, so i need date, value and timestamp
+			
+   
+			 
+
+			//var timestamp=[1000,900,1200, 860];
+			//var amt=[264.33, 112.44, 566.19,1200.1];
+			
+
+			
+			 mergedatatimestamp=datatimestamp.concat(dataextratimestamp);
+			 mergedatadirection=datadirection.concat(dataextradirection);
+			 mergedatavalue=datavalue.concat(dataextravalue);
+			 mergedatareceiptSuccess=datareceiptSuccess.concat(dataextrareceiptSuccess);
+			 mergedatafee=datafee.concat(dataextrafee);
+			  
+
+			//1) combine the arrays:
+			var list = [];
+			for (var j = 0; j < mergedatatimestamp.length; j++) 
+				list.push({'timestamp': mergedatatimestamp[j], 'value': mergedatavalue[j], 'direction':mergedatadirection[j], 'receiptSuccess':mergedatareceiptSuccess[j], 'fee':mergedatafee[j]});
+
+			//2) sort:
+			list.sort(function(a, b) {
+				return ((a.timestamp < b.timestamp) ? -1 : ((a.timestamp == b.timestamp) ? 0 : 1));
+				//Sort could be modified to, for example, sort on the age 
+				// if the name is the same.
+			});
+
+			//3) separate them back out:
+			
+			curbalance=0;
+			highestzilbalance=0;
+			lowestzilbalance=10000000000;
+			for (var k = 0; k < list.length; k++) {
+				mergedatatimestamp[k] = list[k].timestamp;
+				mergedatavalue[k] = list[k].value;
+				mergedatadirection[k]=list[k].direction;
+				mergedatareceiptSuccess[k]=list[k].receiptSuccess;
+				mergedatafee[k]=list[k].fee;
+				
+				if (mergedatadirection[k]=="in")
+					curbalance+=mergedatavalue[k]/(10**12);
+				else
+					curbalance-=mergedatavalue[k]/(10**12);
+					
+				curbalance-=mergedatafee[k]/(10**12);	
+					
+				if (curbalance>highestzilbalance)
+					highestzilbalance=curbalance;
+					
+				if (curbalance<lowestzilbalance)
+					lowestzilbalance=curbalance;
+			}
+			
+			
+				for (i=0; i<mergedatatimestamp.length; i++)
+				{
+					if (mergedatareceiptSuccess[i])
+					{
+						if (mergedatadirection[i]=="in")
+						{
+							amountzilin+=mergedatavalue[i]/(10**12);
+							 
+						}
+						else if (mergedatadirection[i]=="out")
+						{
+							 
+							amountzilout+=mergedatavalue[i]/(10**12);
+						}
+					}
+					 	
+				} 
+			
+			document.getElementById("numoftxin").innerHTML= "Total TX in :"+numoftxin;	
+			document.getElementById("numoftxout").innerHTML= "Total TX out :"+numoftxout;				
+			//document.getElementById("amountzilin").innerHTML= "Total ZIL in :"+numberWithCommas(amountzilin.toFixed(3));				
+			//document.getElementById("amountzilout").innerHTML= "Total ZIL out :"+numberWithCommas(amountzilout.toFixed(3));	
+			document.getElementById("totalfeepaid").innerHTML= "Total Fee paid :"+numberWithCommas(totalfee.toFixed(3))    + " ZIL";
+			//document.getElementById("highestzilbalance").innerHTML= "Highest ZIL Balance:"+numberWithCommas(highestzilbalance.toFixed(3));	 + " ZIL";
+			//document.getElementById("lowestzilbalance").innerHTML= "Lowest ZIL Balance:"+ numberWithCommas(lowestzilbalance.toFixed(3)) + " ZIL";		
+								
+
+				/// numberWithCommas(amountzilin.toFixed(3))
+ 
+} 
+ 
+
+
+
+
+
+
+
+
+
+
+google.charts.load('current', { packages: ['line'] });
+google.charts.load('current', {'packages':['corechart']});
+
+google.charts.load('current', {'packages':['bar']});
+
+
+google.charts.load('visualization', { packages: ['corechart'] });
+
+
+function showLineChart(){
+
+
+		  var data = new google.visualization.DataTable();
+		  //data.addColumn('number', 'Id');
+		  data.addColumn('date', 'Date');
+		  data.addColumn('number', 'amount');
+		  
+		  
+		  
+		  
+		  
+		  
+		 
+		  
+		  
+		  balance=0;
+		  // load data
+		  for (var i = 0; i < mergedatatimestamp.length; i++) {
+			if (mergedatareceiptSuccess[i])
+			{
+					amountinzil2=mergedatavalue[i]/(10**12);
+					if (mergedatadirection[i]=="in") //add 
+						balance+=amountinzil2;
+					else 
+						balance-=amountinzil2;
+					balance-=mergedatafee[i]/(10**12);	
+					//new Date(value.Date)
+					
+					
+					//var datestr = new Date(datatimestamp[i]);
+				   console.log("Timestamp=",mergedatatimestamp[i], " direction=", mergedatadirection[i]," Amount=",amountinzil2," Balance=",balance);
+					var row = [new Date(datatimestamp[i]), balance];
+					data.addRow(row);
+			}
+		  }
+		  
+		  
+		  
+		  
+		  var options = {
+						title: 'ZIL Balance',
+						focusTarget: 'category',
+						legend: { position: 'bottom', textStyle: { color: '#555', fontSize: 11} },
+						hAxis: {
+						  format:"MM/dd/yy hh:mm",
+						  textStyle: {
+							fontSize: 9,
+							color: '#053061',
+							bold: true,
+							italic: false
+						  },
+						  titleTextStyle: {
+							fontSize: 11,
+							color: '#053061',
+							bold: true,
+							italic: false
+						  }
+						},
+						vAxis: {
+						   
+						  textStyle: {
+							fontSize: 9,
+							color: '#67001f',
+							bold: false,
+							italic: false
+						  },
+						  titleTextStyle: {
+							fontSize: 11,
+							color: '#67001f',
+							bold: true,
+							italic: false
+						  }
+						}
+					  };
+
+		  var chart = new  google.visualization.LineChart(document.getElementById('chart1'));
+		  chart.draw(data, options);
+
+}
+
+function drawLineChart() {
+        $.ajax({
+            url: "gettblwithdrawjson.php",  //url: "https://myzilliqawallet/getzilstat.php", not working, weird, when supply full url, it doesnt work!
+            dataType: "json",
+            type: "GET",
+            contentType: "application/json; charset=utf-8",
+            success: function (data) {
+               
+
+ 			var arrSales1= [];
+                $.each(data, function (index, value) {
+                    arrSales1.push([new Date(value.Date), value.inflow, value.outflow ]);
+                });
+     
+    var continuousData1 = new google.visualization.DataTable();
+    continuousData1.addColumn('date', 'Date');
+    continuousData1.addColumn('number', 'Inflow');
+    continuousData1.addColumn('number', 'Outflow');
+    //continuousData1.addColumn('number', 'Net Inflow'); 	
+    continuousData1.addRows(arrSales1);              
+			
+
+
+
+
+
+
+				  var options = {
+						title: 'ZIL Balance',
+						focusTarget: 'category',
+						legend: { position: 'bottom', textStyle: { color: '#555', fontSize: 11} },
+						hAxis: {
+						  format:"MM/dd/yy",
+						  textStyle: {
+							fontSize: 9,
+							color: '#053061',
+							bold: true,
+							italic: false
+						  },
+						  titleTextStyle: {
+							fontSize: 11,
+							color: '#053061',
+							bold: true,
+							italic: false
+						  }
+						},
+						vAxis: {
+						   
+						  textStyle: {
+							fontSize: 9,
+							color: '#67001f',
+							bold: false,
+							italic: false
+						  },
+						  titleTextStyle: {
+							fontSize: 11,
+							color: '#67001f',
+							bold: true,
+							italic: false
+						  }
+						}
+					  };
+
+					  var chart = new google.visualization.LineChart(document.getElementById('chart1'));
+					  chart.draw(continuousData1, options);
+
+
+
+
+
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	
+	  
+ 
+ 
+		//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+				
+				
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alert('Error');
+            }
+        });
+    }
+	
+
+
+
+
+
+function numberWithCommas(x) {
+    var parts = x.toString().split(".");
+    parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    return parts.join(".");
+}
+
+
+ function isEmpty(obj) {
+    return Object.keys(obj).length === 0;
+}
+
+ function getRandomInt(max) {
+  return Math.floor(Math.random() * Math.floor(max));
+}
+</script>
+</html>

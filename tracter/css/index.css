@@ -1,0 +1,75 @@
+.max-box{
+    max-width: 1240px;
+    padding: 0 20px;
+    margin: 0 auto;
+}
+.tracter-box{
+    min-width: 1200px;
+    background: linear-gradient(90deg, #021110 0%, #011118 100%);
+}
+.tracter-box .banner-box{
+    height: 800px;
+    background: url('../images/banner.png') no-repeat center #001019;
+    background-size: auto 100%;
+}
+.tracter-box .header-box{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 40px;
+    padding-bottom: 40px;
+}
+.tracter-box .header-box .hb-ogo img{
+    height: 52px;
+}
+.tracter-box ul{
+    display: flex;
+}
+.tracter-box ul img{
+    height: 40px;
+    margin-left: 30px;
+}
+.tracter-box .banner-box h2{
+    font-size: 54px;
+    color: #fff;
+    font-weight: bold;
+    margin-top: 120px;
+}
+.tracter-box .banner-box p{
+    font-size: 26px;
+    color: #fff;
+    width: 810px;
+}
+
+.tracter-box .content-box{
+    max-width: 1420px;
+    padding: 80px 20px;
+    margin: 0 auto;
+}
+.tracter-box .content-box .price-box{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    text-align: center;
+}
+.tracter-box .content-box .price-box .price-item{
+    width: 300px;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    padding: 32px 0;
+}
+.tracter-box .content-box .price-box .price-item img{
+    width: 80px;
+}
+.tracter-box .content-box .price-box .price-item p:first-of-type{
+    font-size: 20px;
+    color: #fff;
+    font-weight: bold;
+    margin: 20px 0 15px;
+}
+.tracter-box .content-box .price-box .price-item p{
+    font-size: 28px;
+    color: #18E8D9;
+    font-weight: bold;
+    margin: 0;
+}

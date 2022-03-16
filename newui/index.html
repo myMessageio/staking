@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>myMessage - light-grade & encrypted data storage</title>
+	<link rel="icon" type="image/png" sizes="32x32" href="images/favicon.png">
+	<link rel="stylesheet" href="css/dropzone.min.css">
+	<link rel="stylesheet" href="css/bootstrap.css">
+	<link rel="stylesheet" href="css/main.css">
+	<script src="./js/jquery-3.3.1.min.js"></script>
+	<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
+	<script>window.jQuery || document.write('<script src="js/jquery-3.3.1.min.js" defer><\/script>')</script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous" defer></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous" defer></script>
+	<script src="js/dropzone.min.js" defer></script>
+	<script src="js/dropzone.js" defer></script>
+	<script src="js/jquery.main.js" defer></script>
+	<script src="js/aes.js" defer></script>
+	<body onload="init()"></body>
+</head>
+<body>
+	<div id="wrapper">
+		<div class="wrapper-holder">
+			<header class="header">
+				<div class="container">
+					<div class="header-holder">
+						<strong class="logo">
+							<a href="/"><img src="images/logo.svg" alt="My Message"></a>
+						</strong>
+						<nav class="navbar navbar-expand-lg navbar-light">
+							<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation-collapse" aria-controls="navigation-collapse" aria-expanded="false" aria-label="Toggle navigation">
+								<span class="navbar-toggler-icon"></span>
+							</button>
+							<div class="collapse navbar-collapse" id="navigation-collapse">
+								<div class="nav-area">
+									<ul class="navbar-nav">
+										<li class="nav-item">
+											<a class="nav-link" href="/">Home</a>
+										</li>
+										<li class="nav-item active">
+											<a class="nav-link" href="/newui">Send Message</a>
+										</li>
+										<li class="nav-item">
+											<a class="nav-link" href="/newui/read-message.html">Read Message</a>
+										</li>
+										<!-- <li class="nav-item">
+											<a class="nav-link" href="#">Message Viewer</a>
+										</li> -->
+										<li class="nav-item">
+											<a class="nav-link" href="/newui/search-message.html">Search</a>
+										</li>
+									</ul>
+									<div class="header-select">
+										<a href="#" class="select-opener">
+											<span class="select-opener-text">
+												<span class="select-image">
+													<img src="images/zilliqa.svg" width="15" height="21" alt="zilliqa">
+												</span>
+												<span class="select-text">Zilliqa</span>
+											</span>
+										</a>
+										<div class="header-select-dropdown">
+											<ul class="select-dropdown-list list-unstyled">
+												<li>
+													<a href="#" class="select-dropdown-link">
+														<span class="select-opener-text">
+															<span class="select-image">
+																<img src="images/binance.svg" width="20" height="20" alt="Binance">
+															</span>
+															<span class="select-text">Binance Smart Chain</span>
+														</span>
+													</a>
+												</li>
+												<li>
+													<a href="#" class="select-dropdown-link">
+														<span class="select-opener-text">
+															<span class="select-image">
+																<img src="images/avax.svg" width="20" height="20" alt="Avalanche">
+															</span>
+															<span class="select-text">Avalanche</span>
+														</span>
+													</a>
+												</li>
+												<li class="active">
+													<a href="#" class="select-dropdown-link">
+														<span class="select-opener-text">
+															<span class="select-image">
+																<img src="images/zilliqa.svg" width="15" height="21" alt="zilliqa">
+															</span>
+															<span class="select-text">Zilliqa</span>
+														</span>
+													</a>
+												</li>
+											</ul>
+										</div>
+									</div>
+									<span class="btn-wrap">
+										<a href="#" class="btn btn-outline-primary">
+											<span class="btn-text">disconnect</span>
+										</a>
+									</span>
+								</div>
+							</div>
+						</nav>
+					</div>
+				</div>
+			</header>
+			<main class="main">
+				<div class="message-info-section">
+					<div class="container">
+						<div class="heading-area">
+							<h1 class="h4">Send message</h1>
+							<p>Send a message permanent and immutable to the blockchain. View your message sent via our explorer or other Zilliqa explorer. </p>
+						</div>
+						<div class="row message-info-row">
+							<div class="col-12 col-lg-6">
+								<div class="col-block">
+									<div class="block-widget">
+										<div class="block-heading">
+											<h2>Encryption Settings using AES256</h2>
+											<p>Add an optional encryption. You’ll be required to enter your password to view the message content.</p>
+										</div>
+										<div class="toggle-checkbox-area">
+											<label class="toggle-checkbox-label">
+												<input type="checkbox" id="encryptmessage" checked>
+												<span class="checkbox-text-wrap">
+													<span class="toggle-checkbox"></span>
+													<span class="checkbox-text">Encrypt Message</span>
+												</span>
+											</label>
+										</div>
+										<div class="form-group secretkey">
+											<input type="password" class="form-control" id="secretkey" placeholder="Enter password">
+										</div>
+										<div class="form-group secretkey">
+											<input type="password" class="form-control" id="secretkey-retype" placeholder="Retype password">
+										</div>
+									</div>
+									<div class="block-widget">
+										<div class="block-heading">
+											<h2>Add optional files</h2>
+										</div>
+										<div class="file-field-area">
+											<div class="dropzone needsclick" id="file-upload">
+												<div class="dz-message needsclick">
+													<div class="file-field">
+														<span class="file-text">Choose another file</span>
+														<span class="file-btn">Browse</span>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="file-check-area">
+											<div class="checkbox-area">
+												<label class="checkbox-label">
+													<input type="checkbox" id="encryptfile">
+													<span class="checkbox-text"><i class="icon"></i> Encrypt file(s)</span>
+												</label>
+											</div>
+											<div id="file-name-holder" class="file-name-holder"></div>
+										</div>
+									</div>
+									<div class="block-widget">
+										<div class="toggle-checkbox-area">
+											<label class="toggle-checkbox-label">
+												<input type="checkbox" id="email-checkbox" checked>
+												<span class="checkbox-text-wrap">
+													<span class="toggle-checkbox"></span>
+													<span class="checkbox-text">Send a copy to an email address</span>
+												</span>
+											</label>
+										</div>
+										<div class="form-group email-form">
+											<input class="form-control" id="email" placeholder="Enter email">
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-12 col-lg-6">
+								<div class="col-block style01">
+									<div class="block-widget">
+										<div class="block-heading">
+											<h2>Add hash tags</h2>
+											<p>You can use this to find your encrypted message in the future. Seperate them with a comma.</p>
+										</div>
+										<div class="form-group mb-0">
+											<input type="text" class="form-control" id="optionalheader" placeholder="eg. #fashion, #beautiful, #patent">
+											<span class="note">Seperate hash tags by using the comma. </span>
+										</div>
+									</div>
+									<div class="block-widget">
+										<div class="block-heading">
+											<h2>Your Message</h2>
+										</div>
+										<div class="form-group">
+											<div class="select-holder">
+												<span class="select-label">Font : </span>
+												<select id="size">
+													<option>12px</option>
+													<option>14px</option>
+													<option>16px</option>
+													<option>18px</option>
+													<option>20px</option>
+												</select>
+											</div>
+										</div>
+										<div class="form-group">
+											<textarea id="comment" class="form-control" placeholder="Write your message here"></textarea>
+											<span class="note" style="display: none;" id="estimatedgas">Pay less than $0.1 for 1 kByte of message up to $5 for 60 kBytes.</span>
+										</div>
+										<!-- <span class="file-size">File Size:  23kbps.</span> -->
+									</div>
+								</div>
+								<div class="btn-holder">
+									<a href="#" class="btn btn-primary" onclick="sendmsgnow()">confirm message</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</main>
+		</div>
+	</div>
+	<!-- Confirmation Modal -->
+	<div class="modal fade" id="confirm-modal" tabindex="-1" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header d-block">
+					<strong class="modal-title d-block">Confirm</strong>
+					<p>Are you sure you want to send your message permenently to the blockchain. It will cost an estimated gas fee of <span id="confirm-zil">3.3512</span> ZIL.</p>
+				</div>
+				<div class="modal-body">
+					<div class="modal-message-block">
+						<ul class="info-message-list list-unstyled">
+							<li>
+								<span class="title">Message:</span>
+								<span class="text" id="confirm-message">Encrypted</span>
+							</li>
+							<li>
+								<span class="title">File Attachment:</span>
+								<span class="text" id="confirm-attachment">Not encrypted</span>
+							</li>
+							<li>
+								<span class="title">Total Size</span>
+								<span class="text" id="confirm-size">3413 Bytes</span>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<ul class="btns-list list-unstyled">
+						<li>
+							<a href="#" class="btn btn-outline-danger" data-dismiss="modal">BACK</a>
+						</li>
+						<li>
+							<a href="#" class="btn btn-primary" onclick="sendtoBlockchain(totalmsg, flagdigit2, flagdigit3)">Confirm</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Confirmation Waiting Modal -->
+	<div class="modal fade" id="waiting-confirm-modal" tabindex="-1" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header d-block">
+					<strong class="modal-title d-block">Waiting for confirmation</strong>
+					<p>Submitting a message to the blockchain</p>
+				</div>
+				<div class="modal-body">
+					<div class="confirm-image">
+						<img src="images/spiner-image.svg" alt="image-description">
+					</div>
+					<span class="confirm-text">Confirm this transaction in your wallet</span>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Transaction Submit Modal -->
+	<div class="modal fade submit-confirm-modal" id="submit-t-confirm-modal" tabindex="-1" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header d-block">
+					<strong class="modal-title d-block">Transaction submitted!</strong>
+					<p>Your transaction has been submitted to the blockchain and once confirmed will be permantly stored. Congrats! </p>
+				</div>
+				<div class="modal-body">
+					<div class="t-submit-image">
+						<img src="images/submit-arrow.png" alt="image-description">
+					</div>
+				</div>
+				<div class="modal-footer">
+					<ul class="btns-list list-unstyled">
+						<li>
+							<a href="#" class="btn btn-primary">NEXT</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Transaction Confirmation Modal -->
+	<div class="modal fade submit-confirm-modal" id="submit-confirm-modal" tabindex="-1" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header d-block">
+					<strong class="modal-title d-block">Transaction confirmed!</strong>
+					<p>Your transaction has been submitted to the blockchain.</p>
+				</div>
+				<div class="modal-body">
+					<div class="submit-image">
+						<img src="images/submit.svg" alt="image-description">
+					</div>
+				</div>
+				<div class="modal-footer">
+					<ul class="btns-list list-unstyled">
+						<li>
+							<a href="#" class="btn btn-primary">SHOW MESSAGE ID</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Message ID Modal -->
+	<div class="modal fade message-id-modal" id="message-id-modal" tabindex="-1" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header d-block">
+					<strong class="modal-title d-block">Your Message ID</strong>
+					<p>This is your ID/TXID. It is one of the ways you can retreive your message in the future.</p>
+					<p id="id-id" style="color: #00ade0;word-wrap: break-word;"></p>
+					<a id="readMessage" href="" target="_blank" rel="noopener noreferrer" style="color: #00ade0;display: block;">myMessage Read Message</a>
+					<a id="viewBlockExplorer" href="" target="_blank" rel="noopener noreferrer" style="color: #00ade0;display: block;">ViewBlock Explorer</a>
+				</div>
+				<div class="modal-body">
+					<div class="modal-message-block">
+						<ul class="info-message-list list-unstyled">
+							<li>
+								<span class="title">Message:</span>
+								<span class="text" id="confirm-message2">Encrypted</span>
+							</li>
+							<li>
+								<span class="title">File Attachment:</span>
+								<span class="text" id="confirm-attachment2">Not encrypted</span>
+							</li>
+							<li>
+								<span class="title">Total Size</span>
+								<span class="text" id="confirm-size2">3413 Bytes</span>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<ul class="btns-list list-unstyled">
+						<li>
+							<a href="#" id="downloadtxt" class="btn btn-download">DOWNLOAD as .TXT</a>
+						</li>
+						<li>
+							<a href="#" class="btn btn-primary" data-dismiss="modal">CLOSE</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script>
+		let charges = 0.5;
+		let files;
+		let totalmsg = "";
+		let flagdigit1 = 0;
+		let flagdigit2 = 0;
+		let flagdigit3 = 0;
+		async function init() {
+			await window.zilPay.wallet.connect();
+			//const status = await connect();
+			//status === window.zilPay.wallet.isConnect;
+			Zilliqa = window.zilPay;
+			//zilliqa = new Zilliqa.Zilliqa('https://dev-api.zilliqa.com');
+			//sendtoBlockchain("wtestnewcontract1",8);
+		}
+
+		function openDownloadDialog (url, fileName) {
+			if (typeof url === 'object' && url instanceof Blob) {
+				url = URL.createObjectURL(url); // 创建blob地址
+			}
+			const aLink = document.createElement('a');
+			aLink.href = url;
+			aLink.download = fileName;
+			aLink.click();
+		};
+		function downloadTxt (content, fileName) {
+			var blob = new Blob(['\ufeff' + content], {type: 'text/txt,charset=UTF-8'});
+ 			openDownloadDialog(blob, fileName)
+		}
+		async function sendmsgnow () {
+			let encryptedchecked = $('#encryptmessage')[0].checked;
+			let multilinemsg = $("#comment").val();
+			let msgtosend;
+			let originalText;
+			// let flagdigit1 = 0;
+			// let flagdigit2 = 0;
+			// let flagdigit3 = 0;
+			let secretkey;
+			if (encryptedchecked) {
+				secretkey = $("#secretkey").val();
+				let secretkeyRetype = $("#secretkey-retype").val();
+				if (secretkey.length < 6) {
+					alert("Your secretkey length is too short!");
+					return;
+				} else if (secretkey !== secretkeyRetype) {
+					alert("密码不一致!");
+					return;
+				}
+
+				let encryptedmsg = CryptoJS.AES.encrypt(multilinemsg, secretkey);  
+				msgtosend = encryptedmsg.toString();
+				let bytes  = CryptoJS.AES.decrypt(encryptedmsg.toString(), secretkey);
+				originalText = bytes.toString(CryptoJS.enc.Utf8);
+				flagdigit2 = 2;
+			} else {
+				msgtosend = multilinemsg;
+				flagdigit2 = 1;
+			}
+			
+			// if optionalheader has text, need to add a seperator _END_#OF#_HEADER_
+			let endofheader="\r\n@@-----@@\r\n";
+			
+			let fileheaderheader = "\r\n@@-@@@-@@\r\n";
+			// let totalmsg = "";
+			let header = $("#optionalheader").val();
+			if (header.length > 0) {
+				totalmsg = header + endofheader + msgtosend;
+				flagdigit1 = 1;
+			} else {
+				totalmsg = msgtosend;
+			}
+
+			if (files) {
+				let encryptedfilecheckbox = $("#encryptfile")[0].checked;
+				flagdigit3 = 1;
+				let file = files;
+				
+				let gfilename = file.name;
+				var reader = new FileReader();
+				await reader.readAsDataURL(file);
+				reader.onload = async function () {
+					let filecontent = "";
+					// Need to encrypt if encryption selected
+					if (encryptedfilecheckbox) {
+							flagdigit3 = 2;
+							
+							let txtmsg = gfilename + reader.result;
+							
+							let encryptedfile = CryptoJS.AES.encrypt(txtmsg, secretkey);  
+							let encryptedfilecontent = encryptedfile.toString();				
+							filecontent = encryptedfilecontent;
+					
+					} else {
+						filecontent = gfilename + reader.result;
+					}
+					let flagstr = "##"+flagdigit1.toString()+flagdigit2.toString()+flagdigit3.toString()+"#";
+					let s = rtnchecksum(flagstr);
+					console.log(s);
+					flagstr = flagstr + s;
+					console.log("flagstr=",flagstr);
+
+					totalmsg = flagstr+totalmsg+fileheaderheader+filecontent;
+
+					let estimatedgasfee = 0.75*totalmsg.length/1000.0+0.9989+charges;
+				}
+			} else {
+				flagdigit3 = 0
+				flagstr = "##" + flagdigit1.toString() + flagdigit2.toString() + flagdigit3.toString() + "#";
+				s = rtnchecksum(flagstr);
+				flagstr = flagstr + s;
+
+				totalmsg = flagstr + totalmsg;
+				estimatedgasfee = 0.75 * totalmsg.length / 1000.0 + 0.9989 + charges;
+			}
+
+			$('#confirm-zil').text(estimatedgasfee);
+			$('#confirm-size').text(`${totalmsg.length} Bytes`);
+			
+			if (flagdigit3==1 && flagdigit2==1) {
+				$('#confirm-message').text('non encrypted');
+				$('#confirm-attachment').text('non encrypted');
+				$('#confirm-message2').text('non encrypted');
+				$('#confirm-attachment2').text('non encrypted');
+			} else if (flagdigit3==2 && flagdigit2==2) {
+				$('#confirm-message').text('encrypted');
+				$('#confirm-attachment').text('encrypted');
+				$('#confirm-message2').text('encrypted');
+				$('#confirm-attachment2').text('encrypted');
+			} else if (flagdigit3==1 && flagdigit2==2) {
+				$('#confirm-message').text('encrypted');
+				$('#confirm-attachment').text('non encrypted');
+				$('#confirm-message2').text('encrypted');
+				$('#confirm-attachment2').text('non encrypted');
+			} else if (flagdigit3==2 && flagdigit2==1) {
+				$('#confirm-message').text('non encrypted');
+				$('#confirm-attachment').text('encrypted');
+				$('#confirm-message2').text('non encrypted');
+				$('#confirm-attachment2').text('encrypted');
+			} else if (flagdigit3==0 && flagdigit2==1) {
+				$('#confirm-message').text('non encrypted');
+				$('#confirm-attachment').text('none');
+				$('#confirm-message2').text('non encrypted');
+				$('#confirm-attachment2').text('none');
+			}
+			$("#confirm-modal").modal({
+				show: true,
+				backdrop: "static"
+			})
+
+			let email = $("#email").val();
+			console.log('---email.val()---', email)
+		}
+		$(document).ready(() => {
+			$("#size")[0].value = '16px';
+
+			$("#encryptmessage").click((e) => {
+				if (e.target.checked) {
+					$('.secretkey').show()
+				} else {
+					$('.secretkey').hide()
+				}
+			})
+			$("#email-checkbox").click((e) => {
+				if (e.target.checked) {
+					$('.email-form').show()
+				} else {
+					$('.email-form').hide()
+				}
+			})
+			$("#size").change((e) => {
+				$('#comment')[0].style.fontSize = e.target.value
+			})
+			$("#comment").on('input', (e) => {
+				let comment = e.target.value;
+				let estimatedgasfee = 0.75 * comment.length / 1000.0 + 0.9989 + charges;
+				let sizeinkbyte = comment.length / 1000.0;
+				let msg = `Estimated gas fee=${estimatedgasfee.toFixed(3)} ZIL &#9 &#9 &#9 ${sizeinkbyte.toFixed(2)} kByte`;
+				document.getElementById("estimatedgas").innerHTML = msg;
+				if (comment) {
+					$('#estimatedgas').show()
+				} else {
+					$('#estimatedgas').hide()
+				}
+			})
+			$('#downloadtxt').click(() => {
+				downloadTxt(downloadStr, 'jjj.txt')
+			})
+		})
+		function setFile (file) {
+			files = file;
+		}
+		function rtnchecksum(str) {
+			var n=str.length;
+			var sum=0;
+			
+			for (i=0; i<n; i++)
+			{
+				sum+=str.charCodeAt(i);	
+			}
+			csum = sum % 100;
+			return csum;
+		}
+		function displayConfirm(msgtosend, txid, encryption, attachment) {
+			let url1 = "/oldui/readmessage.php?txid=" + txid;
+			document.getElementById('readMessage').href = url1;
+			let url2 = "https://viewblock.io/zilliqa/tx/0x"+txid+"?network=testnet";
+			document.getElementById('viewBlockExplorer').href = url2;
+
+			timestampstr = Math.floor(Date.now() / 1000);
+			// success? ok great, let's store the message at our server
+			updatemessage(txid, msgtosend, timestampstr, encryption, attachment);
+
+			emailstr = $("#email").val();
+			if (emailstr.length > 0) {
+				if (validateEmail(emailstr)) {
+					emailmessage(emailstr, txid,  timestampstr*1000 );
+				}
+			}
+
+			downloadStr = `
+Date: ${new Date()}
+Timestamp: ${timestampstr}
+TXID: ${txid}
+Message: ${$('#comment').val()}
+Message Encrypted: ${$('#encryptmessage')[0].checked ? 'Y' : 'N'}
+File Attachment Name: ${$('#confirm-attachment2').text()}
+File Encrypted: ${$("#encryptfile")[0].checked ? 'Y' : 'N'}
+Link to your message: 
+1) myMessage ReadMessage: ${location.origin}${$('#readMessage').attr('href')}
+2) Viewblock Explorer: ${$('#viewBlockExplorer').attr('href')}`
+		}
+		function updatemessage(txidstr, messagestr, timestampstr, encryption, attachment) {
+  
+			defaultacct = window.zilPay.wallet.defaultAccount;
+			zilsenderaddress = defaultacct.bech32;
+
+			var param = encodeURIComponent(messagestr); 
+			console.log(zilsenderaddress);
+			
+			var datareceive = $.ajax({
+				traditional: true,
+				url: "insertmessage2.php",
+				type: 'POST',					  
+				data: { 'txid': txidstr, 'message' : param, 'timestamp':timestampstr, 'sender':zilsenderaddress ,'encryption':encryption, 'attachment': attachment},					  
+				async: false
+			}).responseText;
+				
+				console.log(param);
+				console.log(txidstr);
+				console.log(timestampstr);
+				
+				//document.getElementById("tablechart").innerHTML = jsonData;
+				
+				// document.getElementById("insert").innerHTML=datareceive;
+
+		} 
+		function validateEmail(email) {
+			var re = /\S+@\S+\.\S+/;
+			return re.test(email);
+		}
+		function emailmessage(emailstr, txidstr,  timestamp ) {
+  
+			defaultacct = window.zilPay.wallet.defaultAccount;
+			zilsenderaddress = defaultacct.bech32;	
+			
+			//timestamp= timestamp/1000;
+			
+			localestr="sv-SE";				
+			var datestr = new Date(timestamp).toLocaleString(localestr,{ timeZone: 'UTC'  });
+			
+			datestr=datestr+" UTC";
+
+			//var datestr = new Date(timestamp).toLocaleDateString("en-US");			
+			
+			var datareceive = $.ajax({
+				url: "sendemail.php",
+				type: 'POST',					  
+				data: { 't': txidstr,  'd':datestr, 's':zilsenderaddress ,'e':emailstr},					  
+				async: true
+			}).responseText;
+		}  
+		async function sendtoBlockchain(msgtosend, encryption, attachment) {
+			console.log(msgtosend, encryption, attachment)
+			$('#confirm-modal').modal('hide')
+			$('#waiting-confirm-modal').modal({
+				show: true,
+				backdrop: "static"
+			});
+			try {
+			
+				if (encryption==2) 
+					encryption=1;
+				else
+					encryption=0;
+					
+				if (attachment==2) 
+					attachment=1;
+				else
+					attachment=0;		
+			
+				const myGasPrice = Zilliqa.utils.units.toQa('3000', Zilliqa.utils.units.Units.Li);
+				//const myGasPrice = Zilliqa.units.toQa('3000', Zilliqa.units.Units.Li);
+				
+				//   deployedContract = Zilliqa.contracts.at(
+				//      'zil1644y20t8ksj5zm73krgasrw4dnhew020ld0q4y', // old contract free
+				//   );
+
+				deployedContract = Zilliqa.contracts.at(
+					'zil1ntg0l50jgan44aex5udx0luyfttpc6dgr7rtf9', // new contract for MyMessage.scilla on testnet need to pay fee
+				);
+
+				const newMsg = msgtosend;
+				console.log('deployedContract', deployedContract)
+				callTx = await deployedContract.call(
+					'SetMessage',
+					[
+						{
+							vname: 'msg',
+							type: 'String',
+							value: newMsg,
+						},
+					],
+					{
+						// amount, gasPrice and gasLimit must be explicitly provided
+						version: Zilliqa.VERSION,
+						amount: new Zilliqa.utils.BN(500000000000),  //        amount: new Zilliqa.utils.BN(2500000000000),
+						gasPrice: myGasPrice,
+						gasLimit: Zilliqa.utils.Long.fromNumber(80000)  // max at 80000, more than 80000 it will return error
+						//nonce: noncetouse,
+						
+					},
+					false,
+				);
+
+				$('#waiting-confirm-modal').modal('hide');
+				$('#submit-t-confirm-modal').modal({
+					show: true,
+					backdrop: 'static'
+				})
+				console.log('callTx.ID', callTx.ID);
+
+				var waitforconfirm=true;
+				// waitforconfirm=false;
+				if (waitforconfirm)
+				{
+						const block = window
+							.zilPay
+							.wallet
+							.observableTransaction(
+								// this args add to tranasctionQueue.
+								callTx.ID
+							)
+							.subscribe( hashs =>
+								{
+									$('#id-id').text(callTx.ID);
+									$('#submit-t-confirm-modal').modal('hide');
+									$('#message-id-modal').modal({
+										show: true,
+										backdrop: 'static'
+									})
+									console.log("Confirmed!", callTx.ID);
+									block.unsubscribe();
+									displayConfirm(msgtosend, callTx.ID, encryption, attachment);
+								}
+							);
+							
+							// If the tranasction has been mined and confirmed, then this method
+							// emit the hash tx.
+
+						// this method is adding to transactionQueue hashs for observable.
+						// This method is working with the `observableTransaction`,
+						// if the `observableTransaction` has not subscribed, then this is not working!!!
+						window.zilPay.wallet.addTransactionsQueue(
+						callTx.ID
+						)
+						return 1;
+						
+				}
+				
+				
+			} catch (err) {
+				console.log(err);
+				$('#waiting-confirm-modal').modal('hide');
+				
+				console.log(err.code);
+				rtncode=err.code;
+					
+				
+				
+				return 0;
+			}
+		}
+	</script>
+</body>
+</html>

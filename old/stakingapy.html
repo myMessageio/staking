@@ -1,0 +1,756 @@
+<!DOCTYPE html> 
+<!--Clement T 08.01.2021 email:clement@myzilliqawallet.com-->
+<!--Clement T-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" data-react-helmet="true" content="myZilliqa Wallet is a true open-source client side wallet. Run the wallet from your own computer!">
+<meta name="keywords" content="zilliqa, wallet, client side, staking, statistic, myzilliqawallet">
+ 
+<title>My Zilliqa Wallet</title>
+<link rel="icon" href="images/myzilliqawalletlogo.png">
+  
+<script src="js/jquery-3.3.1.min.js"></script>   
+<script src="js/bootstrap.min.js"></script> 
+<script src="js/zilliqa.min.js"></script>
+<script src="js/all.min.js"></script>
+<link href="css/bootstrap.min.css" rel="stylesheet" />
+
+<style type="text/css">
+.full-width {
+    width: 100%;
+    margin-left: 60px; 
+}
+
+ 	
+</style>
+ 
+</head>
+<body>
+<div class="bs-1">
+    <nav class="navbar navbar-expand-md navbar-light bg-light">
+        <a href="home.html" class="navbar-brand">
+            <img src="images/myzilliqawalletsmall.png" height="28" alt="myZilliqaWallet">
+        </a>
+        <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <div class="navbar-nav">  				
+				<a href="home.html" class="nav-item nav-link">Home</a>
+				<a href="createwallet.html" class="nav-item nav-link">Create Wallet</a>
+				<a href="sendtoken.html" class="nav-item nav-link">Send Tokens</a>
+				<a href="checkbalance.html" class="nav-item nav-link ">Check Balance</a>				
+				<a href="zilstatistic.php" class="nav-item nav-link">Staking Statistic</a>	 		
+				<a href="zrc2viewer.php" class="nav-item nav-link">ZRC2 Viewer</a>	 	
+				<a href="countdowngzil.html" class="nav-item nav-link   ">gZIL Countdown</a>	
+				<a href="stakingapy.html" class="nav-item nav-link   active">APY Calculator</a>	
+				
+            </div> 
+        </div>
+ 		
+		
+		
+    </nav>
+	
+
+	
+	
+	
+</div>
+ 
+ 
+	
+	
+ 
+ 
+ 
+
+ <div class="container-fluid">
+ <br>
+ <br>
+ <h5> Real time Staking Calculator</h5>  
+Enter your ZIL amount to stake <br><br>
+ 
+		
+  <div class="row">
+
+			<div class="col-md-4">
+			<p>
+				<label for="zilamountstaked" >ZIL Amount Staked</label>
+				<div class="col-sm-13 date">
+					<div class="input-group input-append date"  >
+						
+						
+						  <input type="text"   class="form-control" id="zilamountstaked" value="100000"   >
+					</div>
+				</div>
+			
+			</p>
+			</div>
+			
+			<div class="col-md-4">
+			<p>
+				<label for="estimatedapy" >Estimated APY (%)</label>
+				<div class="col-sm-13 date">
+					<div class="input-group input-append date"  >
+						
+						
+						  <input type="text"   class="form-control" id="estimatedapy" value="14.2"   >
+					</div>
+				</div>
+			
+			</p>
+			</div>			
+ </div>				
+<hr>
+
+
+Disclaimer: This data is provided for entertainment purposes only and should in no way be considered or used as financial advice.  No warranty expressed or implied is made regarding accuracy, adequacy, completeness, legality, reliability or usefulness of the data provided. If you spot a mistake, feel free to contact: clement@myzilliqawallet.com
+<hr>
+
+
+
+
+
+  <div class="row">
+ 		  <div class="col-4"> 
+				 <h5>Estimated Reward based on current APY and Price</h5>
+		  </div>
+ 		  <div class="col-4"> 
+				 <small style="text-align:right;">Auto update every 1 second</small>
+		  </div>
+ 		 
+  </div>
+  
+ <hr>
+   
+ <div class="row">
+		  
+ 		  <div class="col-sm-3">
+					  <h6>Yearly Return</h6>
+				 
+					  <h5>
+					  <p id="yearlyreward">
+						 1200 ZIL + 1.2 gZIL <br>worth $26,000.12
+					  <p>
+					  </h5>
+					  <hr>		  
+		  
+					  <h6>Monthly Return</h6>
+				 
+					  <h5>
+					  <p id="monthlyreward">
+						  120 ZIL + 0.12 gZIL <br>worth $2,000.12
+					  <p>
+					  </h5>
+					  <hr>			  
+		  
+		  </div>
+		  
+ 		  <div class="col-sm-2">
+					  <h6>Weekly Return</h6>
+				 
+					  <h5>
+					  <p id="weeklyreward">
+						 1200 ZIL + 1.2 gZIL <br>worth $26,000.12
+					  <p>
+					  </h5>
+					  <hr>		  
+		  
+					  <h6>Daily Return</h6>
+				 
+					  <h5>
+					  <p id="dailyreward">
+						  120 ZIL + 0.12 gZIL <br>worth $2,000.12
+					  <p>
+					  </h5>
+					  <hr>			  
+		  
+		  </div>
+
+
+ 		  <div class="col-sm-2">
+					  <h6>Hourly Return</h6>
+				 
+					  <h5>
+					  <p id="hourlyreward">
+						 1200 ZIL + 1.2 gZIL <br>worth $26,000.12
+					  <p>
+					  </h5>
+					  <hr>		  
+		  
+					  <h6>Every Minute</h6>
+				 
+					  <h5>
+					  <p id="minutereward">
+						  120 ZIL + 0.12 gZIL <br>worth $2,000.12
+					  <p>
+					  </h5>
+					  <hr>			  
+		  
+		  </div>
+
+		  
+  		  <div class="col-sm-3">
+					  <h6>Every Second</h6>
+				 
+					  <h5>
+					  <p id="secondreward">
+						 1200 ZIL + 1.2 gZIL <br>worth $26,000.12
+					  <p>
+					  </h5>
+					  <hr>		  
+		  
+					  <h6> </h6>
+				 
+					  <h5>
+					  <p id="estimatedblocktimeinsec">
+						   
+					  <p>
+					  </h5>
+					   		  
+		  
+		  </div> 
+ 
+   		  <div class="col-sm-1">
+					  <h6  style="text-align:right;">Price ZIL</h6>
+				 
+					  <h5>
+					  <p id="zilprice"  style="text-align:right;">
+						  
+					  <p>
+					  </h5>
+					  <hr>		  
+		  
+					  <h6 style="text-align:right;">Price gZIL</h6>
+				 
+					  <h5>
+					  <p id="gzilprice"  style="text-align:right;">
+						  
+					  <p>
+					  </h5>
+					  <hr>			  
+		  
+		  
+		  
+		  
+		  </div>
+  
+   
+  
+  
+  
+   
+ 
+  </div> 
+
+	<p>
+	
+     
+	 
+				  
+ <div class="row">
+  <div class="col-sm-12">
+					  <h6>Actual Estimated APY (including gZIL)</h6>
+				 
+					  <h5>
+					  <p id="actualapy">
+						 
+					  <p>
+					  </h5>
+					  <hr>
+					  *Note: Above APY is estimated based on current ZIL and gZIL price, which might go up or down during the year. Please do your own calculation. Do not based on the above data for any financial decision.
+		  
+					  <h6> </h6>
+				 
+					  		  
+		  
+		  </div> 
+ 
+ </div>
+		 
+  	  
+<br>
+<br>
+<br>
+<hr>
+	
+	
+	
+	
+	  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+ 
+
+ 
+
+
+
+ 
+ 
+
+<noscript>
+  You need to enable JavaScript to run this app.
+</noscript>
+
+  
+</body>
+
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ <script>
+
+
+/*
+Staking Reward Calculator
+
+Fetch current staking amount
+
+Calculate Estimate APY : 15.3%
+
+Your total amount of ZIL staked    [      ]  --inputbox 
+
+Calculate -- button
+
+Your reward is
+
+Daily          1000 ZIL    1 gZIL    =amountstaked*APY/100/365 
+
+Weekly         7000 ZIL    7 gZIL    =amountstaked*APY/100/365*7
+
+Monthly     = amountstaked*APY/100/12
+
+Yearly      = amountstaked*APY/100
+
+Every hour  0.2 ZIL+0.0002 gZIL worth $0.11
+
+Every minute
+
+Every second
+
+
+*/
+ 
+ 
+priceQueryZIL();
+
+var zilprice;
+var gzilprice;
+  
+function priceQueryZIL() {
+
+urlgzil="https://api.coingecko.com/api/v3/simple/price?ids=governance-zil&vs_currencies=usd";
+urlzil ="https://api.coingecko.com/api/v3/simple/price?ids=zilliqa&vs_currencies=usd";
+
+
+        $.ajax({
+            url: urlzil,  //url: "https://myzilliqawallet/getzilstat.php", not working, weird, when supply full url, it doesnt work!
+            dataType: "json",
+            type: "GET",
+			async:false,
+            contentType: "application/json; charset=utf-8",
+            success: function (data) {	
+					zilprice=data.zilliqa.usd;
+			   
+					$.ajax({
+						url: urlgzil,  //url: "https://myzilliqawallet/getzilstat.php", not working, weird, when supply full url, it doesnt work!
+						dataType: "json",
+						async:false,
+						type: "GET",
+						contentType: "application/json; charset=utf-8",
+						success: function (data2) {								 
+								gzilprice=data2["governance-zil"]["usd"];
+			 					document.getElementById("gzilprice").innerHTML="$"+gzilprice ;
+								document.getElementById("zilprice").innerHTML="$"+zilprice ;
+								updatevalue();
+								setTimeout(priceQueryZIL, 1000);
+								
+				 				 
+								 			
+						},
+						error: function (XMLHttpRequest, textStatus, errorThrown) {
+							alert('Error');
+						}
+					});			   
+			   
+			   
+			   
+			   
+			   
+ 			
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alert('Error');
+            }
+        });
+    }
+	 
+ //zilprice=0.08;
+ //gzilprice=79.1;
+ 
+function updatevalue()
+{
+								amountzilstaked=document.getElementById("zilamountstaked").value; 
+								estimatedapy=document.getElementById("estimatedapy").value;  
+
+								yearlyreward	=(amountzilstaked*estimatedapy)/100.0;
+								monthlyreward	=yearlyreward/12.0;
+								dailyreward		=yearlyreward/365;
+								weeklyreward	=dailyreward*7.0;
+								hourlyreward	=dailyreward/24.0;
+								minutereward	=hourlyreward/60.0;
+								secondreward	=minutereward/60.0;
+
+								secondrewardusd		=secondreward*zilprice+ (secondreward/1000)*gzilprice;
+								minuterewardusd		=minutereward*zilprice+ (minutereward/1000)*gzilprice;								
+								hourlyrewardusd		=hourlyreward*zilprice+ (hourlyreward/1000)*gzilprice;
+								weeklyrewardusd		=weeklyreward*zilprice+ (weeklyreward/1000)*gzilprice;									
+								dailyrewardusd		=dailyreward*zilprice+ (minutereward/1000)*gzilprice;								
+								monthlyrewardusd	=monthlyreward*zilprice+ (monthlyreward/1000)*gzilprice;
+								yearlyrewardusd		=yearlyreward*zilprice+ (yearlyreward/1000)*gzilprice;	
+							 
+								
+								stakedusdworth=amountzilstaked*zilprice;
+								console.log("USD Stake Worth=",stakedusdworth);
+								
+								console.log("Hourly reward usd=",hourlyrewardusd);
+								
+								console.log(secondrewardusd);
+								console.log("Yearly Reward=", yearlyrewardusd);
+								
+								truereturn=yearlyrewardusd/stakedusdworth*100.0;
+								console.log("True APY=",truereturn);
+
+								 
+								gyearlyreward	    = yearlyreward	/1000;
+								gmonthlyreward	    = monthlyreward	/1000;
+								gdailyreward		= dailyreward	/1000;	
+								gweeklyreward	    = weeklyreward	/1000;
+								ghourlyreward	    = hourlyreward	/1000;
+								gminutereward	    = minutereward	/1000;
+								gsecondreward	    = secondreward	/1000;
+								
+								
+								gyearlyreward		=properdecimal(	gyearlyreward		);								
+								gmonthlyreward		=properdecimal(	gmonthlyreward		);								
+								gdailyreward		=properdecimal(	gdailyreward		);								
+								gweeklyreward		=properdecimal(	gweeklyreward		);								
+								ghourlyreward		=properdecimal2(	ghourlyreward		);								
+								gminutereward		=properdecimal2(	gminutereward		);								
+								gsecondreward		=properdecimal3(	gsecondreward		);								
+								
+								 yearlyrewardusd		=properdecimal(	 yearlyrewardusd		);								
+								 monthlyrewardusd		=properdecimal(	 monthlyrewardusd		);								
+								 dailyrewardusd			=properdecimal(	 dailyrewardusd			);								
+								 weeklyrewardusd		=properdecimal(	 weeklyrewardusd		);								
+								 hourlyrewardusd		=properdecimal2(	 hourlyrewardusd		);								
+								 minuterewardusd		=properdecimal2(	 minuterewardusd		);								
+								 secondrewardusd		=properdecimal3(	 secondrewardusd		);									
+								
+								
+								 yearlyreward		=properdecimal(	 yearlyreward		);								
+								 monthlyreward		=properdecimal(	 monthlyreward		);								
+								 dailyreward		=properdecimal(	 dailyreward		);								
+								 weeklyreward		=properdecimal(	 weeklyreward		);								
+								 hourlyreward		=properdecimal2(	 hourlyreward		);								
+								 minutereward		=properdecimal2(	 minutereward		);								
+								 secondreward		=properdecimal3(	 secondreward		);									
+								
+								
+								
+								//gyearlyreward=properdecimal(gyearlyreward);
+								//yearlyreward=properdecimal(yearlyreward);
+								//yearlyrewardusd=properdecimal(yearlyrewardusd);
+								
+
+								
+								
+
+
+
+								outputstr1=yearlyreward		+ " ZIL+"+ gyearlyreward		+ " gZIL"+"<br>worth $"+yearlyrewardusd			;
+								outputstr2=monthlyreward		+ " ZIL+"+ gmonthlyreward		+ " gZIL"+"<br>worth $"+monthlyrewardusd			;
+								outputstr3=dailyreward		+ " ZIL+"+ gdailyreward			+ " gZIL"+"<br>worth $"+dailyrewardusd				;
+								outputstr4=weeklyreward		+ " ZIL+"+ gweeklyreward		+ " gZIL"+"<br>worth $"+weeklyrewardusd			;
+								outputstr5=hourlyreward		+ " ZIL+"+ ghourlyreward		+ " gZIL"+"<br>worth $"+hourlyrewardusd			;
+								outputstr6=minutereward		+ " ZIL+"+ gminutereward		+ " gZIL"+"<br>worth $"+minuterewardusd			;
+								outputstr7=secondreward		+ " ZIL+"+ gsecondreward		+ " gZIL"+"<br>worth $"+secondrewardusd			;
+								
+								document.getElementById("yearlyreward").innerHTML	=outputstr1 ;								
+								document.getElementById("monthlyreward").innerHTML	=outputstr2 ;								
+								document.getElementById("dailyreward").innerHTML	=outputstr3 ;								
+								document.getElementById("weeklyreward").innerHTML	=outputstr4 ;								
+								document.getElementById("hourlyreward").innerHTML	=outputstr5 ;								
+								document.getElementById("minutereward").innerHTML	=outputstr6 ;								
+								document.getElementById("secondreward").innerHTML	=outputstr7 ;								
+								
+								
+								
+								
+								 
+								console.log("USD Stake Worth=",stakedusdworth);
+								
+								console.log("Hourly reward usd=",hourlyrewardusd);
+								
+								console.log(secondrewardusd);
+								console.log("Yearly Reward=", yearlyrewardusd);
+								
+								 
+								console.log("True APY=",truereturn);
+
+								line1="<h6>Your staking worth now: </h6>$"+properdecimal(stakedusdworth)+"*";
+								line2="<h6>Estimated Annual return including gzil: </h6>$"+yearlyrewardusd+"*";
+								line3="<h6>Estimated Actual APY : </h6>"+properdecimal(truereturn)+"%"+"*";
+								
+								line=line1+"<br><br>"+line2+"<br><br>"+line3;
+								
+								document.getElementById("actualapy").innerHTML=	line ;	
+								 
+
+
+
+
+
+} 
+ 
+
+$("#zilamountstaked").on("change keyup paste", function(){
+    
+	
+	
+								amountzilstaked=document.getElementById("zilamountstaked").value; 
+								estimatedapy=document.getElementById("estimatedapy").value;  
+
+								yearlyreward	=(amountzilstaked*estimatedapy)/100.0;
+								monthlyreward	=yearlyreward/12.0;
+								dailyreward		=yearlyreward/365;
+								weeklyreward	=dailyreward*7.0;
+								hourlyreward	=dailyreward/24.0;
+								minutereward	=hourlyreward/60.0;
+								secondreward	=minutereward/60.0;
+
+								secondrewardusd		=secondreward*zilprice+ (secondreward/1000)*gzilprice;
+								minuterewardusd		=minutereward*zilprice+ (minutereward/1000)*gzilprice;								
+								hourlyrewardusd		=hourlyreward*zilprice+ (hourlyreward/1000)*gzilprice;
+								weeklyrewardusd		=weeklyreward*zilprice+ (weeklyreward/1000)*gzilprice;									
+								dailyrewardusd		=dailyreward*zilprice+ (minutereward/1000)*gzilprice;								
+								monthlyrewardusd	=monthlyreward*zilprice+ (monthlyreward/1000)*gzilprice;
+								yearlyrewardusd		=yearlyreward*zilprice+ (yearlyreward/1000)*gzilprice;	
+							 
+								
+								stakedusdworth=amountzilstaked*zilprice;
+								console.log("USD Stake Worth=",stakedusdworth);
+								
+								console.log("Hourly reward usd=",hourlyrewardusd);
+								
+								console.log(secondrewardusd);
+								console.log("Yearly Reward=", yearlyrewardusd);
+								
+								truereturn=yearlyrewardusd/stakedusdworth*100.0;
+								console.log("True APY=",truereturn);
+
+								 
+								gyearlyreward	    = yearlyreward	/1000;
+								gmonthlyreward	    = monthlyreward	/1000;
+								gdailyreward		= dailyreward	/1000;	
+								gweeklyreward	    = weeklyreward	/1000;
+								ghourlyreward	    = hourlyreward	/1000;
+								gminutereward	    = minutereward	/1000;
+								gsecondreward	    = secondreward	/1000;
+								
+								
+								gyearlyreward		=properdecimal(	gyearlyreward		);								
+								gmonthlyreward		=properdecimal(	gmonthlyreward		);								
+								gdailyreward		=properdecimal(	gdailyreward		);								
+								gweeklyreward		=properdecimal(	gweeklyreward		);								
+								ghourlyreward		=properdecimal2(	ghourlyreward		);								
+								gminutereward		=properdecimal2(	gminutereward		);								
+								gsecondreward		=properdecimal3(	gsecondreward		);								
+								
+								 yearlyrewardusd		=properdecimal(	 yearlyrewardusd		);								
+								 monthlyrewardusd		=properdecimal(	 monthlyrewardusd		);								
+								 dailyrewardusd			=properdecimal(	 dailyrewardusd			);								
+								 weeklyrewardusd		=properdecimal(	 weeklyrewardusd		);								
+								 hourlyrewardusd		=properdecimal2(	 hourlyrewardusd		);								
+								 minuterewardusd		=properdecimal2(	 minuterewardusd		);								
+								 secondrewardusd		=properdecimal3(	 secondrewardusd		);									
+								
+								
+								 yearlyreward		=properdecimal(	 yearlyreward		);								
+								 monthlyreward		=properdecimal(	 monthlyreward		);								
+								 dailyreward		=properdecimal(	 dailyreward		);								
+								 weeklyreward		=properdecimal(	 weeklyreward		);								
+								 hourlyreward		=properdecimal2(	 hourlyreward		);								
+								 minutereward		=properdecimal2(	 minutereward		);								
+								 secondreward		=properdecimal3(	 secondreward		);									
+								
+								
+								
+								//gyearlyreward=properdecimal(gyearlyreward);
+								//yearlyreward=properdecimal(yearlyreward);
+								//yearlyrewardusd=properdecimal(yearlyrewardusd);
+								
+
+								
+								
+
+
+
+								outputstr1=yearlyreward		+ " ZIL+"+ gyearlyreward		+ " gZIL"+"<br>worth $"+yearlyrewardusd			;
+								outputstr2=monthlyreward		+ " ZIL+"+ gmonthlyreward		+ " gZIL"+"<br>worth $"+monthlyrewardusd			;
+								outputstr3=dailyreward		+ " ZIL+"+ gdailyreward			+ " gZIL"+"<br>worth $"+dailyrewardusd				;
+								outputstr4=weeklyreward		+ " ZIL+"+ gweeklyreward		+ " gZIL"+"<br>worth $"+weeklyrewardusd			;
+								outputstr5=hourlyreward		+ " ZIL+"+ ghourlyreward		+ " gZIL"+"<br>worth $"+hourlyrewardusd			;
+								outputstr6=minutereward		+ " ZIL+"+ gminutereward		+ " gZIL"+"<br>worth $"+minuterewardusd			;
+								outputstr7=secondreward		+ " ZIL+"+ gsecondreward		+ " gZIL"+"<br>worth $"+secondrewardusd			;
+								
+								document.getElementById("yearlyreward").innerHTML	=outputstr1 ;								
+								document.getElementById("monthlyreward").innerHTML	=outputstr2 ;								
+								document.getElementById("dailyreward").innerHTML	=outputstr3 ;								
+								document.getElementById("weeklyreward").innerHTML	=outputstr4 ;								
+								document.getElementById("hourlyreward").innerHTML	=outputstr5 ;								
+								document.getElementById("minutereward").innerHTML	=outputstr6 ;								
+								document.getElementById("secondreward").innerHTML	=outputstr7 ;								
+								
+								
+								
+								
+								 
+								console.log("USD Stake Worth=",stakedusdworth);
+								
+								console.log("Hourly reward usd=",hourlyrewardusd);
+								
+								console.log(secondrewardusd);
+								console.log("Yearly Reward=", yearlyrewardusd);
+								
+								 
+								console.log("True APY=",truereturn);
+
+								line1="<h6>Your staking worth now: </h6>$"+properdecimal(stakedusdworth)+"*";
+								line2="<h6>Estimated Annual return including gzil: </h6>$"+yearlyrewardusd+"*";
+								line3="<h6>Estimated Actual APY : </h6>"+properdecimal(truereturn)+"%"+"*";
+								
+								line=line1+"<br><br>"+line2+"<br><br>"+line3;
+								
+								document.getElementById("actualapy").innerHTML=	line ;	
+								 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+	 
+	
+	
+	
+})
+	
+// usage:   num2dec=properdecimal(num2dec);
+function properdecimal(num)
+{
+	num2 = parseFloat(num).toFixed(2);
+	return numberWithCommas(num2);
+} 
+
+// usage:   num2dec=properdecimal(num2dec);
+function properdecimal2(num)
+{
+	num2 = parseFloat(num).toFixed(4);
+	return numberWithCommas(num2);
+} 
+// usage:   num2dec=properdecimal(num2dec);
+function properdecimal3(num)
+{
+	num2 = parseFloat(num).toFixed(5);
+	return numberWithCommas(num2);
+} 
+
+function numberWithCommas(x) {
+    var parts = x.toString().split(".");
+    parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    return parts.join(".");
+} 
+</script>
+ 
+ 
+ 
+
+  
+</html>

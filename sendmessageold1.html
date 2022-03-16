@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<!--Clement T 08.01.2021 email:clement@myzilliqawallet.com-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" data-react-helmet="true" content="myMessage is a true permanent message storage tool to store your information permanently on blockchain!">
+<meta name="keywords" content="message, permanent,   myMessage">
+ 
+<title>myMessage.io</title>
+<link rel="icon" href="images/myMessagelogo.png">
+
+
+
+ 
+ 
+<script src="js/jquery-3.3.1.min.js"></script>   
+<script src="js/bootstrap.min.js"></script>  
+<script src="js/all.min.js"></script> 
+<link href="css/bootstrap.min.css" rel="stylesheet" />
+<link href="css/styles.css" rel="stylesheet" />  
+  
+        
+  
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+<body>
+<div class="bs-1">
+    <nav class="navbar navbar-expand-md navbar-light bg-light">
+        <a href="home.html" class="navbar-brand">
+            <img src="images/myMessagesmall.png" height="28" alt="myMessage.io">
+        </a>
+        <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <div class="navbar-nav">
+                 
+ 			
+				
+				
+				<a href="homemessage.html" class="nav-item nav-link ">Home</a>
+				<a href="sendmessage.html" class="nav-item nav-link active">Send Message</a>
+				<a href="readmessage.php" class="nav-item nav-link">Read Message</a>
+				<a href="viewmessage.php" class="nav-item nav-link ">Messages Viewer</a>				
+				<a href="searchmessage.html" class="nav-item nav-link">Search Message</a> 			
+				
+            </div>
+ 
+        </div>
+    </nav>
+</div>
+ 
+	
+<body onload="init()">	
+ 
+ 
+ 
+
+ <div class="container-fluid full-width ">
+ <br>
+ <br>
+ <h5> Immutable, Permanent, Forever Message Sender </h5>  
+ Send a message permanently, immutable to blockchain and you can retrieve anytime in the future. Pay less than $0.1 for 1 kByte of message up to $5 for 60 kBytes. You can view your message sent via our explorer or other Zilliqa explorer.  <small>
+ </small> 
+ <hr>
+   
+ <div class="row">
+ 
+ 
+		 
+  
+ 
+  
+  
+  
+  
+  
+  
+  
+  
+		  <div class="col-6"> 
+
+					 						
+					
+					 			
+					<h6>Message to send permanently, immutable to blockchain</h6>					
+
+					
+					 	 
+
+	 
+   
+  
+			 
+				 <div class="form-group" class="form-inline">
+					<span style="white-space: nowrap">
+					  <label id="estimatedgas"  > </label>
+					 <div class="  text-right" > 
+					 
+					 
+					  <select class="form-control form-control-sm   " id="size"      >
+						  	<option>Font: 1px</option>
+							<option>Font: 2px</option>
+							<option>Font: 3px</option>
+							<option>Font: 4px</option>
+							<option>Font: 5px</option>
+							<option selected="selected">Font: 6px</option>
+							<option>Font: 7px</option>
+							<option>Font: 8px</option>
+							<option>Font: 9px</option>
+							<option>Font: 10px</option>
+							<option>Font: 11px</option>
+							<option>Font: 12px</option>
+							<option>Font: 13px</option>
+							<option>Font: 14px</option>
+							<option>Font: 15px</option>
+							<option>Font: 16px</option>						
+						
+						
+						
+					  </select>
+					   
+					  </div>
+					</span>
+				  </div>
+          
+  
+  
+				<label class="form-check-label" for="optionalheader">Header (optional)</label>
+				<textarea name="optionalheader" class="form-control" rows="3" id="optionalheader"></textarea>
+  
+ 				<label class="form-check-label" for="comment">Message</label>
+				<textarea class="form-control" rows="11" id="comment"></textarea>
+ 
+					 
+					
+					<div class="form-check">
+					  <input class="form-check-input" type="checkbox" value="" id="encryptmessage">
+					  
+					  <label class="form-check-label" for="flexCheckDefault">
+						Encrypt Message
+					  </label>
+					</div>
+					
+					
+					 				
+					
+					
+					
+					
+					<div id="encryptsection"  ><br>
+					<h6><small ><p id="secretkeymsg"  >Enter Your Sceret Key</p></small></h6>			 
+					<input type="text"  class="form-control" id="secretkey" value=""   >
+					</div>
+			         <br>
+							<div>
+							   <label for="file">Attach file (optional)</label>
+							   <input type="file" id="file" name="file" >
+							</div>
+							<div class="form-check">
+							  <input class="form-check-input" type="checkbox" value="" id="encryptmessage">
+							  
+							  <label class="form-check-label" for="flexCheckDefault">
+								Encrypt File
+							  </label>
+							</div>
+							
+							
+							
+							
+					<br>
+					 <button type="button" class="btn btn-primary btn-sm  btn-block" id="sendbutton" onclick="sendmsgnow()"    >SEND Message</button> 
+					 <br>
+					 <h6> (Optional)Enter your email address <br>so that we will send you a copy of your message details including txid. </h6>		
+					  <input type="text"   class="form-control" id="email" value="">		  
+					 <hr><small   >
+						<p id="txid"> </p>		
+						<p id="txconfirm">  </p>							
+						<p id="viewmssage"></p>						 
+						<p id="viewlink1">  </a> </p>								
+						<p id="viewlink2">  </a></p>
+						<p id="insert">  </a></p>
+						</small>
+		  </div>
+ 
+  </div> 
+
+	<p>
+	
+     
+	<br> <hr>
+				  
+
+
+  	  
+	
+	
+	
+	
+	
+	  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+ 
+
+ 
+
+
+
+ 
+ 
+
+<noscript>
+  You need to enable JavaScript to run this app.
+</noscript>
+
+  
+</body>
+
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+<script>
+var animatespinner='<i class="fas fa-spinner fa-spin fa-2x"></i>';var Zilliqa;var zilliqa;var deployedContract;async function init(){await window.zilPay.wallet.connect();Zilliqa=window.zilPay}async function sendtoBlockchain(msgtosend){try{const myGasPrice=Zilliqa.utils.units.toQa('3000',Zilliqa.utils.units.Units.Li);deployedContract=Zilliqa.contracts.at('zil1ntg0l50jgan44aex5udx0luyfttpc6dgr7rtf9',);const newMsg=msgtosend;callTx=await deployedContract.call('SetMessage',[{vname:'msg',type:'String',value:newMsg,},],{version:Zilliqa.VERSION,amount:new Zilliqa.utils.BN(500000000000),gasPrice:myGasPrice,gasLimit:Zilliqa.utils.Long.fromNumber(80000)},false,);const pendingStatus=await Zilliqa.blockchain.getPendingTxn(callTx.ID);document.getElementById("txid").innerHTML="TxID="+callTx.ID;document.getElementById("txconfirm").innerHTML=animatespinner;var waitforconfirm=true;if(waitforconfirm){const block=window.zilPay.wallet.observableTransaction(callTx.ID).subscribe(hashs=>{console.log("Confirmed!");block.unsubscribe();displayConfirm(msgtosend,callTx.ID)});window.zilPay.wallet.addTransactionsQueue(callTx.ID)return 1}}catch(err){console.log(err);console.log(err.code);rtncode=err.code;return 0}}function displayConfirm(msgtosend,txid){document.getElementById("txconfirm").innerHTML="Congratulations! Your message is permanently stored in Zilliqa Blochchain!";document.getElementById("viewmssage").innerHTML="To view your message";newtab=' target="_blank" rel="noopener noreferrer"';url1="https://myzilliqawallet.com/pm/readmessage.php?txid="+txid;myzilliqawalletlink='1) <a href="'+url1+'"'+newtab+'>myZilliqaWallet Explorer</a>';document.getElementById("viewlink1").innerHTML=myzilliqawalletlink;url2="https://viewblock.io/zilliqa/tx/0x"+txid+"?network=testnet";viewblocklink='2) <a href="'+url2+'"'+newtab+'>ViewBlock Explorer</a>';document.getElementById("viewlink2").innerHTML=viewblocklink;timestampstr=Math.floor(Date.now()/1000);updatemessage(txid,msgtosend,timestampstr)}async function sendtoBlockchainOri(msgtosend){try{const myGasPrice=Zilliqa.units.toQa('3000',Zilliqa.units.Units.Li);console.log(`My Gas Price ${myGasPrice.toString()}`);const deployedContract=zilliqa.contracts.at('zil1644y20t8ksj5zm73krgasrw4dnhew020ld0q4y',);const newMsg=msgtosend;callTx=await deployedContract.callWithoutConfirm('setMsg',[{vname:'msg',type:'String',value:newMsg,},],{version:VERSION,amount:new Zilliqa.BN(0),gasPrice:myGasPrice,gasLimit:Zilliqa.Long.fromNumber(80000),},false,);console.log(callTx.bytes);const pendingStatus=await zilliqa.blockchain.getPendingTxn(callTx.id);console.log(`Pending status is:`);console.log(pendingStatus);document.getElementById("txid").innerHTML="TxID="+callTx.id;console.log(`The transaction id is:`,callTx.id);document.getElementById("txconfirm").innerHTML=animatespinner;var waitforconfirm=true;if(waitforconfirm){console.log(`Waiting transaction be confirmed`);const confirmedTxn=await callTx.confirm(callTx.id);document.getElementById("txconfirm").innerHTML="Congratulations! Your message is permanently stored in Zilliqa Blochchain!";document.getElementById("viewmssage").innerHTML="To view your message";newtab=' target="_blank" rel="noopener noreferrer"';url1="https://myzilliqawallet.com/pm/readmessage.php?txid="+callTx.id;myzilliqawalletlink='1) <a href="'+url1+'"'+newtab+'>myZilliqaWallet Explorer</a>';document.getElementById("viewlink1").innerHTML=myzilliqawalletlink;url2="https://viewblock.io/zilliqa/tx/0x"+callTx.id+"?network=testnet";viewblocklink='2) <a href="'+url2+'"'+newtab+'>ViewBlock Explorer</a>';document.getElementById("viewlink2").innerHTML=viewblocklink;console.log(`The transaction status is:`);console.log(confirmedTxn.receipt);if(confirmedTxn.receipt.success===true){console.log(`Contract address is:${deployedContract.address}`);timestampstr=Math.floor(Date.now()/1000);updatemessage(callTx.id,msgtosend,timestampstr);return 1}}}catch(err){console.log(err);return 0}}function sleep(delay){var start=new Date().getTime();while(new Date().getTime()<start+delay)}function dataURLtoFile(dataurl,filename){var arr=dataurl.split(','),mime=arr[0].match(/:(.*?);/)[1],bstr=atob(arr[1]),n=bstr.length,u8arr=new Uint8Array(n);while(n--){u8arr[n]=bstr.charCodeAt(n)}gfilename=filename;return new File([u8arr],filename,{type:mime})}async function getlatestbalance(){document.getElementById("balance").innerHTML='<i class="fas fa-spinner fa-spin fa-2x"></i>';nonce=(await zilliqa.blockchain.getBalance(address)).result.nonce+1;const balance=await zilliqa.blockchain.getBalance(address);nonce=balance.result.nonce+1;zilbalance=balance.result.balance/(10**12);zilbalance=zilbalance.toFixed(2)document.getElementById("balance").innerHTML="Balance: "+zilbalance+" ZIL";console.log(`Your account balance is:`);console.log(balance.result)}async function sendmsgnow(){multilinemsg=document.getElementById("comment").value;encryptedchecked=document.getElementById("encryptmessage").checked;var secretkey="";var encryptedmsg;var msgtosend="";var totalmsg="";if(encryptedchecked){secretkey=document.getElementById("secretkey").value;if(secretkey.length<5){alert("Your secretkey length too short!");return}console.log("secretkey=",secretkey);encryptedmsg=CryptoJS.AES.encrypt(multilinemsg,secretkey);msgtosend=encryptedmsg.toString();console.log(encryptedmsg.toString());bytes=CryptoJS.AES.decrypt(encryptedmsg.toString(),secretkey);originalText=bytes.toString(CryptoJS.enc.Utf8);console.log(originalText)}else msgtosend=multilinemsg;endofheader="\r\n@@-----@@\r\n";fileheaderheader="\r\n@@-@@@-@@\r\n";totalmsg="";header=document.getElementById("optionalheader").value;if(header.length>0)totalmsg=header+endofheader+msgtosend;else totalmsg=msgtosend;var files=document.getElementById('file').files;if(files.length>0){file=files[0];gfilename=file.name;var reader=new FileReader();await reader.readAsDataURL(file);reader.onload=async function(){console.log("got file attached");console.log(reader.result);totalmsg=totalmsg+fileheaderheader+gfilename+reader.result;console.log("totalmsg");console.log(totalmsg);estimatedgasfee=0.75*totalmsg.length/1000.0+0.9989;var txt;confirmmsg="Are you sure you want to your message which is "+totalmsg.length+" bytes permanently to blockchain for an estimated gas fee of "+estimatedgasfee+" ZIL?";if(confirm(confirmmsg)){rtn=await sendtoBlockchain(totalmsg)}else{}};reader.onerror=function(error){console.log('Error: ',error)}}else{console.log("totalmsg");console.log(totalmsg);estimatedgasfee=0.75*totalmsg.length/1000.0+0.9989;var txt;confirmmsg="Are you sure you want to your message which is "+totalmsg.length+" bytes permanently to blockchain for an estimated gas fee of "+estimatedgasfee+" ZIL?";if(confirm(confirmmsg)){rtn=await sendtoBlockchain(totalmsg)}else{}}}$("#comment").on("change keyup paste",function(){comment=document.getElementById("comment").value;estimatedgasfee=0.75*comment.length/1000.0+0.9989;sizeinkbyte=comment.length/1000.0;msg="Estimated gas fee="+estimatedgasfee.toFixed(3)+" ZIL &#9 &#9 &#9 "+sizeinkbyte.toFixed(2)+" kByte";document.getElementById("estimatedgas").innerHTML=msg})$("#size").on("change keyup paste",function(){size=document.getElementById("size").value;console.log(size);if(size=="Font: 2px"){document.getElementById("comment").style.fontSize="2px";document.getElementById("comment").rows="150"}if(size=="Font: 4px"){document.getElementById("comment").style.fontSize="4px";document.getElementById("comment").rows="75"}if(size=="Font: 6px"){document.getElementById("comment").style.fontSize="6px";document.getElementById("comment").rows="50"}if(size=="Font: 8px"){document.getElementById("comment").style.fontSize="8px";document.getElementById("comment").rows="38"}if(size=="Font: 10px"){document.getElementById("comment").style.fontSize="10px";document.getElementById("comment").rows="32"}if(size=="Font: 12px"){document.getElementById("comment").style.fontSize="12px";document.getElementById("comment").rows="28"}if(size=="Font: 14px"){document.getElementById("comment").style.fontSize="14px";document.getElementById("comment").rows="26"}if(size=="Font: 16px"){document.getElementById("comment").style.fontSize="16px";document.getElementById("comment").rows="24"}})$("#encryptmessage").on("change keyup paste",function(){encryptedchecked=document.getElementById("encryptmessage").checked;if(encryptedchecked){document.getElementById("encryptsection").style.display="block"}else{document.getElementById("encryptsection").style.display="none"}})function updatemessage(txidstr,messagestr,timestampstr){defaultacct=window.zilPay.wallet.defaultAccount;zilsenderaddress=defaultacct.bech32;var param=encodeURIComponent(messagestr);console.log(zilsenderaddress);var datareceive=$.ajax({traditional:true,url:"insert1message.php",type:'POST',data:{'txid':txidstr,'message':param,'timestamp':timestampstr,'sender':zilsenderaddress},async:false}).responseText;console.log(param);console.log(txidstr);console.log(timestampstr);document.getElementById("insert").innerHTML=datareceive}
+</script>
+</html>

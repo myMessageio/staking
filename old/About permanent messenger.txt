@@ -1,0 +1,16 @@
+homemessage.html - A simple introduction of the project, why one should send a message to a blockchain
+
+Sendmessage.html - this is where a user can send message to blockchain, need to access a wallet.
+
+Readmessage.html - read a message given a txid, you can decrypt if necessary
+
+Viewmessage.php - view page 1 or any page, each page there is 10 messages
+
+Searchmessage.html - Search messages posted using some tag/key, it will return a table with txid, fpage, etc
+
+getsearchmessage.php  this should be called by searchmessage.html
+
+insertmessage.php   this should be called by sendmessage.html to immediately insert a record into tblmessage. It will not update the lastupdatedblocknum.
+
+updatemessage3.php - this is a crawler, it will search the blocknum from lastupdatedblocknum until the latestblocknum to see any events related, then it will upload to tblmessage. This should be call once an hour/day.
+

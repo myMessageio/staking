@@ -1,0 +1,243 @@
+<!DOCTYPE html> 
+<!--Clement T 08.01.2021 email:clement@myzilliqawallet.com-->
+<!--Clement T-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" data-react-helmet="true" content="myZilliqa Wallet is a true open-source client side wallet. Run the wallet from your own computer!">
+<meta name="keywords" content="zilliqa, wallet, client side, staking, statistic, myzilliqawallet">
+ 
+<title>My Zilliqa Wallet</title>
+<link rel="icon" href="images/myzilliqawalletlogo.png">
+  
+<script src="js/jquery-3.3.1.min.js"></script>   
+<script src="js/bootstrap.min.js"></script> 
+<script src="js/zilliqa2.min.js"></script>
+<script src="js/all.min.js"></script>
+<script src="js/aes.js"></script>
+ 
+<link href="css/bootstrap.min.css" rel="stylesheet" />
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+ <link href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css" rel="stylesheet" />
+
+<style type="text/css">
+.full-width {
+    width: 100%;
+    margin-left: 60px; 
+}
+
+
+textarea {
+  font-family:Consolas,Monaco,Lucida Console,Liberation Mono,DejaVu Sans Mono,Bitstream Vera Sans Mono,Courier New, monospace;
+  resize: none;
+}
+
+
+select.form-control{
+
+display:inline-block;
+width: 300px;
+text-align: right;
+}
+ 	
+label {
+   
+    text-align: left;
+     
+}	
+	
+ 	
+</style>
+ 
+</head>
+<body>
+<div class="bs-1">
+    <nav class="navbar navbar-expand-md navbar-light bg-light">
+        <a href="home.html" class="navbar-brand">
+            <img src="images/myzilliqawalletsmall.png" height="28" alt="myZilliqaWallet">
+        </a>
+        <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <div class="navbar-nav">  				
+				<a href="homemessage.html" class="nav-item nav-link">Home</a>
+				<a href="sendmessage.html" class="nav-item nav-link">Send Message</a>
+				<a href="readmessage.php" class="nav-item nav-link ">Read Message</a>
+				<a href="viewmessage.php" class="nav-item nav-link ">Messages Viewer</a>				
+				<a href="searchmessage.html" class="nav-item nav-link   active">Search Message</a> 
+            </div> 
+        </div>
+ 		
+		
+		
+    </nav>
+	
+
+	
+	
+	
+</div>
+	
+ 
+	
+	
+	
+	
+	
+	
+	
+<style type="text/css">
+.tab-content .tab-pane .highcharts-container {
+    border: 1px solid red;
+}
+
+.tab-content > .tab-pane:not(.active) {
+    display: block;
+    height: 0;
+    overflow-y: hidden;
+}
+
+
+
+
+
+</style>	
+
+ 
+ 
+ 
+ 
+ 
+		
+    
+   
+  <div class="container">
+      <br>
+		<h5>Search Your Message. Enter a search string, then click Send. </h5>
+
+  </div>  
+   
+   
+   
+   
+ <div class="container">
+ <hr>
+  <div class="row ">
+			 
+			 
+			 
+			 
+			<div class="col-md-4">
+			<p>
+				<label for="datePicker" >Search String</label>
+				<div class="col-sm-13 date">
+					<div class="input-group input-append date" id="datePicker">
+						
+						
+						  <input type="text"   class="form-control" id="searchstring" placeholder="Search by Address/Tag/Content/Hash" >
+					</div>
+				</div>
+			
+			</p>
+			</div>
+			 
+			 
+			 
+		 
+			
+			<div class="col-md-2">	
+			<p>
+				<label for="datePicker2"  >.</label>
+				<div class="col-sm-13 date">
+					<div class="input-group input-append date" id="sendclassid">
+					  <button type="button" class="btn btn-primary btn-sm  btn-block" onclick="searchmessage()">SEARCH</button> 
+						 
+					</div>
+				</div>		
+			
+			</p>  
+			</div>			
+			
+			
+   </div>
+   <hr>
+   <p id="wait"></p>
+    <table id="myDynamicTable"  class="display" style="width:100%"> </table>
+   
+   <hr>
+ 
+	
+</body>
+
+
+<script>
+    // Visualization API with the Line chart package.
+	// https://www.encodedna.com/google-chart/create-line-charts-with-dynamic-json-data-using-google-charts.htm
+   // google.charts.load('current', { packages: ['line'] });
+
+	
+	//google.charts.load('current', {'packages':['bar']});
+	
+    // Visualization API with the 'corechart' package.
+	
+	 
+	
+	
+	async function searchmessage (){
+		 
+		
+		searchstring=document.getElementById("searchstring").value;
+		urlstr="getsearchmessage.php?s="+searchstring;
+		//alert(urlstr);
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////		
+	
+		/////////////////////Now request another ajax!
+		       	
+				var jsonData = $.ajax({
+					  url: urlstr,					  
+					   async: false
+					  }).responseText;
+				   
+					
+					document.getElementById("myDynamicTable").innerHTML = jsonData;
+					
+					
+				   // $('#data').DataTable();
+					 
+$(document).ready(function() {
+    $('#myDynamicTable').DataTable( {
+        "lengthMenu": [[100, 250, 500, -1], [100, 250, 500, "All"]],
+		"bDestroy":true
+		 
+    } );
+} );
+		
+				document.getElementById("wait").innerHTML="";
+	 
+	 	   //////////////////////////////////////////////////////////////////////////////////////////////////////////////		
+		 
+		
+	}
+	
+	
+	
+    //google.charts.load('visualization', { packages: ['corechart'] });
+   // google.charts.setOnLoadCallback(drawLineChart);
+   
+    $("#sendclassid").on("mousedown", function () {
+			
+		document.getElementById("wait").innerHTML= '<i class="fas fa-spinner fa-spin fa-5x"></i>';
+	
+	
+}).on('mouseup', searchmessage);	  
+   
+   
+   
+   
+    
+</script>
+</html>

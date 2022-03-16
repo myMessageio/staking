@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<!--Clement T 08.01.2021 email:clement@myzilliqawallet.com-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" data-react-helmet="true" content="myMessage is a true permanent message storage tool to store your information permanently on blockchain!">
+<meta name="keywords" content="message, permanent,   myMessage">
+ 
+<title>myMessage.io</title>
+<link rel="icon" href="images/myMessagelogo.png">
+
+
+
+ 
+ 
+<script src="js/jquery-3.3.1.min.js"></script>   
+<script src="js/bootstrap.min.js"></script>  
+<script src="js/all.min.js"></script> 
+<script src="js/aes.js"></script>   
+<link href="css/bootstrap.min.css" rel="stylesheet" />
+<link href="css/styles.css" rel="stylesheet" />  
+  
+       
+  
+
+ 
+<style> 
+ 
+textarea {
+  font-family:Consolas,Monaco,Lucida Console,Liberation Mono,DejaVu Sans Mono,Bitstream Vera Sans Mono,Courier New, monospace;
+} 
+ 
+ 
+ 
+</style>
+  
+ 
+ 
+ 
+<body onload="init()">	 
+ 
+ 
+ 
+ 
+<div class="bs-1">
+    <nav class="navbar navbar-expand-md navbar-light bg-light">
+        <a href="home.html" class="navbar-brand">
+            <img src="images/myMessagesmall.png" height="28" alt="myMessage.io">
+        </a>
+        <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <div class="navbar-nav">
+                 
+ 			
+				
+				
+				<a href="index.html" class="nav-item nav-link ">Home</a>
+				<a href="sendmessage.html" class="nav-item nav-link active">Send Message</a>
+				<a href="readmessage.php" class="nav-item nav-link">Read Message</a>
+				<a href="viewmessage.php" class="nav-item nav-link ">Messages Viewer</a>				
+				<a href="searchmessage.html" class="nav-item nav-link">Search Message</a> 			
+				
+            </div>
+ 
+        </div>
+    </nav>
+</div>
+ 
+	
+
+ 
+ 
+ 
+
+ <div class="container-fluid full-width ">
+ <br>
+ <br>
+ <h5> Immutable, Permanent, Forever Message Sender </h5>
+ Send a message permanently, immutable to blockchain and you can retrieve anytime in the future. Pay less than $0.1 for 1 kByte of message up to $5 for 60 kBytes. You can view your message sent via our explorer or other Zilliqa explorer.  <small>
+v0.83b</small> 
+ <hr>
+   
+ <div class="row">
+ 
+ 
+		 
+  
+ 
+  
+  
+  
+  
+  
+  
+  
+  
+		  <div class="col-6"> 
+
+					 						
+					
+					 			
+					<h6>Message to send permanently, immutable to blockchain</h6>					
+
+					
+					 	 
+
+	 
+   
+  
+			 
+				 <div class="form-group" class="form-inline">
+					<span style="white-space: nowrap">
+					  <label id="estimatedgas"  > </label>
+					 <div class="  text-right" > 
+					 
+					 
+					  <select class="form-control form-control-sm   " id="size"      >
+						  	<option>Font: 1px</option>
+							<option>Font: 2px</option>
+							<option>Font: 3px</option>
+							<option>Font: 4px</option>
+							<option>Font: 5px</option>
+							<option >Font: 6px</option>
+							<option>Font: 7px</option>
+							<option>Font: 8px</option>
+							<option>Font: 9px</option>
+							<option>Font: 10px</option>
+							<option>Font: 11px</option>
+							<option>Font: 12px</option>
+							<option>Font: 13px</option>
+							<option>Font: 14px</option>
+							<option>Font: 15px</option>
+							<option selected="selected">Font: 16px</option>						
+							<option>Font: 17px</option>						
+							<option>Font: 18px</option>						
+							<option>Font: 19px</option>
+							<option>Font: 20px</option>							
+					  </select>
+					   
+					  </div>
+					</span>
+				  </div>
+          
+  
+  
+				<label class="form-check-label" for="optionalheader">Header (optional)</label>
+				<textarea name="optionalheader" class="form-control" rows="3" id="optionalheader"></textarea>
+  
+ 				<label class="form-check-label" for="comment">Message</label>
+				<textarea class="form-control" rows="11" id="comment"></textarea>
+ 
+					 
+					
+					<div class="form-check">
+					  <input class="form-check-input" type="checkbox" value="" id="encryptmessage">
+					  
+					  <label class="form-check-label" for="flexCheckDefault">
+						Encrypt Message
+					  </label>
+					</div>
+					
+					
+					 				
+					
+					
+					
+					
+					<div id="encryptsection"  ><br>
+					<h6><small ><p id="secretkeymsg"  >Enter Your Sceret Key <br>(minimum 6 characters, mix alphabets with numbers, and or symbols)</p></small></h6>			 
+					<input type="text"  class="form-control" id="secretkey" value=""   >
+					</div>
+			         <br>
+							<div>
+							   <label for="file">Attach file (optional)</label>
+							   <input type="file" id="file" name="file" >
+							</div>
+							<div class="form-check">
+							  <input class="form-check-input" type="checkbox" value="" id="encryptfile">
+							  
+							  <label class="form-check-label" for="flexCheckDefault">
+								Encrypt File
+							  </label>
+							</div>
+							
+							
+							
+							
+					<br>
+					 <button type="button" class="btn btn-primary btn-sm  btn-block" id="sendbutton" onclick="sendmsgnow()"    >SEND Message</button> 
+					 <br>
+					 <small> (Optional)Enter your email address <br>so that we will send you a copy of your message details including txid. </small>		
+					  <input type="text"   class="form-control" id="email" value="" onfocusout="checkEmail()">		  
+					 <hr>
+						<p id="txid"> </p>		
+						<p id="txconfirm">  </p>							
+						<p id="viewmssage"></p>						 
+						<p id="viewlink1">  </a> </p>								
+						<p id="viewlink2">  </a></p>
+						<p id="insert">  </a></p>
+						</small>
+		  </div>
+ 
+  </div> 
+
+	<p>
+	
+     
+	<br> <hr>
+				  
+
+
+  	  
+	
+	
+	
+	
+	
+	  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+ 
+
+ 
+
+
+
+ 
+ 
+
+<noscript>
+  You need to enable JavaScript to run this app.
+</noscript>
+
+  
+</body>
+
+ 
+
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+<script>
+var Zilliqa,zilliqa,deployedContract,animatespinner='<i class="fas fa-spinner fa-spin fa-2x"></i>',charges=.5;async function init(){await window.zilPay.wallet.connect(),Zilliqa=window.zilPay}function rtnchecksum(e){var t=e.length,n=0;for(i=0;i<t;i++)n+=e.charCodeAt(i);return csum=n%100,csum}function verifychecksum(e){return str=e.substring(0,e.length-2),csum=rtnchecksum(str),csum2=e.substring(e.length-2),csum2=parseInt(csum2),csum==csum2}async function sendtoBlockchain(e,t,n){try{t=2==t?1:0,n=2==n?1:0;const o=Zilliqa.utils.units.toQa("3000",Zilliqa.utils.units.Units.Li);deployedContract=Zilliqa.contracts.at("zil1ntg0l50jgan44aex5udx0luyfttpc6dgr7rtf9");const s=e;callTx=await deployedContract.call("SetMessage",[{vname:"msg",type:"String",value:s}],{version:Zilliqa.VERSION,amount:new Zilliqa.utils.BN(5e11),gasPrice:o,gasLimit:Zilliqa.utils.Long.fromNumber(8e4)},!1);await Zilliqa.blockchain.getPendingTxn(callTx.ID);document.getElementById("txid").innerHTML="TxID="+callTx.ID,document.getElementById("txconfirm").innerHTML=animatespinner;{const o=window.zilPay.wallet.observableTransaction(callTx.ID).subscribe(s=>{console.log("Confirmed!"),o.unsubscribe(),displayConfirm(e,callTx.ID,t,n)});return window.zilPay.wallet.addTransactionsQueue(callTx.ID),1}}catch(e){return console.log(e),console.log(e.code),rtncode=e.code,0}}function resetdisplayConfirm(){document.getElementById("txid").innerHTML="",document.getElementById("txconfirm").innerHTML="",document.getElementById("viewmssage").innerHTML="",document.getElementById("viewlink1").innerHTML="",document.getElementById("viewlink2").innerHTML="",document.getElementById("insert").innerHTML=""}function displayConfirm(e,t,n,o){document.getElementById("txconfirm").innerHTML="Congratulations! Your message is permanently stored in Zilliqa Blochchain!",document.getElementById("viewmssage").innerHTML="To view your message",newtab=' target="_blank" rel="noopener noreferrer"',url1="readmessage.php?txid="+t,myzilliqawalletlink='1) <a href="'+url1+'"'+newtab+">myMessage Read Message</a>",document.getElementById("viewlink1").innerHTML=myzilliqawalletlink,url2="https://viewblock.io/zilliqa/tx/0x"+t+"?network=testnet",viewblocklink='2) <a href="'+url2+'"'+newtab+">ViewBlock Explorer</a>",document.getElementById("viewlink2").innerHTML=viewblocklink,timestampstr=Math.floor(Date.now()/1e3),updatemessage(t,e,timestampstr,n,o),emailstr=document.getElementById("email").value,emailstr.length>0&&validateEmail(emailstr)&&emailmessage(emailstr,t,1e3*timestampstr)}function sleep(e){for(var t=(new Date).getTime();(new Date).getTime()<t+e;);}function dataURLtoFile(e,t){for(var n=e.split(","),o=n[0].match(/:(.*?);/)[1],s=atob(n[1]),a=s.length,m=new Uint8Array(a);a--;)m[a]=s.charCodeAt(a);return gfilename=t,new File([m],t,{type:o})}async function sendmsgnow(){var e=0,t=0,n=0;resetdisplayConfirm(),multilinemsg=document.getElementById("comment").value,encryptedchecked=document.getElementById("encryptmessage").checked,encryptedfilecheckbox=document.getElementById("encryptfile").checked;var o,a="",m="",l="";if(encryptedchecked){if((a=document.getElementById("secretkey").value).length<6)return void alert("Your secretkey length is too short!");console.log("secretkey=",a),m=(o=CryptoJS.AES.encrypt(multilinemsg,a)).toString(),console.log(o.toString()),bytes=CryptoJS.AES.decrypt(o.toString(),a),originalText=bytes.toString(CryptoJS.enc.Utf8),console.log(originalText),t=2}else m=multilinemsg,t=1;endofheader="\r\n@@-----@@\r\n",fileheaderheader="\r\n@@-@@@-@@\r\n",l="",header=document.getElementById("optionalheader").value,header.length>0?(l=header+endofheader+m,e=1):l=m;var i=document.getElementById("file").files;if(i.length>0){n=1,file=i[0],gfilename=file.name;var c=new FileReader;await c.readAsDataURL(file),c.onload=async function(){console.log("got file attached"),console.log(c.result);var o="";encryptedfilecheckbox?(n=2,txtmsg=gfilename+c.result,encryptedfile=CryptoJS.AES.encrypt(txtmsg,a),encryptedfilecontent=encryptedfile.toString(),o=encryptedfilecontent):o=gfilename+c.result,flagstr="##"+e.toString()+t.toString()+n.toString()+"#",s=rtnchecksum(flagstr),console.log(s),flagstr+=s,console.log("flagstr=",flagstr),l=flagstr+l+fileheaderheader+o,console.log("totalmsg"),console.log(l),estimatedgasfee=.75*l.length/1e3+.9989+charges,confirmmsg="Are you sure you want to send your message which is "+l.length+" bytes permanently to blockchain for an estimated gas fee of "+estimatedgasfee+" ZIL?",1==n&&1==t?confirmmsg="Are you sure you want to send your message which is "+l.length+" bytes permanently to blockchain for an estimated gas fee of "+estimatedgasfee+" ZIL \nwith a non encrypted message and file attachment that 𝗮𝗻𝘆𝗼𝗻𝗲 𝗰𝗮𝗻 𝗱𝗼𝘄𝗻𝗹𝗼𝗮𝗱 𝗮𝗻𝗱 𝘃𝗶𝗲𝘄?\n\nMessage: non encrypted\nFile Attachment: non encrypted":2==n&&2==t?confirmmsg="Are you sure you want to send your message which is "+l.length+" bytes permanently to blockchain for an estimated gas fee of "+estimatedgasfee+" ZIL \n\nMessage: encrypted\nFile Attachment: encrypted\n\nIf you lose your secret key, 𝘆𝗼𝘂 𝘄𝗶𝗹𝗹 𝗹𝗼𝘀𝗲 𝗮𝗰𝗰𝗲𝘀𝘀 𝘁𝗼 𝘆𝗼𝘂𝗿 𝗲𝗻𝗰𝗿𝘆𝗽𝘁𝗲𝗱 𝗶𝗻𝗳𝗼𝗿𝗺𝗮𝘁𝗶𝗼𝗻 𝗳𝗼𝗿𝗲𝘃𝗲𝗿":1==n&&2==t?confirmmsg="Are you sure you want to send your message which is "+l.length+" bytes permanently to blockchain for an estimated gas fee of "+estimatedgasfee+" ZIL \n with your message encrypted but file attachment non encrypted (𝗮𝗻𝘆𝗼𝗻𝗲 𝗰𝗮𝗻 𝗱𝗼𝘄𝗻𝗹𝗼𝗮𝗱 𝗮𝗻𝗱 𝘃𝗶𝗲𝘄)?\n\nMessage: encrypted\nFile Attachment: non encrypted\n\nIf you lose your secret key, 𝘆𝗼𝘂 𝘄𝗶𝗹𝗹 𝗹𝗼𝘀𝗲 𝗮𝗰𝗰𝗲𝘀𝘀 𝘁𝗼 𝘆𝗼𝘂𝗿 𝗲𝗻𝗰𝗿𝘆𝗽𝘁𝗲𝗱 𝗶𝗻𝗳𝗼𝗿𝗺𝗮𝘁𝗶𝗼𝗻 𝗳𝗼𝗿𝗲𝘃𝗲𝗿":2==n&&1==t?confirmmsg="Are you sure you want to send your message which is "+l.length+" bytes permanently to blockchain for an estimated gas fee of "+estimatedgasfee+" ZIL \n with your message non encrypted (𝗮𝗻𝘆𝗼𝗻𝗲 𝗰𝗮𝗻 𝗱𝗼𝘄𝗻𝗹𝗼𝗮𝗱 𝗮𝗻𝗱 𝘃𝗶𝗲𝘄) but file attachment encrypted?\n\nMessage: non encrypted\nFile Attachment: encrypted\n\nIf you lose your secret key, 𝘆𝗼𝘂 𝘄𝗶𝗹𝗹 𝗹𝗼𝘀𝗲 𝗮𝗰𝗰𝗲𝘀𝘀 𝘁𝗼 𝘆𝗼𝘂𝗿 𝗲𝗻𝗰𝗿𝘆𝗽𝘁𝗲𝗱 𝗶𝗻𝗳𝗼𝗿𝗺𝗮𝘁𝗶𝗼𝗻 𝗳𝗼𝗿𝗲𝘃𝗲𝗿":0==n&&1==t&&(confirmmsg="Are you sure you want to send your message which is "+l.length+" bytes permanently to blockchain for an estimated gas fee of "+estimatedgasfee+" ZIL \n with your message non encrypted (𝗮𝗻𝘆𝗼𝗻𝗲 𝗰𝗮𝗻 𝘃𝗶𝗲𝘄)?\n\nMessage: non encrypted\nFile Attachment: none\n\n"),confirm(confirmmsg)&&(rtn=await sendtoBlockchain(l,t,n))},c.onerror=function(e){console.log("Error: ",e)}}else{n=0,flagstr="##"+e.toString()+t.toString()+n.toString()+"#",s=rtnchecksum(flagstr),console.log(s),flagstr+=s,console.log("flagstr=",flagstr),l=flagstr+l,console.log("totalmsg"),console.log(l),estimatedgasfee=.75*l.length/1e3+.9989+charges,confirmmsg="Are you sure you want send your message which is "+l.length+" bytes permanently to blockchain for an estimated gas fee of "+estimatedgasfee+" ZIL?",1==n&&1==t?confirmmsg="Are you sure you want to send your message which is "+l.length+" bytes permanently to blockchain for an estimated gas fee of "+estimatedgasfee+" ZIL \nwith a non encrypted message and file attachment that 𝗮𝗻𝘆𝗼𝗻𝗲 𝗰𝗮𝗻 𝗱𝗼𝘄𝗻𝗹𝗼𝗮𝗱 𝗮𝗻𝗱 𝘃𝗶𝗲𝘄?\n\nMessage: non encrypted\nFile Attachment: non encrypted":2==n&&2==t?confirmmsg="Are you sure you want to send your message which is "+l.length+" bytes permanently to blockchain for an estimated gas fee of "+estimatedgasfee+" ZIL \n\nMessage: encrypted\nFile Attachment: encrypted\n\nIf you lose your secret key, 𝘆𝗼𝘂 𝘄𝗶𝗹𝗹 𝗹𝗼𝘀𝗲 𝗮𝗰𝗰𝗲𝘀𝘀 𝘁𝗼 𝘆𝗼𝘂𝗿 𝗲𝗻𝗰𝗿𝘆𝗽𝘁𝗲𝗱 𝗶𝗻𝗳𝗼𝗿𝗺𝗮𝘁𝗶𝗼𝗻 𝗳𝗼𝗿𝗲𝘃𝗲𝗿":1==n&&2==t?confirmmsg="Are you sure you want to send your message which is "+l.length+" bytes permanently to blockchain for an estimated gas fee of "+estimatedgasfee+" ZIL \n with your message encrypted but file attachment non encrypted (𝗮𝗻𝘆𝗼𝗻𝗲 𝗰𝗮𝗻 𝗱𝗼𝘄𝗻𝗹𝗼𝗮𝗱 𝗮𝗻𝗱 𝘃𝗶𝗲𝘄)?\n\nMessage: encrypted\nFile Attachment: non encrypted\n\nIf you lose your secret key, 𝘆𝗼𝘂 𝘄𝗶𝗹𝗹 𝗹𝗼𝘀𝗲 𝗮𝗰𝗰𝗲𝘀𝘀 𝘁𝗼 𝘆𝗼𝘂𝗿 𝗲𝗻𝗰𝗿𝘆𝗽𝘁𝗲𝗱 𝗶𝗻𝗳𝗼𝗿𝗺𝗮𝘁𝗶𝗼𝗻 𝗳𝗼𝗿𝗲𝘃𝗲𝗿":2==n&&1==t?confirmmsg="Are you sure you want to send your message which is "+l.length+" bytes permanently to blockchain for an estimated gas fee of "+estimatedgasfee+" ZIL \n with your message non encrypted (𝗮𝗻𝘆𝗼𝗻𝗲 𝗰𝗮𝗻 𝗱𝗼𝘄𝗻𝗹𝗼𝗮𝗱 𝗮𝗻𝗱 𝘃𝗶𝗲𝘄) but file attachment encrypted?\n\nMessage: non encrypted\nFile Attachment: encrypted\n\nIf you lose your secret key, 𝘆𝗼𝘂 𝘄𝗶𝗹𝗹 𝗹𝗼𝘀𝗲 𝗮𝗰𝗰𝗲𝘀𝘀 𝘁𝗼 𝘆𝗼𝘂𝗿 𝗲𝗻𝗰𝗿𝘆𝗽𝘁𝗲𝗱 𝗶𝗻𝗳𝗼𝗿𝗺𝗮𝘁𝗶𝗼𝗻 𝗳𝗼𝗿𝗲𝘃𝗲𝗿":0==n&&1==t&&(confirmmsg="Are you sure you want to send your message which is "+l.length+" bytes permanently to blockchain for an estimated gas fee of "+estimatedgasfee+" ZIL \n with your message non encrypted (𝗮𝗻𝘆𝗼𝗻𝗲 𝗰𝗮𝗻 𝘃𝗶𝗲𝘄)?\n\nMessage: non encrypted\nFile Attachment: none\n\n"),confirm(confirmmsg)&&(rtn=await sendtoBlockchain(l,t,n))}}function updatemessage(e,t,n,o,s){defaultacct=window.zilPay.wallet.defaultAccount,zilsenderaddress=defaultacct.bech32;var a=encodeURIComponent(t);console.log(zilsenderaddress);var m=$.ajax({traditional:!0,url:"insertmessage2.php",type:"POST",data:{txid:e,message:a,timestamp:n,sender:zilsenderaddress,encryption:o,attachment:s},async:!1}).responseText;console.log(a),console.log(e),console.log(n),document.getElementById("insert").innerHTML=m}function emailmessage(e,t,n){defaultacct=window.zilPay.wallet.defaultAccount,zilsenderaddress=defaultacct.bech32,localestr="sv-SE";var o=new Date(n).toLocaleString(localestr,{timeZone:"UTC"});o+=" UTC";$.ajax({url:"sendemail.php",type:"POST",data:{t:t,d:o,s:zilsenderaddress,e:e},async:!0}).responseText}function checkEmail(){emailstr=document.getElementById("email").value,emailstr.length>0&&(validateEmail(emailstr)||(alert("Please enter valid email address!"),document.getElementById("email").value=""))}function validateEmail(e){return/\S+@\S+\.\S+/.test(e)}$("#comment").on("change keyup paste",function(){comment=document.getElementById("comment").value,estimatedgasfee=.75*comment.length/1e3+.9989+charges,sizeinkbyte=comment.length/1e3,msg="Estimated gas fee="+estimatedgasfee.toFixed(3)+" ZIL &#9 &#9 &#9 "+sizeinkbyte.toFixed(2)+" kByte",document.getElementById("estimatedgas").innerHTML=msg}),$("#size").on("change keyup paste",function(){size=document.getElementById("size").value,console.log(size),"Font: 1px"==size&&(document.getElementById("comment").style.fontSize="1px",document.getElementById("comment").rows="160"),"Font: 2px"==size&&(document.getElementById("comment").style.fontSize="2px",document.getElementById("comment").rows="150"),"Font: 3px"==size&&(document.getElementById("comment").style.fontSize="32px",document.getElementById("comment").rows="125"),"Font: 4px"==size&&(document.getElementById("comment").style.fontSize="4px",document.getElementById("comment").rows="75"),"Font: 5px"==size&&(document.getElementById("comment").style.fontSize="5px",document.getElementById("comment").rows="60"),"Font: 6px"==size&&(document.getElementById("comment").style.fontSize="6px",document.getElementById("comment").rows="50"),"Font: 7px"==size&&(document.getElementById("comment").style.fontSize="7px",document.getElementById("comment").rows="40"),"Font: 8px"==size&&(document.getElementById("comment").style.fontSize="8px",document.getElementById("comment").rows="38"),"Font: 9px"==size&&(document.getElementById("comment").style.fontSize="9px",document.getElementById("comment").rows="36"),"Font: 10px"==size&&(document.getElementById("comment").style.fontSize="10px",document.getElementById("comment").rows="32"),"Font: 11px"==size&&(document.getElementById("comment").style.fontSize="11px",document.getElementById("comment").rows="30"),"Font: 12px"==size&&(document.getElementById("comment").style.fontSize="12px",document.getElementById("comment").rows="28"),"Font: 13px"==size&&(document.getElementById("comment").style.fontSize="13px",document.getElementById("comment").rows="27"),"Font: 14px"==size&&(document.getElementById("comment").style.fontSize="14px",document.getElementById("comment").rows="26"),"Font: 15px"==size&&(document.getElementById("comment").style.fontSize="15px",document.getElementById("comment").rows="25"),"Font: 16px"==size&&(document.getElementById("comment").style.fontSize="16px",document.getElementById("comment").rows="24"),"Font: 17px"==size&&(document.getElementById("comment").style.fontSize="17px",document.getElementById("comment").rows="23"),"Font: 18px"==size&&(document.getElementById("comment").style.fontSize="18px",document.getElementById("comment").rows="22"),"Font: 19px"==size&&(document.getElementById("comment").style.fontSize="19px",document.getElementById("comment").rows="21"),"Font: 20px"==size&&(document.getElementById("comment").style.fontSize="20px",document.getElementById("comment").rows="20")}),$("#encryptmessage").on("change keyup paste",function(){encryptedchecked=document.getElementById("encryptmessage").checked,encryptedchecked?document.getElementById("encryptsection").style.display="block":document.getElementById("encryptsection").style.display="none"});
+</script>
+</html>

@@ -1,0 +1,97 @@
+var countries = [
+  {
+     name: "Canada",
+     people: [
+       {
+          name: "Steve",
+          children: [
+            {
+               name: "Linda",
+               children: [
+                 {
+                    name: "Steve, Jr.",
+                    friends: [
+                      {
+                         name: "Kriss"
+                      }
+                      //, more friends
+                    ]
+                 }
+                 //, more grandchildren
+               ]
+            }
+            //, more parents
+          ]
+       }
+       //, more grandparents
+     ]
+   }
+   //, more countries
+ ];
+ 
+ 
+ countries[0].people[0].children[0].children[0].friends
+ 
+ 
+ 
+//message.message;   //L1
+//message.replyby[0].message;    // L2
+//message.replyby[1].message;    // L2
+//message.replyby[0].reply[0].message;   //L3
+//message.replyby[0].replyby[0].replyby[0].message;   //L4
+ 
+var message =  
+  {
+      
+	 message:"This is a message from L1",
+	 senderAddress:"ZIL1234567",
+	 timestamp:"1234567",
+     replyby: [
+       {
+		  message:"This is a message from L2",
+		  senderAddress:"ZIL1334567",
+		  timestamp:"2234567",
+          replyby: [
+            {
+			   message:"This is a message from L3",
+			   senderAddress:"ZIL333334567",
+			   timestamp:"222234567",
+               replyby: [
+                 {
+				   message:"This is a message from L4",
+				   senderAddress:"ZIL333334567",
+				   timestamp:"222234567",
+                    replyby: [
+                      {
+						   message:"This is a message from L5",
+						   senderAddress:"ZIL333334567",
+						   timestamp:"222234567",
+                      },
+                      {
+						   message:"This is a 2nd message from L6",
+						   senderAddress:"ZIL111333334567",
+						   timestamp:"22223554567",
+                      }                       
+                    ]
+                 }
+                 //, more grandchildren
+               ]
+            }
+            //, more parents
+          ]
+       },
+	   {
+		  message:"Another is a message from L2",
+		  senderAddress:"ZIL1334567",
+		  timestamp:"2234567" 
+	   
+	   },
+	   {
+		  message:"Another is 3rd message from L2",
+		  senderAddress:"ZIL4334567",
+		  timestamp:"3234567" 
+	   
+	   }
+	    
+     ]
+   } ; 

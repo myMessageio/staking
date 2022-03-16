@@ -1,0 +1,1295 @@
+<!DOCTYPE html>
+<!--Clement T 08.01.2021 email:clement@myzilliqawallet.com-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" data-react-helmet="true" content="myMessage is a true permanent message storage tool to store your information permanently on blockchain!">
+<meta name="keywords" content="message, permanent,   myMessage">
+ 
+<title>myMessage.io</title>
+<link rel="icon" href="images/myMessagelogo.png">
+
+
+
+ 
+ 
+<script src="js/jquery-3.3.1.min.js"></script>   
+<script src="js/bootstrap.min.js"></script>  
+<script src="js/all.min.js"></script> 
+<script src="js/aes.js"></script>   
+<link href="css/bootstrap.min.css" rel="stylesheet" />
+<link href="css/styles.css" rel="stylesheet" />  
+  
+       
+  
+
+ 
+ 
+ 
+ 
+<body onload="init()">	 
+ 
+ 
+ 
+ 
+<div class="bs-1">
+    <nav class="navbar navbar-expand-md navbar-light bg-light">
+        <a href="home.html" class="navbar-brand">
+            <img src="images/myMessagesmall.png" height="28" alt="myMessage.io">
+        </a>
+        <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <div class="navbar-nav">
+                 
+ 			
+				
+				
+				<a href="index.html" class="nav-item nav-link ">Home</a>
+				<a href="sendmessage.html" class="nav-item nav-link active">Send Message</a>
+				<a href="readmessage.php" class="nav-item nav-link">Read Message</a>
+				<a href="viewmessage.php" class="nav-item nav-link ">Messages Viewer</a>				
+				<a href="searchmessage.html" class="nav-item nav-link">Search Message</a> 			
+				
+            </div>
+ 
+        </div>
+    </nav>
+</div>
+ 
+	
+
+ 
+ 
+ 
+
+ <div class="container-fluid full-width ">
+ <br>
+ <br>
+ <h5> Immutable, Permanent, Forever Message Sender </h5>
+ Send a message permanently, immutable to blockchain and you can retrieve anytime in the future. Pay less than $0.1 for 1 kByte of message up to $5 for 60 kBytes. You can view your message sent via our explorer or other Zilliqa explorer.  <small>
+v0.83b</small> 
+ <hr>
+   
+ <div class="row">
+ 
+ 
+		 
+  
+ 
+  
+  
+  
+  
+  
+  
+  
+  
+		  <div class="col-6"> 
+
+					 						
+					
+					 			
+					<h6>Message to send permanently, immutable to blockchain</h6>					
+
+					
+					 	 
+
+	 
+   
+  
+			 
+				 <div class="form-group" class="form-inline">
+					<span style="white-space: nowrap">
+					  <label id="estimatedgas"  > </label>
+					 <div class="  text-right" > 
+					 
+					 
+					  <select class="form-control form-control-sm   " id="size"      >
+						  	<option>Font: 1px</option>
+							<option>Font: 2px</option>
+							<option>Font: 3px</option>
+							<option>Font: 4px</option>
+							<option>Font: 5px</option>
+							<option >Font: 6px</option>
+							<option>Font: 7px</option>
+							<option>Font: 8px</option>
+							<option>Font: 9px</option>
+							<option>Font: 10px</option>
+							<option>Font: 11px</option>
+							<option>Font: 12px</option>
+							<option>Font: 13px</option>
+							<option>Font: 14px</option>
+							<option>Font: 15px</option>
+							<option selected="selected">Font: 16px</option>						
+							<option>Font: 17px</option>						
+							<option>Font: 18px</option>						
+							<option>Font: 19px</option>
+							<option>Font: 20px</option>							
+					  </select>
+					   
+					  </div>
+					</span>
+				  </div>
+          
+  
+  
+				<label class="form-check-label" for="optionalheader">Header (optional)</label>
+				<textarea name="optionalheader" class="form-control" rows="3" id="optionalheader"></textarea>
+  
+ 				<label class="form-check-label" for="comment">Message</label>
+				<textarea class="form-control" rows="11" id="comment"></textarea>
+ 
+					 
+					
+					<div class="form-check">
+					  <input class="form-check-input" type="checkbox" value="" id="encryptmessage">
+					  
+					  <label class="form-check-label" for="flexCheckDefault">
+						Encrypt Message
+					  </label>
+					</div>
+					
+					
+					 				
+					
+					
+					
+					
+					<div id="encryptsection"  ><br>
+					<h6><small ><p id="secretkeymsg"  >Enter Your Sceret Key <br>(minimum 6 characters, mix alphabets with numbers, and or symbols)</p></small></h6>			 
+					<input type="text"  class="form-control" id="secretkey" value=""   >
+					</div>
+			         <br>
+							<div>
+							   <label for="file">Attach file (optional)</label>
+							   <input type="file" id="file" name="file" >
+							</div>
+							<div class="form-check">
+							  <input class="form-check-input" type="checkbox" value="" id="encryptfile">
+							  
+							  <label class="form-check-label" for="flexCheckDefault">
+								Encrypt File
+							  </label>
+							</div>
+							
+							
+							
+							
+					<br>
+					 <button type="button" class="btn btn-primary btn-sm  btn-block" id="sendbutton" onclick="sendmsgnow()"    >SEND Message</button> 
+					 <br>
+					 <small> (Optional)Enter your email address <br>so that we will send you a copy of your message details including txid. </small>		
+					  <input type="text"   class="form-control" id="email" value="" onfocusout="checkEmail()">		  
+					 <hr>
+						<p id="txid"> </p>		
+						<p id="txconfirm">  </p>							
+						<p id="viewmssage"></p>						 
+						<p id="viewlink1">  </a> </p>								
+						<p id="viewlink2">  </a></p>
+						<p id="insert">  </a></p>
+						</small>
+		  </div>
+ 
+  </div> 
+
+	<p>
+	
+     
+	<br> <hr>
+				  
+
+
+  	  
+	
+	
+	
+	
+	
+	  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+ 
+
+ 
+
+
+
+ 
+ 
+
+<noscript>
+  You need to enable JavaScript to run this app.
+</noscript>
+
+  
+</body>
+
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+<script>
+//  Copyright (C) 2018 Zilliqa
+//
+//  This file is part of Zilliqa-Javascript-Library.
+//
+//  This program is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+//
+//  This program is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU General Public License for more details.
+//
+//  You should have received a copy of the GNU General Public License
+//  along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+
+// this version will add checksum and flags to denote encrypt or not for file attachment and content
+
+
+
+/*
+
+
+Protocol for myMessage.io
+
+header (optional) - only plain
+
+content - plain or encrypted
+
+file attachment (optional) - plain or encrypted
+
+
+
+In the header, we will put a flag to denote whether the content is encrypted or not and is there a file attachment, if yes, encrypted or not
+
+
+
+
+first digit is header, second digit is content, third digit is file attachment
+
+
+First digit:  0 or 1 - 0 means no header, 1 means got header
+
+Second digit: 0 means empty content, 1 means got plain content, 2 means got content encrypted
+
+Third digit: 0 means no file attachment, 1 means got file attachment without encrypted, 2 means got file attachment but encrypted
+
+
+
+000
+011
+012
+022
+100
+111
+112
+122
+
+
+*/
+
+var animatespinner='<i class="fas fa-spinner fa-spin fa-2x"></i>';
+var charges=0.5; // the fee paid to myMessage 
+var Zilliqa;
+var zilliqa;
+var deployedContract;
+  async function init()
+  {
+	await window.zilPay.wallet.connect();
+	//const status = await connect();
+	//status === window.zilPay.wallet.isConnect;
+	Zilliqa = window.zilPay;
+	//zilliqa = new Zilliqa.Zilliqa('https://dev-api.zilliqa.com');
+	//sendtoBlockchain("wtestnewcontract1",8);
+  }  
+ 
+/*
+zilliqa = new Zilliqa.Zilliqa('https://dev-api.zilliqa.com');
+// These are set by the core protocol, and may vary per-chain.
+// You can manually pack the bytes according to chain id and msg version.
+// For more information: https://apidocs.zilliqa.com/?shell#getnetworkid
+
+const chainId = 333; // chainId of the developer testnet
+const msgVersion = 1; // current msgVersion
+//const VERSION = bytes.pack(chainId, msgVersion);
+const VERSION = Zilliqa.bytes.pack(chainId, msgVersion);	
+// Populate the wallet with an account
+ const privateKey =  '757a20e197d56f76816c45d7a1e2d1f841b583ed014802c597b729eb5d9f6692';   //the most messages posted with this private key
+  
+  
+
+
+zilliqa.wallet.addByPrivateKey(privateKey);
+
+const address = Zilliqa.getAddressFromPrivateKey(privateKey);
+const zilsenderaddress=Zilliqa.toBech32Address(address);
+document.getElementById("ziladdress").innerHTML=zilsenderaddress;
+  document.getElementById("encryptsection").style.display = "none"; 
+var callTx ;
+
+var animatespinner='<i class="fas fa-spinner fa-spin fa-2x"></i>';
+var gfilename;
+
+getlatestbalance();
+
+*/
+
+
+
+
+function rtnchecksum(str)
+{
+	var n=str.length;
+	var sum=0;
+	
+	for (i=0; i<n; i++)
+	{
+		sum+=str.charCodeAt(i);	
+	}
+	csum = sum % 100;
+	return csum;
+
+}
+
+
+//##124#56
+// fixed 8 digits
+
+function verifychecksum(strwithchecksum)
+{
+	//last 2 digits is checksum
+	str = strwithchecksum.substring(0, strwithchecksum.length - 2);
+	csum=rtnchecksum(str);
+	
+	csum2=strwithchecksum.substring(strwithchecksum.length - 2);
+	csum2=parseInt(csum2);
+	if (csum==csum2)
+		return true;
+	else
+		return false;
+}
+
+async function sendtoBlockchain(msgtosend, encryption, attachment) {
+  try {
+  
+    if (encryption==2) 
+		encryption=1;
+	else
+		encryption=0;
+		
+    if (attachment==2) 
+		attachment=1;
+	else
+		attachment=0;		
+  
+    const myGasPrice = Zilliqa.utils.units.toQa('3000', Zilliqa.utils.units.Units.Li);
+	//const myGasPrice = Zilliqa.units.toQa('3000', Zilliqa.units.Units.Li);
+ 
+  //   deployedContract = Zilliqa.contracts.at(
+//      'zil1644y20t8ksj5zm73krgasrw4dnhew020ld0q4y', // old contract free
+ //   );
+
+     deployedContract = Zilliqa.contracts.at(
+      'zil1ntg0l50jgan44aex5udx0luyfttpc6dgr7rtf9', // new contract for MyMessage.scilla on testnet need to pay fee
+    );
+
+
+ 
+	
+	    const newMsg = msgtosend;
+    
+    callTx = await deployedContract.call(
+      'SetMessage',
+      [
+        {
+          vname: 'msg',
+          type: 'String',
+          value: newMsg,
+        },
+      ],
+      {
+        // amount, gasPrice and gasLimit must be explicitly provided
+        version: Zilliqa.VERSION,
+        amount: new Zilliqa.utils.BN(500000000000),  //        amount: new Zilliqa.utils.BN(2500000000000),
+        gasPrice: myGasPrice,
+        gasLimit: Zilliqa.utils.Long.fromNumber(80000)  // max at 80000, more than 80000 it will return error
+		//nonce: noncetouse,
+		
+      },
+      false,
+    );
+
+    //console.log(callTx.bytes);
+    // check the pending status
+	
+	// temporary removed
+    /////////const pendingStatus = await Zilliqa.blockchain.getPendingTxn(callTx.ID);
+ 
+	 console.log(callTx.ID);
+	document.getElementById("txid").innerHTML="TxID="+callTx.ID;	
+ 	//document.getElementById("txconfirm").innerHTML=animatespinner;  
+
+
+
+ 
+	var waitforconfirm=true;
+	waitforconfirm=false;
+    if (waitforconfirm)
+	{
+			
+			
+			
+		     const block = window
+				.zilPay
+				.wallet
+				.observableTransaction(
+					// this args add to tranasctionQueue.
+					callTx.ID
+				)
+				.subscribe( hashs =>
+					{
+						console.log("Confirmed!");
+						block.unsubscribe();
+						displayConfirm(msgtosend, callTx.ID, encryption, attachment);
+					}
+				);
+				
+				// If the tranasction has been mined and confirmed, then this method
+				// emit the hash tx.
+
+			// this method is adding to transactionQueue hashs for observable.
+			// This method is working with the `observableTransaction`,
+			// if the `observableTransaction` has not subscribed, then this is not working!!!
+			window.zilPay.wallet.addTransactionsQueue(
+			  callTx.ID
+			)
+
+			// If you do not need to track, you need to cancel the unsubscribe.
+			//block.unsubscribe();
+				
+			
+			
+			
+			
+			
+			
+			
+			
+			/*
+		 rtncode=-20;
+		 
+		 while (rtncode=-20)
+		 {
+			const result = await Zilliqa.blockchain.getTransaction(callTx.ID);
+			//console.log(result.message);
+			console.log("not yet confirmed");
+			rtncode=result.code;
+			sleep(500);
+		  }   
+			 
+			 */
+			  
+			  return 1;
+			 
+	}
+	 
+	 
+  } catch (err) {
+    console.log(err);
+	
+	console.log(err.code);
+	rtncode=err.code;
+		  
+	
+	
+	return 0;
+  }
+}
+
+
+ 
+
+function resetdisplayConfirm(){
+
+
+			document.getElementById("txid").innerHTML	="";	
+			document.getElementById("txconfirm").innerHTML	="";
+			document.getElementById("viewmssage").innerHTML	="";
+			document.getElementById("viewlink1").innerHTML	="";
+			document.getElementById("viewlink2").innerHTML	="";			
+			document.getElementById("insert").innerHTML	="";	
+			
+			
+			
+			
+			//secretkey="";			
+			//document.getElementById("secretkey").value="";			
+			//document.getElementById("encryptmessage").checked=false;
+			//document.getElementById("encryptfile").checked=false;
+			//document.getElementById("file").value = "";			
+
+}
+
+
+function displayConfirm(msgtosend, txid, encryption, attachment) {
+			//console.log(`Waiting transaction be confirmed`);
+			//const confirmedTxn = await callTx.confirm(txid);
+			document.getElementById("txconfirm").innerHTML="Congratulations! Your message is permanently stored in Zilliqa Blochchain!";
+			
+			
+			 
+		   
+			document.getElementById("viewmssage").innerHTML="To view your message";
+			
+		    newtab=' target="_blank" rel="noopener noreferrer"';			
+			//http://127.0.0.1:8080/myzilliqawallet/readmsg.php?txid=d38604292084ae44cd043125f79a9d02ddf781bef90499d70cfbadc60082353a
+			
+			//url1="https://myzilliqawallet.com/pm/readmessage.php?txid="+txid;
+			
+			url1="readmessage.php?txid="+txid;			
+			myzilliqawalletlink='1) <a href="'+url1+'"'+newtab+'>myMessage Read Message</a>';
+			
+			
+			document.getElementById("viewlink1").innerHTML=myzilliqawalletlink;
+			
+			//https://viewblock.io/zilliqa/tx/0x548f22bba5f1ddcb994d3840e1266707533c6bbd80534a1e0be923841001f088?network=testnet
+			url2="https://viewblock.io/zilliqa/tx/0x"+txid+"?network=testnet";
+		
+
+//<a href="https://www.freecodecamp.org/" target="_blank" rel="noopener noreferrer">freeCodeCamp</a>		
+			
+			viewblocklink='2) <a href="'+url2+'"'+newtab+'>ViewBlock Explorer</a>';
+			document.getElementById("viewlink2").innerHTML=viewblocklink;			
+ 
+	 		  
+			timestampstr=Math.floor(Date.now() / 1000);
+			// success? ok great, let's store the message at our server
+			 updatemessage(txid, msgtosend, timestampstr, encryption, attachment) ;
+			 
+			 
+			 emailstr=document.getElementById("email").value;
+			 if (emailstr.length>0)
+			 {
+			 
+			    
+				if (validateEmail(emailstr))
+					 emailmessage(emailstr, txid,  timestampstr*1000 );
+			 
+			 }
+			 
+			
+
+
+
+}
+
+ 
+
+
+function sleep(delay) {
+    var start = new Date().getTime();
+    while (new Date().getTime() < start + delay);
+} 
+
+
+
+function dataURLtoFile(dataurl, filename) {
+ 
+        var arr = dataurl.split(','),
+            mime = arr[0].match(/:(.*?);/)[1],
+            bstr = atob(arr[1]), 
+            n = bstr.length, 
+            u8arr = new Uint8Array(n);
+            
+        while(n--){
+            u8arr[n] = bstr.charCodeAt(n);
+        }
+        gfilename=filename;
+        return new File([u8arr], filename, {type:mime});
+    }
+	
+
+
+
+
+
+async function sendmsgnow()
+{   
+
+    var flagdigit1=0; // header  0 or 1
+	var flagdigit2=0; // content 0 or 1 or 2 (2 encrypted)
+	var flagdigit3=0; // file attachment  0 or 1 or 2 (2 encrypted)
+	
+	resetdisplayConfirm(); 
+    multilinemsg=document.getElementById("comment").value;  
+	 
+
+	
+	//encryptedstr=encryptedmsg.toString();
+	//console.log(encryptedstr);	
+	//var decrypted = CryptoJS.AES.decrypt(encryptedstr, key);
+	
+	
+	//console.log(decrypted.toString(CryptoJS.enc.Utf8));
+	
+	//console.log("Length original=", multilinemsg.length);
+	//console.log("Length encrypted=", encryptedstr.length);
+	encryptedchecked=document.getElementById("encryptmessage").checked;
+	encryptedfilecheckbox=document.getElementById("encryptfile").checked;	
+	
+	
+	
+	var secretkey="";
+	var encryptedmsg;
+	var msgtosend="";
+	var totalmsg="";
+	if (encryptedchecked)
+	{
+		secretkey=document.getElementById("secretkey").value;
+		if (secretkey.length<6)
+		{
+		     alert("Your secretkey length is too short!");
+			 return;
+		}
+		console.log("secretkey=",secretkey);
+		encryptedmsg = CryptoJS.AES.encrypt(multilinemsg, secretkey);  
+		msgtosend=encryptedmsg.toString();
+		console.log(encryptedmsg.toString());
+		
+		
+		// Decrypt
+ 
+		bytes  = CryptoJS.AES.decrypt(encryptedmsg.toString(), secretkey);
+		originalText = bytes.toString(CryptoJS.enc.Utf8);
+		console.log(originalText);
+		flagdigit2=2;
+		
+		//document.getElementById("comment").value=encryptedmsg;
+    }
+	else
+	{
+		msgtosend=multilinemsg;
+		flagdigit2=1;
+		
+	}
+	
+	// if optionalheader has text, need to add a seperator _END_#OF#_HEADER_
+	endofheader="\r\n@@-----@@\r\n";
+	
+	fileheaderheader="\r\n@@-@@@-@@\r\n";
+	totalmsg="";
+	header=document.getElementById("optionalheader").value;  
+	if (header.length>0) // need to add header
+	{
+	
+		totalmsg=header+endofheader+msgtosend;
+		flagdigit1=1;
+		
+	}
+	else
+		totalmsg=msgtosend;
+		
+		
+	// now attach file if user attach a file
+	var files = document.getElementById('file').files;
+	  if (files.length > 0) {
+		//getBase64(files[0]);
+		   flagdigit3=1;
+		   file=files[0];
+		   
+		   gfilename=file.name;
+		
+		   var reader = new FileReader();
+		   await reader.readAsDataURL(file);
+		   reader.onload =async function () {
+		      console.log("got file attached");
+			 console.log(reader.result);
+			
+			var filecontent="";
+			 // Need to encrypt if encryption selected
+			 if (encryptedfilecheckbox)
+			 {
+					flagdigit3=2;
+					
+					txtmsg=gfilename+reader.result;
+					
+					encryptedfile = CryptoJS.AES.encrypt(txtmsg, secretkey);  
+					encryptedfilecontent=encryptedfile.toString();				
+					filecontent=encryptedfilecontent;
+			 
+			 }
+			 else
+				filecontent=gfilename+reader.result;
+			
+			flagstr="##"+flagdigit1.toString()+flagdigit2.toString()+flagdigit3.toString()+"#";
+			s=rtnchecksum(flagstr);
+			console.log(s);
+			flagstr=flagstr+s;
+			
+			console.log("flagstr=",flagstr);
+			
+			 
+			totalmsg=flagstr+totalmsg+fileheaderheader+filecontent;
+			
+			 
+			 
+			 
+			// totalmsg=totalmsg+fileheaderheader+reader.result;
+			 
+				console.log("totalmsg");
+					console.log(totalmsg);
+				 
+				    
+						
+					estimatedgasfee=0.75*totalmsg.length/1000.0+0.9989+charges;
+						
+					var txt;
+					confirmmsg="Are you sure you want to send your message which is "+totalmsg.length+ " bytes permanently to blockchain for an estimated gas fee of "+estimatedgasfee+" ZIL?";
+					
+					//flagdigit3=1 meaning got file attachment but it is not encrypted
+					if (flagdigit3==1 && flagdigit2==1)
+					{
+						confirmmsg="Are you sure you want to send your message which is "+totalmsg.length+ " bytes permanently to blockchain for an estimated gas fee of "+estimatedgasfee+" ZIL "+"\n"+
+						"with a non encrypted message and file attachment that 𝗮𝗻𝘆𝗼𝗻𝗲 𝗰𝗮𝗻 𝗱𝗼𝘄𝗻𝗹𝗼𝗮𝗱 𝗮𝗻𝗱 𝘃𝗶𝗲𝘄?"+"\n\n"+
+						"Message: non encrypted"+"\n"+
+						"File Attachment: non encrypted";
+					
+					}
+					else if (flagdigit3==2 && flagdigit2==2)
+					{
+						confirmmsg="Are you sure you want to send your message which is "+totalmsg.length+ " bytes permanently to blockchain for an estimated gas fee of "+estimatedgasfee+" ZIL "+"\n\n"+						 
+						"Message: encrypted"+"\n"+
+						"File Attachment: encrypted"+"\n\n"+
+						"If you lose your secret key, 𝘆𝗼𝘂 𝘄𝗶𝗹𝗹 𝗹𝗼𝘀𝗲 𝗮𝗰𝗰𝗲𝘀𝘀 𝘁𝗼 𝘆𝗼𝘂𝗿 𝗲𝗻𝗰𝗿𝘆𝗽𝘁𝗲𝗱 𝗶𝗻𝗳𝗼𝗿𝗺𝗮𝘁𝗶𝗼𝗻 𝗳𝗼𝗿𝗲𝘃𝗲𝗿";						
+					}
+					else if (flagdigit3==1 && flagdigit2==2)
+					{
+						confirmmsg="Are you sure you want to send your message which is "+totalmsg.length+ " bytes permanently to blockchain for an estimated gas fee of "+estimatedgasfee+" ZIL "+"\n"+
+						" with your message encrypted but file attachment non encrypted (𝗮𝗻𝘆𝗼𝗻𝗲 𝗰𝗮𝗻 𝗱𝗼𝘄𝗻𝗹𝗼𝗮𝗱 𝗮𝗻𝗱 𝘃𝗶𝗲𝘄)?"+"\n\n"+
+						"Message: encrypted"+"\n"+
+						"File Attachment: non encrypted"+"\n\n"+
+						"If you lose your secret key, 𝘆𝗼𝘂 𝘄𝗶𝗹𝗹 𝗹𝗼𝘀𝗲 𝗮𝗰𝗰𝗲𝘀𝘀 𝘁𝗼 𝘆𝗼𝘂𝗿 𝗲𝗻𝗰𝗿𝘆𝗽𝘁𝗲𝗱 𝗶𝗻𝗳𝗼𝗿𝗺𝗮𝘁𝗶𝗼𝗻 𝗳𝗼𝗿𝗲𝘃𝗲𝗿";
+					}					
+					
+					else if (flagdigit3==2 && flagdigit2==1)
+					{
+						confirmmsg="Are you sure you want to send your message which is "+totalmsg.length+ " bytes permanently to blockchain for an estimated gas fee of "+estimatedgasfee+" ZIL "+"\n"+
+						" with your message non encrypted (𝗮𝗻𝘆𝗼𝗻𝗲 𝗰𝗮𝗻 𝗱𝗼𝘄𝗻𝗹𝗼𝗮𝗱 𝗮𝗻𝗱 𝘃𝗶𝗲𝘄) but file attachment encrypted?"+"\n\n"+
+						"Message: non encrypted"+"\n"+
+						"File Attachment: encrypted"+"\n\n"+
+						"If you lose your secret key, 𝘆𝗼𝘂 𝘄𝗶𝗹𝗹 𝗹𝗼𝘀𝗲 𝗮𝗰𝗰𝗲𝘀𝘀 𝘁𝗼 𝘆𝗼𝘂𝗿 𝗲𝗻𝗰𝗿𝘆𝗽𝘁𝗲𝗱 𝗶𝗻𝗳𝗼𝗿𝗺𝗮𝘁𝗶𝗼𝗻 𝗳𝗼𝗿𝗲𝘃𝗲𝗿";
+					}						
+					else if (flagdigit3==0 && flagdigit2==1)
+					{
+						confirmmsg="Are you sure you want to send your message which is "+totalmsg.length+ " bytes permanently to blockchain for an estimated gas fee of "+estimatedgasfee+" ZIL "+"\n"+
+						" with your message non encrypted (𝗮𝗻𝘆𝗼𝗻𝗲 𝗰𝗮𝗻 𝘃𝗶𝗲𝘄)?"+"\n\n"+
+						"Message: non encrypted"+"\n"+
+						"File Attachment: none"+"\n\n";
+					}						
+					
+					
+					  
+					  
+					if (confirm(confirmmsg)) {
+						//	console.log("Nonce=",nonce);				 
+							rtn=await sendtoBlockchain(totalmsg, flagdigit2, flagdigit3);
+							 
+					  } else {
+						 
+					  }			 
+			 
+			 
+			 
+			 
+			 
+			 
+			 
+			 
+			 
+		   };
+		   reader.onerror = function (error) {
+			 console.log('Error: ', error);
+		   };		
+		
+		
+		
+		
+	  }
+	  else // no attachment
+	  {
+			flagdigit3=0;
+				
+			
+			flagstr="##"+flagdigit1.toString()+flagdigit2.toString()+flagdigit3.toString()+"#";
+			s=rtnchecksum(flagstr);
+			console.log(s);
+			flagstr=flagstr+s;
+			
+			console.log("flagstr=",flagstr);
+			
+			 
+			totalmsg=flagstr+totalmsg;				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				console.log("totalmsg");
+					console.log(totalmsg);
+				 
+						
+					estimatedgasfee=0.75*totalmsg.length/1000.0+0.9989+charges;
+						
+					var txt;
+					confirmmsg="Are you sure you want send your message which is "+totalmsg.length+ " bytes permanently to blockchain for an estimated gas fee of "+estimatedgasfee+" ZIL?";
+					
+					
+					
+					
+					
+					//flagdigit3=1 meaning got file attachment but it is not encrypted
+					if (flagdigit3==1 && flagdigit2==1)
+					{
+						confirmmsg="Are you sure you want to send your message which is "+totalmsg.length+ " bytes permanently to blockchain for an estimated gas fee of "+estimatedgasfee+" ZIL "+"\n"+
+						"with a non encrypted message and file attachment that 𝗮𝗻𝘆𝗼𝗻𝗲 𝗰𝗮𝗻 𝗱𝗼𝘄𝗻𝗹𝗼𝗮𝗱 𝗮𝗻𝗱 𝘃𝗶𝗲𝘄?"+"\n\n"+
+						"Message: non encrypted"+"\n"+
+						"File Attachment: non encrypted";
+					
+					}
+					else if (flagdigit3==2 && flagdigit2==2)
+					{
+						confirmmsg="Are you sure you want to send your message which is "+totalmsg.length+ " bytes permanently to blockchain for an estimated gas fee of "+estimatedgasfee+" ZIL "+"\n\n"+						 
+						"Message: encrypted"+"\n"+
+						"File Attachment: encrypted"+"\n\n"+
+						"If you lose your secret key, 𝘆𝗼𝘂 𝘄𝗶𝗹𝗹 𝗹𝗼𝘀𝗲 𝗮𝗰𝗰𝗲𝘀𝘀 𝘁𝗼 𝘆𝗼𝘂𝗿 𝗲𝗻𝗰𝗿𝘆𝗽𝘁𝗲𝗱 𝗶𝗻𝗳𝗼𝗿𝗺𝗮𝘁𝗶𝗼𝗻 𝗳𝗼𝗿𝗲𝘃𝗲𝗿";						
+					}
+					else if (flagdigit3==1 && flagdigit2==2)
+					{
+						confirmmsg="Are you sure you want to send your message which is "+totalmsg.length+ " bytes permanently to blockchain for an estimated gas fee of "+estimatedgasfee+" ZIL "+"\n"+
+						" with your message encrypted but file attachment non encrypted (𝗮𝗻𝘆𝗼𝗻𝗲 𝗰𝗮𝗻 𝗱𝗼𝘄𝗻𝗹𝗼𝗮𝗱 𝗮𝗻𝗱 𝘃𝗶𝗲𝘄)?"+"\n\n"+
+						"Message: encrypted"+"\n"+
+						"File Attachment: non encrypted"+"\n\n"+
+						"If you lose your secret key, 𝘆𝗼𝘂 𝘄𝗶𝗹𝗹 𝗹𝗼𝘀𝗲 𝗮𝗰𝗰𝗲𝘀𝘀 𝘁𝗼 𝘆𝗼𝘂𝗿 𝗲𝗻𝗰𝗿𝘆𝗽𝘁𝗲𝗱 𝗶𝗻𝗳𝗼𝗿𝗺𝗮𝘁𝗶𝗼𝗻 𝗳𝗼𝗿𝗲𝘃𝗲𝗿";
+					}					
+					
+					else if (flagdigit3==2 && flagdigit2==1)
+					{
+						confirmmsg="Are you sure you want to send your message which is "+totalmsg.length+ " bytes permanently to blockchain for an estimated gas fee of "+estimatedgasfee+" ZIL "+"\n"+
+						" with your message non encrypted (𝗮𝗻𝘆𝗼𝗻𝗲 𝗰𝗮𝗻 𝗱𝗼𝘄𝗻𝗹𝗼𝗮𝗱 𝗮𝗻𝗱 𝘃𝗶𝗲𝘄) but file attachment encrypted?"+"\n\n"+
+						"Message: non encrypted"+"\n"+
+						"File Attachment: encrypted"+"\n\n"+
+						"If you lose your secret key, 𝘆𝗼𝘂 𝘄𝗶𝗹𝗹 𝗹𝗼𝘀𝗲 𝗮𝗰𝗰𝗲𝘀𝘀 𝘁𝗼 𝘆𝗼𝘂𝗿 𝗲𝗻𝗰𝗿𝘆𝗽𝘁𝗲𝗱 𝗶𝗻𝗳𝗼𝗿𝗺𝗮𝘁𝗶𝗼𝗻 𝗳𝗼𝗿𝗲𝘃𝗲𝗿";
+					}						
+					else if (flagdigit3==0 && flagdigit2==1)
+					{
+						confirmmsg="Are you sure you want to send your message which is "+totalmsg.length+ " bytes permanently to blockchain for an estimated gas fee of "+estimatedgasfee+" ZIL "+"\n"+
+						" with your message non encrypted (𝗮𝗻𝘆𝗼𝗻𝗲 𝗰𝗮𝗻 𝘃𝗶𝗲𝘄)?"+"\n\n"+
+						"Message: non encrypted"+"\n"+
+						"File Attachment: none"+"\n\n";
+					}					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					  
+					  
+					if (confirm(confirmmsg)) {
+							//console.log("Nonce=",nonce);				 
+							rtn=await sendtoBlockchain(totalmsg, flagdigit2, flagdigit3);
+							 
+					  } else {
+						 
+					  }	  
+	  
+	  
+	  
+	  }
+		
+	
+		 	
+		 
+
+				//sleep(1000); // in ms
+	  
+ 
+ 
+}
+
+$("#comment").on("change keyup paste", function(){
+    
+	comment=document.getElementById("comment").value; 
+	estimatedgasfee=0.75*comment.length/1000.0+0.9989+charges;;
+	sizeinkbyte=comment.length/1000.0;
+	msg="Estimated gas fee="+estimatedgasfee.toFixed(3)+" ZIL &#9 &#9 &#9 "+ sizeinkbyte.toFixed(2)+" kByte";
+	document.getElementById("estimatedgas").innerHTML=msg; 
+	
+	
+	
+})
+
+
+ 
+
+
+
+
+
+$("#size").on("change keyup paste", function(){
+    
+	size=document.getElementById("size").value; 
+	console.log(size);
+	
+	
+	if (size=="Font: 1px")
+	{
+	   document.getElementById("comment").style.fontSize = "1px";
+	   document.getElementById("comment").rows = "160";		
+	}	
+	if (size=="Font: 2px")
+	{
+	   document.getElementById("comment").style.fontSize = "2px";
+	   document.getElementById("comment").rows = "150";		
+	}
+	if (size=="Font: 3px")
+	{
+	   document.getElementById("comment").style.fontSize = "32px";
+	   document.getElementById("comment").rows = "125";		
+	}	
+	
+	
+	if (size=="Font: 4px")
+	{
+		document.getElementById("comment").style.fontSize = "4px";
+	    document.getElementById("comment").rows = "75";		
+	}
+	if (size=="Font: 5px")
+	{
+		document.getElementById("comment").style.fontSize = "5px";
+	    document.getElementById("comment").rows = "60";		
+	}	
+	
+	
+	if (size=="Font: 6px")
+	{
+		document.getElementById("comment").style.fontSize = "6px";
+	    document.getElementById("comment").rows = "50";			
+	}
+	if (size=="Font: 7px")
+	{
+		document.getElementById("comment").style.fontSize = "7px";
+	    document.getElementById("comment").rows = "40";			
+	}	
+	
+	if (size=="Font: 8px")
+	{
+		document.getElementById("comment").style.fontSize = "8px";
+	    document.getElementById("comment").rows = "38";			
+		
+	}
+	if (size=="Font: 9px")
+	{
+		document.getElementById("comment").style.fontSize = "9px";
+	    document.getElementById("comment").rows = "36";			
+		
+	}	
+	
+	
+	
+	if (size=="Font: 10px")
+	{
+		document.getElementById("comment").style.fontSize = "10px";
+	    document.getElementById("comment").rows = "32";			
+		
+	}
+	if (size=="Font: 11px")
+	{
+		document.getElementById("comment").style.fontSize = "11px";
+	    document.getElementById("comment").rows = "30";			
+		
+	}
+	if (size=="Font: 12px")
+	{
+		document.getElementById("comment").style.fontSize = "12px";
+	    document.getElementById("comment").rows = "28";			
+		
+	}
+	if (size=="Font: 13px")
+	{
+		document.getElementById("comment").style.fontSize = "13px";
+	    document.getElementById("comment").rows = "27";			
+		
+	}
+	if (size=="Font: 14px")
+	{
+		document.getElementById("comment").style.fontSize = "14px";
+	    document.getElementById("comment").rows = "26";			
+		
+	}	
+	if (size=="Font: 15px")
+	{
+		document.getElementById("comment").style.fontSize = "15px";
+	    document.getElementById("comment").rows = "25";			
+		
+	}	
+	if (size=="Font: 16px")
+	{
+		document.getElementById("comment").style.fontSize = "16px";
+	    document.getElementById("comment").rows = "24";			
+		
+	}		
+	
+	if (size=="Font: 17px")
+	{
+		document.getElementById("comment").style.fontSize = "17px";
+	    document.getElementById("comment").rows = "23";			
+		
+	}	
+	if (size=="Font: 18px")
+	{
+		document.getElementById("comment").style.fontSize = "18px";
+	    document.getElementById("comment").rows = "22";			
+		
+	}	
+	if (size=="Font: 19px")
+	{
+		document.getElementById("comment").style.fontSize = "19px";
+	    document.getElementById("comment").rows = "21";			
+		
+	}	
+	
+	
+	if (size=="Font: 20px")
+	{
+		document.getElementById("comment").style.fontSize = "20px";
+	    document.getElementById("comment").rows = "20";			
+		
+	}	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	//
+	
+})
+ 
+$("#encryptmessage").on("change keyup paste", function(){
+    
+	 //console.log("Press");
+	 encryptedchecked=document.getElementById("encryptmessage").checked;
+	 if (encryptedchecked)
+	 {
+		 
+	  //console.log("checked");
+	   document.getElementById("encryptsection").style.display = "block";
+	  // document.getElementById("secretkey").style.display = "visible";	 
+	 }
+	 else
+	{
+	   //console.log("unchecked");
+	   document.getElementById("encryptsection").style.display = "none";
+	  // document.getElementById("secretkey").style.display = "hidden";		
+	
+	}
+	
+	
+	
+})
+
+ 
+ 
+
+
+
+
+    //google.charts.setOnLoadCallback(drawLineChart);
+    function updatemessage(txidstr, messagestr, timestampstr, encryption, attachment) {
+  
+				defaultacct=window.zilPay.wallet.defaultAccount;
+				zilsenderaddress=defaultacct.bech32;
+  
+				var param = encodeURIComponent(messagestr); 
+				console.log(zilsenderaddress);
+				
+				var datareceive = $.ajax({
+						traditional: true,
+					  url: "insertmessage2.php",
+						type: 'POST',					  
+					 data: { 'txid': txidstr, 'message' : param, 'timestamp':timestampstr, 'sender':zilsenderaddress ,'encryption':encryption, 'attachment': attachment},					  
+					   async: false
+					  }).responseText;
+				   
+				   console.log(param);
+				   console.log(txidstr);
+				   console.log(timestampstr);
+					
+					//document.getElementById("tablechart").innerHTML = jsonData;
+					
+					document.getElementById("insert").innerHTML=datareceive;
+				  
+		
+				//document.getElementById("wait").innerHTML="";
+	 
+			   //////////////////////////////////////////////////////////////////////////////////////////////////////////////
+				
+				
+            
+    } 
+ 
+/*
+$email=$_GET["e"];
+$txid=$_GET["t"];
+$senderaddress=$_GET["s"];
+$datesent=$_GET["d"];
+*/
+
+    //google.charts.setOnLoadCallback(drawLineChart);
+    function emailmessage(emailstr, txidstr,  timestamp ) {
+  
+				defaultacct=window.zilPay.wallet.defaultAccount;
+				zilsenderaddress=defaultacct.bech32;	
+				
+				//timestamp= timestamp/1000;
+				
+				localestr="sv-SE";				
+				var datestr = new Date(timestamp).toLocaleString(localestr,{ timeZone: 'UTC'  });
+				
+				datestr=datestr+" UTC";
+
+				//var datestr = new Date(timestamp).toLocaleDateString("en-US");			
+				
+				var datareceive = $.ajax({
+						
+					  url: "sendemail.php",
+						type: 'POST',					  
+					 data: { 't': txidstr,  'd':datestr, 's':zilsenderaddress ,'e':emailstr},					  
+					   async: true
+					  }).responseText;
+				   
+ 
+	 
+			   //////////////////////////////////////////////////////////////////////////////////////////////////////////////
+				
+				
+            
+    }  
+	
+
+
+
+function checkEmail()
+{
+			 emailstr=document.getElementById("email").value;
+			 if (emailstr.length>0)
+			 {
+				if (!validateEmail(emailstr))				
+				{
+					alert("Please enter valid email address!");
+					document.getElementById("email").value="";	
+				}
+					
+			 }	
+}
+	
+function validateEmail(email) 
+    {
+        var re = /\S+@\S+\.\S+/;
+        return re.test(email);
+    }
+ 
+//testsend();
+</script>
+</html>
