@@ -923,7 +923,7 @@ async function init() {
             document.getElementById('bar-title').innerHTML = isPlut ? `PLUT BEP20 Token Address: ` : `MESA BEP20 Token Address: `
             document.getElementById('bar-address').innerHTML = isPlut ? `0x2984f825bfe72e55e1725d5c020258e81ff97450` : `0xb192d5fc358d35194282a1a06814aba006198010`
             document.getElementById('th-p1').innerHTML = isPlut ? `Stake here and earn up to 120% APY of profits simply by staking PLUT BEP20 tokens!` : `Stake here and earn up to 150% APY of profits simply by staking MESA BEP20 tokens!`
-            document.getElementById('th-p2').innerHTML = isPlut ? `<span>Peppermint pool</span>: users will be able to stake PLUT to earn MESA rewards with APR of 120%` : `<span>Peppermint pool</span>: users will be able to stake MESA to earn PLUT rewards with APR as high as 150%`
+            document.getElementById('th-p2').innerHTML = isPlut ? `<span id="pool-title">Peppermint pool</span>: users will be able to stake PLUT to earn MESA rewards with APR of 120%` : `<span>Peppermint pool</span>: users will be able to stake MESA to earn PLUT rewards with APR as high as 150%`
             document.getElementById('h-t').innerHTML = isPlut ? `Rosemary` : `Peppermint`
 			pluttokenaddress = isPlut ? `0x2984f825bfe72e55e1725d5c020258e81ff97450` : `0xb192d5fc358d35194282a1a06814aba006198010`
 			myContractAddress = isPlut ? '0xa0DcCADfaaa2775acc4a9844b6f89FD602a8f9c5' : '0xb1Cd4e4011d83001cC2C03EF444f74DA0B330839'
@@ -938,6 +938,7 @@ async function init() {
 			document.getElementById('stakepoolid').value = isPlut ? 'rosemary' : 'peppermint'
 
 			document.getElementById('reward-title').innerHTML = isPlut ? `Rosemary` : `Peppermint`
+			document.getElementById('pool-title').innerHTML = isPlut ? `Rosemary pool` : `Peppermint pool`
         }
     })
    previouslastradedprice=0;
