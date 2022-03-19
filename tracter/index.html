@@ -4,8 +4,12 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" sizes="32x32" href="images/favicon.png">
     <link rel="stylesheet" href="./css/reset.css">
     <link rel="stylesheet" href="./css/index.css">
+    <script src="./js/web3.min.js"></script>
+    <script src="./js/index.js"></script>
+    <script src='https://cdn.jsdelivr.net/npm/bignumber.js@9.0.2/bignumber.min.js'></script>
     <title>Token Tracter</title>
 </head>
 <body>
@@ -30,25 +34,167 @@
                 <div class="price-item">
                     <div><img src="./images/MESA.png" alt=""></div>
                     <p>Current MESA Price</p>
-                    <p>$xxxx USD</p>
+                    <p id="meas-price">$xxxx USD</p>
                 </div>
                 <div class="price-item">
                     <div><img src="./images/MESA.png" alt=""></div>
                     <p>Trading Volume last 24 hours</p>
-                    <p>$xxxx USD</p>
+                    <p class="mesa-volume">$xxxx USD</p>
                 </div>
                 <div class="price-item">
                     <div><img src="./images/BTC.png" alt=""></div>
                     <p>Current BTC Price</p>
-                    <p>$xxxx USD</p>
+                    <p id="btc-price">$xxxx USD</p>
                 </div>
                 <div class="price-item">
                     <div><img src="./images/ETH.png" alt=""></div>
                     <p>Current ETH Price</p>
-                    <p>$xxxx USD</p>
+                    <p id="eth-price">$xxxx USD</p>
                 </div>
             </div>
-            <div></div>
+            <div class="contract-address">
+                <p class="f">MESA token contract address: <span class="b">0xb192d5fC358D35194282a1a06814aba006198010</span></p>
+                <p class="f">Circulation Supply = <span id="circulation_supply">-</span> MESA</p>
+                <p class="f">Circulating Market Cap = <span id="market_cap"></span> USD</p>
+            </div>
+            <div class="address-box-main">
+                <div class="abm-item">
+                    <div><img src="./images/team.png" alt=""></div>
+                    <div style="flex: 1;margin-left: 10px;">
+                        <div class="abm-titlt">
+                            <span>Team</span>
+                            <div class="percentage">10.00%</div>
+                        </div>
+                        <p class="abm-address">Addresses: 0xA39F29647099E4d6aA5ac865416D869A4Aa280Cf</p>
+                        <div class="abm-balance">
+                            <span>Balance: 500,000,000,000.00</span>
+                            <span id="abm-balance_team"></span>
+                        </div>
+                        <div class="abm-prog-box">
+                            <div class="abm-prog" id="abm-prog_tram"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="abm-item">
+                    <div><img src="./images/Advisors.png" alt=""></div>
+                    <div style="flex: 1;margin-left: 10px;">
+                        <div class="abm-titlt">
+                            <span>Advisors</span>
+                            <div class="percentage">4.00%</div>
+                        </div>
+                        <p class="abm-address">Addresses: 0x7eCCA533397246aB067E04C433F7d6D8aac9Dc3e</p>
+                        <div class="abm-balance">
+                            <span>Balance: 200,000,000,000.00</span>
+                            <span id="abm-balance_advisors"></span>
+                        </div>
+                        <div class="abm-prog-box">
+                            <div class="abm-prog" id="abm-prog_advisors"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="abm-item">
+                    <div><img src="./images/Reserve.png" alt=""></div>
+                    <div style="flex: 1;margin-left: 10px;">
+                        <div class="abm-titlt">
+                            <span>Reserve</span>
+                            <div class="percentage">5.00%</div>
+                        </div>
+                        <p class="abm-address">Addresses: 0xaA74e7A1290bE31328AaC053a5Dea0db46308C3a</p>
+                        <div class="abm-balance">
+                            <span>Balance: 250,000,000,000.00</span>
+                            <span id="abm-balance_reserve"></span>
+                        </div>
+                        <div class="abm-prog-box">
+                            <div class="abm-prog" id="abm-prog_reserve"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="abm-item">
+                    <div><img src="./images/Staking_LP_Rewards.png" alt=""></div>
+                    <div style="flex: 1;margin-left: 10px;">
+                        <div class="abm-titlt">
+                            <span>Staking/LP Rewards</span>
+                            <div class="percentage">19.78%</div>
+                        </div>
+                        <p class="abm-address">Addresses: 0xa93E86aAA37c42024d87eE57Ef0A12060B97e9d0</p>
+                        <div class="abm-balance">
+                            <span>Balance: 982,313,546,423.89</span>
+                            <span id="abm-balance_lp"></span>
+                        </div>
+                        <div class="abm-prog-box">
+                            <div class="abm-prog" id="abm-prog_lp"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="abm-item">
+                    <div><img src="./images/Marketing_Legal.png" alt=""></div>
+                    <div style="flex: 1;margin-left: 10px;">
+                        <div class="abm-titlt">
+                            <span>Marketing/Legal</span>
+                            <div class="percentage">10.00%</div>
+                        </div>
+                        <p class="abm-address">Addresses: 0x9176E06d7b184aB808288CC04AB4456196616127</p>
+                        <div class="abm-balance">
+                            <span>Balance: 500,000,000,000.00</span>
+                            <span id="abm-balance_legal"></span>
+                        </div>
+                        <div class="abm-prog-box">
+                            <div class="abm-prog" id="abm-prog_legal"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="abm-item">
+                    <div><img src="./images/Liquidity_Provisioning.png" alt=""></div>
+                    <div style="flex: 1;margin-left: 10px;">
+                        <div class="abm-titlt">
+                            <span>Liquidity Provisioning</span>
+                            <div class="percentage">13.05%</div>
+                        </div>
+                        <p class="abm-address">Addresses: 0x641D2936626486dCe5251021f6A06b20b8220799</p>
+                        <div class="abm-balance">
+                            <span>Balance: 573,021,767,401.71</span>
+                            <span id="abm-balance_liquidity"></span>
+                        </div>
+                        <div class="abm-prog-box">
+                            <div class="abm-prog" id="abm-prog_liquidity"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="abm-item">
+                    <div><img src="./images/Private_Sale.png" alt=""></div>
+                    <div style="flex: 1;margin-left: 10px;">
+                        <div class="abm-titlt">
+                            <span>Private Sale</span>
+                            <div class="percentage">30.80%</div>
+                        </div>
+                        <p class="abm-address">Addresses: 0x37c633600130D04FeEe8C1cE5A93B7341b8a5064</p>
+                        <div class="abm-balance">
+                            <div>Balance: <span>1,540,000,000,000.00</span></div>
+                            <span id="abm-balance_private"></span>
+                        </div>
+                        <div class="abm-prog-box">
+                            <div class="abm-prog" id="abm-prog_private"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="abm-item">
+                    <div><img src="./images/Public_Sale.png" alt=""></div>
+                    <div style="flex: 1;margin-left: 10px;">
+                        <div class="abm-titlt">
+                            <span>Public Sale</span>
+                            <div class="percentage">2.22%</div>
+                        </div>
+                        <p class="abm-address">Addresses: 0x903540CF49193e111fC14AD063c4FB15B6bA8107</p>
+                        <div class="abm-balance">
+                            <span>Balance: 94,444,444,444.44</span>
+                            <span id="abm-balance_public"></span>
+                        </div>
+                        <div class="abm-prog-box">
+                            <div class="abm-prog" id="abm-prog_public"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </body>

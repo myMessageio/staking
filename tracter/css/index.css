@@ -73,3 +73,82 @@
     font-weight: bold;
     margin: 0;
 }
+
+.tracter-box .content-box .contract-address{
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    padding: 26px;
+    width: 1100px;
+    margin: 0 auto;
+    margin-top: 80px;
+    text-align: center;
+}
+.tracter-box .content-box .contract-address .b{
+    color: #60ABFB;
+}
+.tracter-box .content-box .contract-address .f{
+    margin: 10px 0;
+    color: #fff;
+    font-weight: 500;
+    font-size: 20px;
+}
+.tracter-box .content-box .address-box-main{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-row-gap: 40px;
+    grid-column-gap: 40px;
+    margin-top: 80px;
+}
+.tracter-box .content-box .address-box-main .abm-item{
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    padding: 30px;
+    display: flex;
+    align-items: flex-start;
+}
+.tracter-box .content-box .address-box-main .abm-item img{
+    width: 60px;
+}
+.tracter-box .content-box .address-box-main .abm-item .abm-titlt {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.tracter-box .content-box .address-box-main .abm-item .abm-titlt span{
+    font-size: 24px;
+    color: #fff;
+    font-weight: bold;
+}
+.tracter-box .content-box .address-box-main .abm-item .abm-titlt .percentage{
+    background: #26BF6F;
+    border-radius: 8px;
+    padding: 5px 10px;
+    font-size: 18px;
+    color: #fff;
+    font-weight: bold;
+}
+.tracter-box .content-box .address-box-main .abm-item .abm-address{
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.8);
+    margin: 4px 0 24px;
+}
+.tracter-box .content-box .address-box-main .abm-item .abm-balance{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.8);
+}
+.tracter-box .content-box .address-box-main .abm-item .abm-prog-box{
+    margin-top: 10px;
+    background: #F6F3F3;
+    border-radius: 4px;
+    height: 8px;
+    overflow: hidden;
+}
+.tracter-box .content-box .address-box-main .abm-item .abm-prog{
+    height: 100%;
+    background-color: #009EE2;
+    border-radius: 4px;
+    width: 0%;
+}
